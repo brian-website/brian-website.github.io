@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personal Website Wireframe</title>
+  <style>
+    :root {
+      --primary-bg: #f7f5ee;
+      --accent: #333;
+      --light: #fff;
+      --border: #e0e0e0;
+    }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: var(--primary-bg);
+      color: var(--accent);
+    }
+    header {
+      background: var(--light);
+      border-bottom: 1px solid var(--border);
+      padding: 0.6rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-left: 2rem;
+      letter-spacing: 1px;
+    }
+    nav {
+      margin-right: 2rem;
+    }
+    nav a {
+      color: var(--accent);
+      text-decoration: none;
+      margin: 0 0.75rem;
+      font-size: 1.1rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    nav a:hover {
+      color: #0074d9;
+    }
+    .container {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    .welcome {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .welcome h1 {
+      font-size: 2.2rem;
+      margin: 0.5rem 0;
+      font-weight: 700;
+    }
+    .welcome p {
+      color: #555;
+      margin: 0.6rem 0 1.2rem 0;
+      font-size: 1.15rem;
+    }
+    .sections {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+    .section {
+      background: var(--light);
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      flex: 1 1 300px;
+      min-width: 260px;
+      margin-bottom: 2rem;
+      padding: 1.4rem 1rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    }
+    .section h2 {
+      font-size: 1.3rem;
+      margin-top: 0;
+      margin-bottom: 1rem;
+      color: #0074d9;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+    .update, .post {
+      margin-bottom: 1.1rem;
+      padding-bottom: 0.8rem;
+      border-bottom: 1px dashed #eee;
+    }
+    .update:last-child, .post:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+    .update-title, .post-title {
+      font-weight: 600;
+      font-size: 1.07rem;
+      margin-bottom: 0.2rem;
+    }
+    .update-desc, .post-desc {
+      color: #666;
+      font-size: 0.98rem;
+      margin-bottom: 0.1rem;
+    }
+    .section a {
+      color: #0074d9;
+      text-decoration: underline;
+      font-size: 0.95rem;
+    }
+    @media (max-width: 700px) {
+      .sections {
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .logo, nav {
+        margin: 0.7rem 1rem;
+      }
+    }
+    footer {
+      text-align: center;
+      padding: 1.2rem 0 0.7rem 0;
+      color: #888;
+      font-size: 0.98rem;
+    }
+    footer a {
+      color: #0074d9;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">[Your Name/Logo]</div>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Projects</a>
+      <a href="#">Blog</a>
+      <a href="#">About</a>
+      <a href="#">Contact</a>
+    </nav>
+  </header>
+  <div class="container">
+    <section class="welcome">
+      <h1>Welcome to My Website</h1>
+      <p>Your quick intro or tagline goes here.<br>
+      <em>Explore my latest projects and blog posts below.</em></p>
+    </section>
+    <div class="sections">
+      <!-- Recent Project Updates -->
+      <section class="section">
+        <h2>Recent Project Updates</h2>
+        <div class="update">
+          <div class="update-title">Project Alpha Revamp</div>
+          <div class="update-desc">UI redesigned and new features added.</div>
+          <a href="#">View Project</a>
+        </div>
+        <div class="update">
+          <div class="update-title">BetaBot Launch</div>
+          <div class="update-desc">Automated bot for data analysis now live.</div>
+          <a href="#">View Project</a>
+        </div>
+      </section>
+      <!-- Recent Blog Posts -->
+      <section class="section">
+        <h2>Recent Blog Posts</h2>
+        <div class="post">
+          <div class="post-title">5 Essential Life Skills for Techies</div>
+          <div class="post-desc">Tips and habits every developer should build.</div>
+          <a href="#">Read Post</a>
+        </div>
+        <div class="post">
+          <div class="post-title">Exploring the Latest in AI</div>
+          <div class="post-desc">A beginner-friendly guide to cutting-edge technology.</div>
+          <a href="#">Read Post</a>
+        </div>
+      </section>
+    </div>
+  </div>
+  <footer>
+    &copy; 2024 [Your Name]. | <a href="#">Download Resume</a> | <a href="mailto:your@email.com">Contact</a>
+  </footer>
+</body>
+</html>
