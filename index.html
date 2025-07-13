@@ -41,10 +41,14 @@
       margin: 0 0.75rem;
       font-size: 1.1rem;
       font-weight: 500;
-      transition: color 0.2s;
+      transition: 
+        color 0.2s,
+        transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      display: inline-block;
     }
     nav a:hover {
       color: #0074d9;
+      transform: scale(1.18);
     }
     .container {
       max-width: 900px;
@@ -141,9 +145,9 @@
 </head>
 <body>
   <header>
-    <div class="logo">Brian Chan</div>
+    <a href="index.html" class="logo">Brian Chan</a>
     <nav>
-      <a href="#">Home</a>
+      <a href="index.html">Home</a>
       <a href="#">Projects</a>
       <a href="#">Blog</a>
       <a href="#">About</a>
