@@ -5,6 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Personal Website Wireframe</title>
   <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: var(--primary-bg);
+      color: var(--accent);
+      transition: background 0.2s, color 0.2s;
+    }
     :root {
       --primary-bg: #f7f5ee;
       --accent: #333;
@@ -16,13 +30,6 @@
       --accent: #f7f5ee;
       --light: #23262b;
       --border: #282828;
-    }
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', Arial, sans-serif;
-      background: var(--primary-bg);
-      color: var(--accent);
-      transition: background 0.2s, color 0.2s;
     }
     header {
       background: var(--light);
@@ -89,6 +96,7 @@
       max-width: 900px;
       margin: 2rem auto;
       padding: 0 1rem;
+      flex: 1 0 auto; /* Makes container grow and push footer down */
     }
     .welcome {
       text-align: center;
@@ -185,6 +193,7 @@
       border-top: 1px solid var(--border);
       margin-top: 3rem;
       transition: background 0.2s, color 0.2s;
+      flex-shrink: 0;
     }
     footer a {
       color: #0074d9;
