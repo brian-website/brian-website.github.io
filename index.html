@@ -11,11 +11,18 @@
       --light: #fff;
       --border: #e0e0e0;
     }
+    body.dark-mode {
+      --primary-bg: #17191c;
+      --accent: #f7f5ee;
+      --light: #23262b;
+      --border: #282828;
+    }
     body {
       margin: 0;
       font-family: 'Segoe UI', Arial, sans-serif;
       background: var(--primary-bg);
       color: var(--accent);
+      transition: background 0.2s, color 0.2s;
     }
     header {
       background: var(--light);
@@ -25,21 +32,23 @@
       align-items: center;
       justify-content: space-between;
       flex-wrap: wrap;
+      position: relative;
     }
     .logo {
       font-size: 1.5rem;
       font-weight: bold;
       margin-left: 2rem;
       letter-spacing: 1px;
-      color: var(--accent);         /* Makes it black like before */
-      text-decoration: none;        /* Removes underline */
-      cursor: pointer;              /* Shows pointer on hover */
+      color: var(--accent);
+      text-decoration: none;
+      cursor: pointer;
+      transition: color 0.2s;
     }
     .logo:visited,
     .logo:active,
     .logo:hover {
-      color: var(--accent);         /* Keeps color black on all states */
-      text-decoration: none;        /* No underline ever */
+      color: var(--accent);
+      text-decoration: none;
     }
     nav {
       margin-right: 2rem;
@@ -50,7 +59,7 @@
       margin: 0 0.75rem;
       font-size: 1.1rem;
       font-weight: 500;
-      transition: 
+      transition:
         color 0.2s,
         transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
       display: inline-block;
@@ -58,6 +67,23 @@
     nav a:hover {
       color: #0074d9;
       transform: scale(1.18);
+    }
+    #darkModeToggle {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      margin-right: 1.5rem;
+      cursor: pointer;
+      color: var(--accent);
+      transition: color 0.2s;
+      outline: none;
+      padding: 0.25rem 0.5rem;
+      border-radius: 50%;
+      align-self: center;
+    }
+    #darkModeToggle:hover {
+      color: #0074d9;
+      background: rgba(0,0,0,0.04);
     }
     .container {
       max-width: 900px;
@@ -126,6 +152,10 @@
       color: #0074d9;
       text-decoration: underline;
       font-size: 0.95rem;
+      transition: color 0.2s;
+    }
+    .section a:hover {
+      color: #005fa3;
     }
     @media (max-width: 700px) {
       .sections {
@@ -136,8 +166,14 @@
         flex-direction: column;
         align-items: flex-start;
       }
-      .logo, nav {
+      .logo, nav, #darkModeToggle {
         margin: 0.7rem 1rem;
+      }
+      nav {
+        margin-right: 0;
+      }
+      #darkModeToggle {
+        align-self: flex-end;
       }
     }
     footer {
@@ -145,10 +181,24 @@
       padding: 1.2rem 0 0.7rem 0;
       color: #888;
       font-size: 0.98rem;
+      background: var(--light);
+      border-top: 1px solid var(--border);
+      margin-top: 3rem;
+      transition: background 0.2s, color 0.2s;
     }
     footer a {
       color: #0074d9;
       text-decoration: none;
+      transition: color 0.2s;
+    }
+    footer a:hover {
+      color: #005fa3;
+    }
+    /* Adjust welcome text color in dark mode */
+    body.dark-mode .welcome p,
+    body.dark-mode .update-desc,
+    body.dark-mode .post-desc {
+      color: #bbb;
     }
   </style>
 </head>
@@ -157,11 +207,12 @@
     <a href="index.html" class="logo">Brian Chan</a>
     <nav>
       <a href="index.html">Home</a>
-      <a href="#">Projects</a>
+      <a href="projects.html">Projects</a>
       <a href="#">Blog</a>
       <a href="#">About</a>
       <a href="#">Contact</a>
     </nav>
+    <button id="darkModeToggle" aria-label="Toggle dark mode">🌙</button>
   </header>
   <div class="container">
     <section class="welcome">
@@ -204,7 +255,34 @@
     </div>
   </div>
   <footer>
-    &copy; 2025 Brian Chan. All rights reserved.| <a href="#">Download Resume</a> | <a href="mailto:your@email.com">Contact</a>
+    &copy; 2025 Brian Chan. All rights reserved. | <a href="#">Download Resume</a> | <a href="mailto:your@email.com">Contact</a>
   </footer>
+  <script>
+    const toggleBtn = document.getElementById('darkModeToggle');
+    const body = document.body;
+
+    // On load: check for saved theme
+    if (localStorage.getItem('theme') === 'dark') {
+      body.classList.add('dark-mode');
+      toggleBtn.textContent = '☀️';
+      toggleBtn.setAttribute('aria-label', 'Switch to light mode');
+    } else {
+      toggleBtn.textContent = '🌙';
+      toggleBtn.setAttribute('aria-label', 'Switch to dark mode');
+    }
+
+    toggleBtn.addEventListener('click', () => {
+      body.classList.toggle('dark-mode');
+      if (body.classList.contains('dark-mode')) {
+        toggleBtn.textContent = '☀️';
+        toggleBtn.setAttribute('aria-label', 'Switch to light mode');
+        localStorage.setItem('theme', 'dark');
+      } else {
+        toggleBtn.textContent = '🌙';
+        toggleBtn.setAttribute('aria-label', 'Switch to dark mode');
+        localStorage.setItem('theme', 'light');
+      }
+    });
+  </script>
 </body>
 </html>
