@@ -1,0 +1,21 @@
+<!-- projects.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Projects - Brian Chan</title>
+  <!-- Add your CSS and other head stuff here -->
+</head>
+<body>
+  <header>
+    <!-- Your header/navigation here -->
+  </header>
+  <main>
+    <h1>Projects</h1>
+    <!-- List your projects here -->
+  </main>
+  <footer>
+    <!-- Your footer here -->
+  </footer>
+</body>
+</html>
