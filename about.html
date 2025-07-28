@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About - Brian Chan</title>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: var(--primary-bg);
+      color: var(--accent);
+      transition: background 0.2s, color 0.2s;
+    }
+    :root {
+      --primary-bg: #f7f5ee;
+      --accent: #333;
+      --light: #fff;
+      --border: #e0e0e0;
+    }
+    body.dark-mode {
+      --primary-bg: #17191c;
+      --accent: #f7f5ee;
+      --light: #23262b;
+      --border: #282828;
+    }
+    header {
+      background: var(--light);
+      border-bottom: 1px solid var(--border);
+      padding: 0.6rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      position: relative;
+    }
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-left: 2rem;
+      letter-spacing: 1px;
+      color: var(--accent);
+      text-decoration: none;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+    .logo:visited,
+    .logo:active,
+    .logo:hover {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    nav {
+      margin-right: 2rem;
+    }
+    nav a {
+      color: var(--accent);
+      text-decoration: none;
+      margin: 0 0.75rem;
+      font-size: 1.1rem;
+      font-weight: 500;
+      transition:
+        color 0.2s,
+        transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      display: inline-block;
+    }
+    nav a:hover,
+    nav a.active {
+      color: #0074d9;
+      transform: scale(1.18);
+    }
+    #darkModeToggle {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      margin-right: 1.5rem;
+      cursor: pointer;
+      color: var(--accent);
+      transition: color 0.2s;
+      outline: none;
+      padding: 0.25rem 0.5rem;
+      border-radius: 50%;
+      align-self: center;
+    }
+    #darkModeToggle:hover {
+      color: #0074d9;
+      background: rgba(0,0,0,0.04);
+    }
+    .container {
+      max-width: 750px;
+      margin: 2.5rem auto 1.5rem auto;
+      padding: 0 1rem;
+      flex: 1 0 auto;
+    }
+    .about-header {
+      text-align: center;
+      margin-bottom: 2.3rem;
+    }
+    .about-header h1 {
+      font-size: 2.2rem;
+      margin: 0.3rem 0 0.7rem 0;
+      font-weight: 700;
+    }
+    .about-header p {
+      color: #555;
+      margin: 0;
+      font-size: 1.14rem;
+    }
+    .bio {
+      background: var(--light);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.5rem 1.5rem 1.2rem 1.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+      font-size: 1.08rem;
+      line-height: 1.65;
+    }
+    .bio strong {
+      color: #0074d9;
+    }
+    .about-sections {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: space-between;
+    }
+    .about-section {
+      background: var(--light);
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      flex: 1 1 260px;
+      min-width: 220px;
+      margin-bottom: 2rem;
+      padding: 1.3rem 1rem 1.1rem 1rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    }
+    .about-section h2 {
+      font-size: 1.15rem;
+      margin-top: 0;
+      margin-bottom: 0.8rem;
+      color: #0074d9;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+    .about-section ul {
+      padding-left: 1.2em;
+      margin: 0;
+      color: #555;
+      font-size: 1rem;
+    }
+    .about-section li {
+      margin-bottom: 0.7em;
+    }
+    .about-section a {
+      color: #0074d9;
+      text-decoration: underline;
+      transition: color 0.2s;
+    }
+    .about-section a:hover {
+      color: #005fa3;
+    }
+    @media (max-width: 900px) {
+      .about-sections {
+        flex-direction: column;
+        gap: 1.2rem;
+        align-items: center;
+      }
+      .about-section {
+        max-width: 100%;
+        min-width: 0;
+      }
+    }
+    @media (max-width: 700px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .logo, nav, #darkModeToggle {
+        margin: 0.7rem 1rem;
+      }
+      nav {
+        margin-right: 0;
+      }
+      #darkModeToggle {
+        align-self: flex-end;
+      }
+      .container {
+        margin-top: 1rem;
+      }
+    }
+    footer {
+      text-align: center;
+      padding: 1.2rem 0 0.7rem 0;
+      color: #888;
+      font-size: 0.98rem;
+      background: var(--light);
+      border-top: 1px solid var(--border);
+      margin-top: 3rem;
+      transition: background 0.2s, color 0.2s;
+      flex-shrink: 0;
+    }
+    footer a {
+      color: #0074d9;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    footer a:hover {
+      color: #005fa3;
+    }
+    body.dark-mode .about-header p,
+    body.dark-mode .bio,
+    body.dark-mode .about-section,
+    body.dark-mode .about-section ul {
+      color: #bbb;
+      background: var(--light);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="index.html" class="logo">Brian Chan</a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="./projects">Projects</a>
+      <a href="#">Blog</a>
+      <a href="./about" class="active">About</a>
+      <a href="./resource">Resource</a>
+      <a href="#">Contact</a>
+    </nav>
+    <button id="darkModeToggle" aria-label="Toggle dark mode">🌙</button>
+  </header>
+  <div class="container">
+    <section class="about-header">
+      <h1>About Me</h1>
+      <p>
+        Get to know more about my background, interests, and journey in engineering and sustainable energy.
+      </p>
+    </section>
+    <section class="bio">
+      <p>
+        Hello! My name is <strong>Brian Chan</strong>, and I'm currently a second-year undergraduate at the University of Southampton, pursuing a degree in <strong>Mechanical Engineering with Sustainable Energy Systems</strong>. I’m passionate about the future of clean technology and am actively involved in both research and hands-on projects that tackle real-world energy challenges.
+      </p>
+      <p>
+        My interests include renewable energy, hydrogen technologies, and robotics. Outside of academics, I enjoy collaborating on innovative engineering solutions, participating in student societies, and exploring new advances in sustainable design.
+      </p>
+      <p>
+        I believe that engineers have a key role in building a greener, smarter planet—and I’m excited to contribute to that mission!
+      </p>
+    </section>
+    <div class="about-sections">
+      <section class="about-section">
+        <h2>Education</h2>
+        <ul>
+          <li>
+            <strong>BEng (Hons) Mechanical Engineering with Sustainable Energy Systems</strong><br>
+            University of Southampton, Class of 2027
+          </li>
+          <li>
+            Relevant modules: Thermofluids, Engineering Design, Energy Systems, Control & Instrumentation
+          </li>
+        </ul>
+      </section>
+      <section class="about-section">
+        <h2>Interests & Activities</h2>
+        <ul>
+          <li>Member, University Robotics Society</li>
+          <li>Volunteer, Clean Energy Hackathons</li>
+          <li>Hiking, urban sketching, and tinkering with Arduinos</li>
+        </ul>
+      </section>
+      <section class="about-section">
+        <h2>Skills</h2>
+        <ul>
+          <li>CAD (SolidWorks, Fusion 360)</li>
+          <li>Prototyping & 3D Printing</li>
+          <li>Matlab & Python for simulation</li>
+          <li>Public Speaking & Teamwork</li>
+        </ul>
+      </section>
+    </div>
+  </div>
+  <footer>
+    &copy; 2025 Brian Chan. All rights reserved. | 
+    <a href="#">Download Resume</a> | 
+    <a href="mailto:your@email.com">Contact</a>
+  </footer>
+  <script>
+    const toggleBtn = document.getElementById('darkModeToggle');
+    const body = document.body;
+    // On load: check for saved theme
+    if (localStorage.getItem('theme') === 'dark') {
+      body.classList.add('dark-mode');
+      toggleBtn.textContent = '☀️';
+      toggleBtn.setAttribute('aria-label', 'Switch to light mode');
+    } else {
+      toggleBtn.textContent = '🌙';
+      toggleBtn.setAttribute('aria-label', 'Switch to dark mode');
+    }
+    toggleBtn.addEventListener('click', () => {
+      body.classList.toggle('dark-mode');
+      if (body.classList.contains('dark-mode')) {
+        toggleBtn.textContent = '☀️';
+        toggleBtn.setAttribute('aria-label', 'Switch to light mode');
+        localStorage.setItem('theme', 'dark');
+      } else {
+        toggleBtn.textContent = '🌙';
+        toggleBtn.setAttribute('aria-label', 'Switch to dark mode');
+        localStorage.setItem('theme', 'light');
+      }
+    });
+  </script>
+</body>
+</html>
