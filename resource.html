@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resource - Brian Chan</title>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: var(--primary-bg);
+      color: var(--accent);
+      transition: background 0.2s, color 0.2s;
+    }
+    :root {
+      --primary-bg: #f7f5ee;
+      --accent: #333;
+      --light: #fff;
+      --border: #e0e0e0;
+    }
+    body.dark-mode {
+      --primary-bg: #17191c;
+      --accent: #f7f5ee;
+      --light: #23262b;
+      --border: #282828;
+    }
+    header {
+      background: var(--light);
+      border-bottom: 1px solid var(--border);
+      padding: 0.6rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      position: relative;
+    }
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-left: 2rem;
+      letter-spacing: 1px;
+      color: var(--accent);
+      text-decoration: none;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+    .logo:visited,
+    .logo:active,
+    .logo:hover {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    nav {
+      margin-right: 2rem;
+    }
+    nav a {
+      color: var(--accent);
+      text-decoration: none;
+      margin: 0 0.75rem;
+      font-size: 1.1rem;
+      font-weight: 500;
+      transition:
+        color 0.2s,
+        transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      display: inline-block;
+    }
+    nav a:hover,
+    nav a.active {
+      color: #0074d9;
+      transform: scale(1.18);
+    }
+    #darkModeToggle {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      margin-right: 1.5rem;
+      cursor: pointer;
+      color: var(--accent);
+      transition: color 0.2s;
+      outline: none;
+      padding: 0.25rem 0.5rem;
+      border-radius: 50%;
+      align-self: center;
+    }
+    #darkModeToggle:hover {
+      color: #0074d9;
+      background: rgba(0,0,0,0.04);
+    }
+    .container {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+      flex: 1 0 auto;
+    }
+    .resources-header {
+      text-align: center;
+      margin-bottom: 2.2rem;
+    }
+    .resources-header h1 {
+      font-size: 2.1rem;
+      margin: 0.4rem 0 0.6rem 0;
+      font-weight: 700;
+    }
+    .resources-header p {
+      color: #555;
+      margin: 0;
+      font-size: 1.13rem;
+    }
+    .resource-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 auto;
+      max-width: 600px;
+    }
+    .resource-item {
+      background: var(--light);
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      margin-bottom: 1.3rem;
+      padding: 1.1rem 1rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+      transition: box-shadow 0.18s, border-color 0.18s;
+    }
+    .resource-item:hover {
+      box-shadow: 0 4px 14px rgba(0,0,0,0.13);
+      border-color: #0074d9;
+    }
+    .resource-title {
+      font-weight: 600;
+      font-size: 1.08rem;
+      color: #0074d9;
+      margin-bottom: 0.3rem;
+    }
+    .resource-desc {
+      color: #666;
+      font-size: 1rem;
+      margin-bottom: 0.1rem;
+    }
+    .resource-item a {
+      color: #0074d9;
+      text-decoration: underline;
+      font-size: 0.97rem;
+      transition: color 0.2s;
+    }
+    .resource-item a:hover {
+      color: #005fa3;
+    }
+    @media (max-width: 700px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .logo, nav, #darkModeToggle {
+        margin: 0.7rem 1rem;
+      }
+      nav { margin-right: 0; }
+      #darkModeToggle {
+        align-self: flex-end;
+      }
+      .container {
+        margin-top: 1rem;
+      }
+    }
+    footer {
+      text-align: center;
+      padding: 1.2rem 0 0.7rem 0;
+      color: #888;
+      font-size: 0.98rem;
+      background: var(--light);
+      border-top: 1px solid var(--border);
+      margin-top: 3rem;
+      transition: background 0.2s, color 0.2s;
+      flex-shrink: 0;
+    }
+    footer a {
+      color: #0074d9;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    footer a:hover {
+      color: #005fa3;
+    }
+    body.dark-mode .resources-header p,
+    body.dark-mode .resource-desc {
+      color: #bbb;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="index.html" class="logo">Brian Chan</a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="./projects">Projects</a>
+      <a href="#">Blog</a>
+      <a href="#">About</a>
+      <a href="./resource" class="active">Resource</a>
+      <a href="#">Contact</a>
+    </nav>
+    <button id="darkModeToggle" aria-label="Toggle dark mode">🌙</button>
+  </header>
+  <div class="container">
+    <section class="resources-header">
+      <h1>Resources</h1>
+      <p>Curated links, tools, and documents for students and professionals interested in hydrogen and technology.</p>
+    </section>
+    <ul class="resource-list">
+      <li class="resource-item">
+        <div class="resource-title">Hydrogen 101: Beginner’s Guide</div>
+        <div class="resource-desc">A friendly introduction to hydrogen energy and fuel cells.</div>
+        <a href="#">Read Guide</a>
+      </li>
+      <li class="resource-item">
+        <div class="resource-title">Open-Source Hydrogen Projects on GitHub</div>
+        <div class="resource-desc">Explore real-world hydrogen projects and contribute to the community.</div>
+        <a href="#">View Repository List</a>
+      </li>
+      <li class="resource-item">
+        <div class="resource-title">Hydrogen Safety Handbook (PDF)</div>
+        <div class="resource-desc">An essential safety resource for handling and storing hydrogen.</div>
+        <a href="#">Download PDF</a>
+      </li>
+      <li class="resource-item">
+        <div class="resource-title">Simulation Tools for Hydrogen Systems</div>
+        <div class="resource-desc">Software for modeling hydrogen production, storage, and fuel cell systems.</div>
+        <a href="#">Try Online Tools</a>
+      </li>
+    </ul>
+  </div>
+  <footer>
+    &copy; 2025 Brian Chan. All rights reserved. | 
+    <a href="#">Download Resume</a> | 
+    <a href="mailto:your@email.com">Contact</a>
+  </footer>
+  <script>
+    const toggleBtn = document.getElementById('darkModeToggle');
+    const body = document.body;
+    // On load: check for saved theme
+    if (localStorage.getItem('theme') === 'dark') {
+      body.classList.add('dark-mode');
+      toggleBtn.textContent = '☀️';
+      toggleBtn.setAttribute('aria-label', 'Switch to light mode');
+    } else {
+      toggleBtn.textContent = '🌙';
+      toggleBtn.setAttribute('aria-label', 'Switch to dark mode');
+    }
+    toggleBtn.addEventListener('click', () => {
+      body.classList.toggle('dark-mode');
+      if (body.classList.contains('dark-mode')) {
+        toggleBtn.textContent = '☀️';
+        toggleBtn.setAttribute('aria-label', 'Switch to light mode');
+        localStorage.setItem('theme', 'dark');
+      } else {
+        toggleBtn.textContent = '🌙';
+        toggleBtn.setAttribute('aria-label', 'Switch to dark mode');
+        localStorage.setItem('theme', 'light');
+      }
+    });
+  </script>
+</body>
+</html>
