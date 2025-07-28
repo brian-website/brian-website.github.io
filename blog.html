@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog - Brian Chan</title>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: var(--primary-bg);
+      color: var(--accent);
+      transition: background 0.2s, color 0.2s;
+    }
+    :root {
+      --primary-bg: #f7f5ee;
+      --accent: #333;
+      --light: #fff;
+      --border: #e0e0e0;
+    }
+    body.dark-mode {
+      --primary-bg: #17191c;
+      --accent: #f7f5ee;
+      --light: #23262b;
+      --border: #282828;
+    }
+    header {
+      background: var(--light);
+      border-bottom: 1px solid var(--border);
+      padding: 0.6rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      position: relative;
+    }
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-left: 2rem;
+      letter-spacing: 1px;
+      color: var(--accent);
+      text-decoration: none;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+    .logo:visited,
+    .logo:active,
+    .logo:hover {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    nav {
+      margin-right: 2rem;
+    }
+    nav a {
+      color: var(--accent);
+      text-decoration: none;
+      margin: 0 0.75rem;
+      font-size: 1.1rem;
+      font-weight: 500;
+      transition:
+        color 0.2s,
+        transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      display: inline-block;
+    }
+    nav a:hover,
+    nav a.active {
+      color: #0074d9;
+      transform: scale(1.18);
+    }
+    #darkModeToggle {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      margin-right: 1.5rem;
+      cursor: pointer;
+      color: var(--accent);
+      transition: color 0.2s;
+      outline: none;
+      padding: 0.25rem 0.5rem;
+      border-radius: 50%;
+      align-self: center;
+    }
+    #darkModeToggle:hover {
+      color: #0074d9;
+      background: rgba(0,0,0,0.04);
+    }
+    .container {
+      max-width: 850px;
+      margin: 2.5rem auto 1.5rem auto;
+      padding: 0 1rem;
+      flex: 1 0 auto;
+    }
+    .blog-header {
+      text-align: center;
+      margin-bottom: 2.2rem;
+    }
+    .blog-header h1 {
+      font-size: 2.2rem;
+      margin: 0.3rem 0 0.7rem 0;
+      font-weight: 700;
+    }
+    .blog-header p {
+      color: #555;
+      margin: 0;
+      font-size: 1.13rem;
+    }
+    .blog-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.4rem;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .blog-post {
+      background: var(--light);
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+      padding: 1.2rem 1.3rem 1.1rem 1.3rem;
+      display: flex;
+      flex-direction: column;
+      transition: box-shadow 0.16s, border-color 0.18s;
+      position: relative;
+    }
+    .blog-post:hover {
+      box-shadow: 0 6px 18px rgba(0,0,0,0.09);
+      border-color: #0074d9;
+    }
+    .blog-title {
+      font-size: 1.18rem;
+      font-weight: 600;
+      color: #0074d9;
+      margin-bottom: 0.15rem;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .blog-title:hover {
+      color: #005fa3;
+      text-decoration: underline;
+    }
+    .blog-meta {
+      font-size: 0.95rem;
+      color: #888;
+      margin-bottom: 0.5rem;
+    }
+    .blog-desc {
+      color: #666;
+      font-size: 1.03rem;
+      margin-bottom: 0.25rem;
+    }
+    @media (max-width: 700px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .logo, nav, #darkModeToggle {
+        margin: 0.7rem 1rem;
+      }
+      nav {
+        margin-right: 0;
+      }
+      #darkModeToggle {
+        align-self: flex-end;
+      }
+      .container {
+        margin-top: 1rem;
+      }
+    }
+    footer {
+      text-align: center;
+      padding: 1.2rem 0 0.7rem 0;
+      color: #888;
+      font-size: 0.98rem;
+      background: var(--light);
+      border-top: 1px solid var(--border);
+      margin-top: 3rem;
+      transition: background 0.2s, color 0.2s;
+      flex-shrink: 0;
+    }
+    footer a {
+      color: #0074d9;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    footer a:hover {
+      color: #005fa3;
+    }
+    /* Dark mode tweaks */
+    body.dark-mode .blog-header p,
+    body.dark-mode .blog-desc,
+    body.dark-mode .blog-meta {
+      color: #bbb;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="./index" class="logo">Brian Chan</a>
+    <nav>
+      <a href="./index">Home</a>
+      <a href="./projects">Projects</a>
+      <a href="./blog">Blog</a>
+      <a href="./about">About</a>
+      <a href="./resource">Resource</a>
+      <a href="#">Contact</a>
+
+    </nav>
+    <button id="darkModeToggle" aria-label="Toggle dark mode">🌙</button>
+  </header>
+  <div class="container">
+    <section class="blog-header">
+      <h1>Blog</h1>
+      <p>
+        Thoughts on engineering, sustainable energy, technology, and life as a student.
+      </p>
+    </section>
+    <section class="blog-list">
+      <article class="blog-post">
+        <a href="#" class="blog-title">5 Essential Life Skills for Techies</a>
+        <div class="blog-meta">27 July 2025 &middot; Student Life</div>
+        <div class="blog-desc">
+          Tips and habits every aspiring engineer or developer should build, from communication to time management.
+        </div>
+      </article>
+      <article class="blog-post">
+        <a href="#" class="blog-title">Exploring the Latest in AI</a>
+        <div class="blog-meta">5 June 2025 &middot; Technology</div>
+        <div class="blog-desc">
+          A beginner-friendly guide to artificial intelligence trends, with practical advice for those just starting out.
+        </div>
+      </article>
+      <article class="blog-post">
+        <a href="#" class="blog-title">Hydrogen Cars: Are We There Yet?</a>
+        <div class="blog-meta">12 March 2025 &middot; Sustainable Energy</div>
+        <div class="blog-desc">
+          An honest look at the progress, promise, and challenges of hydrogen-powered vehicles.
+        </div>
+      </article>
+      <article class="blog-post">
+        <a href="#" class="blog-title">From Lecture Room to Lab Bench</a>
+        <div class="blog-meta">17 January 2025 &middot; University Life</div>
+        <div class="blog-desc">
+          My journey moving from theory to hands-on projects at university, and what I learned along the way.
+        </div>
+      </article>
+      <!-- Add more blog posts here as you write them! -->
+    </section>
+  </div>
+  <footer>
+    &copy; 2025 Brian Chan. All rights reserved. | 
+    <a href="#">Download Resume</a> | 
+    <a href="mailto:your@email.com">Contact</a>
+  </footer>
+  <script>
+    const toggleBtn = document.getElementById('darkModeToggle');
+    const body = document.body;
+    // On load: check for saved theme
+    if (localStorage.getItem('theme') === 'dark') {
+      body.classList.add('dark-mode');
+      toggleBtn.textContent = '☀️';
+      toggleBtn.setAttribute('aria-label', 'Switch to light mode');
+    } else {
+      toggleBtn.textContent = '🌙';
+      toggleBtn.setAttribute('aria-label', 'Switch to dark mode');
+    }
+    toggleBtn.addEventListener('click', () => {
+      body.classList.toggle('dark-mode');
+      if (body.classList.contains('dark-mode')) {
+        toggleBtn.textContent = '☀️';
+        toggleBtn.setAttribute('aria-label', 'Switch to light mode');
+        localStorage.setItem('theme', 'dark');
+      } else {
+        toggleBtn.textContent = '🌙';
+        toggleBtn.setAttribute('aria-label', 'Switch to dark mode');
+        localStorage.setItem('theme', 'light');
+      }
+    });
+  </script>
+</body>
+</html>
