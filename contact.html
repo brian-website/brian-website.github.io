@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact - Brian Chan</title>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: var(--primary-bg);
+      color: var(--accent);
+      transition: background 0.2s, color 0.2s;
+    }
+    :root {
+      --primary-bg: #f7f5ee;
+      --accent: #333;
+      --light: #fff;
+      --border: #e0e0e0;
+    }
+    body.dark-mode {
+      --primary-bg: #17191c;
+      --accent: #f7f5ee;
+      --light: #23262b;
+      --border: #282828;
+    }
+    header {
+      background: var(--light);
+      border-bottom: 1px solid var(--border);
+      padding: 0.6rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      position: relative;
+    }
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-left: 2rem;
+      letter-spacing: 1px;
+      color: var(--accent);
+      text-decoration: none;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+    .logo:visited,
+    .logo:active,
+    .logo:hover {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    nav {
+      margin-right: 2rem;
+    }
+    nav a {
+      color: var(--accent);
+      text-decoration: none;
+      margin: 0 0.75rem;
+      font-size: 1.1rem;
+      font-weight: 500;
+      transition:
+        color 0.2s,
+        transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      display: inline-block;
+    }
+    nav a:hover,
+    nav a.active {
+      color: #0074d9;
+      transform: scale(1.18);
+    }
+    #darkModeToggle {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      margin-right: 1.5rem;
+      cursor: pointer;
+      color: var(--accent);
+      transition: color 0.2s;
+      outline: none;
+      padding: 0.25rem 0.5rem;
+      border-radius: 50%;
+      align-self: center;
+    }
+    #darkModeToggle:hover {
+      color: #0074d9;
+      background: rgba(0,0,0,0.04);
+    }
+    .container {
+      max-width: 540px;
+      margin: 2.5rem auto 1.5rem auto;
+      padding: 0 1rem;
+      flex: 1 0 auto;
+    }
+    .contact-header {
+      text-align: center;
+      margin-bottom: 2.2rem;
+    }
+    .contact-header h1 {
+      font-size: 2.2rem;
+      margin: 0.3rem 0 0.7rem 0;
+      font-weight: 700;
+    }
+    .contact-header p {
+      color: #555;
+      margin: 0;
+      font-size: 1.14rem;
+    }
+    .contact-box {
+      background: var(--light);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.5rem 1.5rem 1.2rem 1.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    }
+    .contact-info {
+      margin-bottom: 1.7rem;
+      font-size: 1.06rem;
+      color: #666;
+    }
+    .contact-info a {
+      color: #0074d9;
+      text-decoration: underline;
+      transition: color 0.2s;
+    }
+    .contact-info a:hover {
+      color: #005fa3;
+    }
+    .contact-form label {
+      display: block;
+      margin-bottom: 0.4rem;
+      font-weight: 500;
+    }
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 0.62rem;
+      margin-bottom: 1.1rem;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      font-size: 1rem;
+      background: #fdfdfd;
+      color: var(--accent);
+      transition: border 0.2s, background 0.2s;
+      resize: vertical;
+    }
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+      outline: none;
+      border-color: #0074d9;
+      background: #fff;
+    }
+    .contact-form button {
+      background: #0074d9;
+      color: #fff;
+      border: none;
+      padding: 0.68rem 1.6rem;
+      border-radius: 6px;
+      font-size: 1.07rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .contact-form button:hover {
+      background: #005fa3;
+    }
+    @media (max-width: 700px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .logo, nav, #darkModeToggle {
+        margin: 0.7rem 1rem;
+      }
+      nav {
+        margin-right: 0;
+      }
+      #darkModeToggle {
+        align-self: flex-end;
+      }
+      .container {
+        margin-top: 1rem;
+      }
+    }
+    footer {
+      text-align: center;
+      padding: 1.2rem 0 0.7rem 0;
+      color: #888;
+      font-size: 0.98rem;
+      background: var(--light);
+      border-top: 1px solid var(--border);
+      margin-top: 3rem;
+      transition: background 0.2s, color 0.2s;
+      flex-shrink: 0;
+    }
+    footer a {
+      color: #0074d9;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    footer a:hover {
+      color: #005fa3;
+    }
+    /* Dark mode tweaks */
+    body.dark-mode .contact-header p,
+    body.dark-mode .contact-box,
+    body.dark-mode .contact-info {
+      color: #bbb;
+      background: var(--light);
+    }
+    body.dark-mode .contact-form input,
+    body.dark-mode .contact-form textarea {
+      background: #222;
+      color: #f7f5ee;
+      border-color: #444;
+    }
+    body.dark-mode .contact-form input:focus,
+    body.dark-mode .contact-form textarea:focus {
+      background: #23262b;
+      border-color: #0074d9;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="./index" class="logo">Brian Chan</a>
+    <nav>
+      <a href="./index">Home</a>
+      <a href="./projects">Projects</a>
+      <a href="./blog">Blog</a>
+      <a href="./about">About</a>
+      <a href="./resource">Resource</a>
+      <a href="./contact">Contact</a>
+    </nav>
+    <button id="darkModeToggle" aria-label="Toggle dark mode">🌙</button>
+  </header>
+  <div class="container">
+    <section class="contact-header">
+      <h1>Contact</h1>
+      <p>
+        Interested in collaborating, have a question, or just want to say hi? Reach out below!
+      </p>
+    </section>
+    <div class="contact-box">
+      <div class="contact-info">
+        <strong>Email:</strong> <a href="mailto:your@email.com">your@email.com</a><br>
+        <strong>LinkedIn:</strong> <a href="https://www.linkedin.com/" target="_blank">linkedin.com/in/your-profile</a><br>
+        <strong>Location:</strong> Southampton, UK
+      </div>
+      <form class="contact-form" id="contactForm">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" required autocomplete="off">
+
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required autocomplete="off">
+
+        <label for="message">Message</label>
+        <textarea id="message" name="message" required rows="5"></textarea>
+
+        <button type="submit">Send Message</button>
+      </form>
+      <div id="formStatus" style="display:none; margin-top:1.2rem; color:#0074d9; font-weight:bold;"></div>
+    </div>
+  </div>
+  <footer>
+    &copy; 2025 Brian Chan. All rights reserved. | 
+    <a href="#">Download Resume</a> | 
+    <a href="mailto:your@email.com">Contact</a>
+  </footer>
+  <script>
+    // Dark mode toggle (same as other pages)
+    const toggleBtn = document.getElementById('darkModeToggle');
+    const body = document.body;
+    if (localStorage.getItem('theme') === 'dark') {
+      body.classList.add('dark-mode');
+      toggleBtn.textContent = '☀️';
+      toggleBtn.setAttribute('aria-label', 'Switch to light mode');
+    } else {
+      toggleBtn.textContent = '🌙';
+      toggleBtn.setAttribute('aria-label', 'Switch to dark mode');
+    }
+    toggleBtn.addEventListener('click', () => {
+      body.classList.toggle('dark-mode');
+      if (body.classList.contains('dark-mode')) {
+        toggleBtn.textContent = '☀️';
+        toggleBtn.setAttribute('aria-label', 'Switch to light mode');
+        localStorage.setItem('theme', 'dark');
+      } else {
+        toggleBtn.textContent = '🌙';
+        toggleBtn.setAttribute('aria-label', 'Switch to dark mode');
+        localStorage.setItem('theme', 'light');
+      }
+    });
+
+    // Contact form: open mail client with filled info
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const message = document.getElementById('message').value.trim();
+      const mailto = `mailto:your@email.com?subject=Message from ${encodeURIComponent(name)} (${encodeURIComponent(email)})&body=${encodeURIComponent(message)}`;
+      window.location.href = mailto;
+      // Optional: Show a message after 'sending'
+      document.getElementById('formStatus').textContent = 'Thank you! Your email window should open soon.';
+      document.getElementById('formStatus').style.display = 'block';
+      setTimeout(() => { document.getElementById('formStatus').style.display = 'none'; }, 4000);
+      // Optionally reset form
+      document.getElementById('contactForm').reset();
+    });
+  </script>
+</body>
+</html>
