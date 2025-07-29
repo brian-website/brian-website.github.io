@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hydrogen Fuel Cell Storage | Brian Chan Projects</title>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: var(--primary-bg);
+      color: var(--accent);
+      transition: background 0.2s, color 0.2s;
+    }
+    :root {
+      --primary-bg: #f7f5ee;
+      --accent: #333;
+      --light: #fff;
+      --border: #e0e0e0;
+    }
+    body.dark-mode {
+      --primary-bg: #17191c;
+      --accent: #f7f5ee;
+      --light: #23262b;
+      --border: #282828;
+    }
+    header {
+      background: var(--light);
+      border-bottom: 1px solid var(--border);
+      padding: 0.6rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      position: relative;
+    }
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-left: 2rem;
+      letter-spacing: 1px;
+      color: var(--accent);
+      text-decoration: none;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+    .logo:visited,
+    .logo:active,
+    .logo:hover {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    nav {
+      margin-right: 2rem;
+    }
+    nav a {
+      color: var(--accent);
+      text-decoration: none;
+      margin: 0 0.75rem;
+      font-size: 1.1rem;
+      font-weight: 500;
+      transition:
+        color 0.2s,
+        transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      display: inline-block;
+    }
+    nav a:hover,
+    nav a.active {
+      color: #0074d9;
+      transform: scale(1.18);
+    }
+    #darkModeToggle {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      margin-right: 1.5rem;
+      cursor: pointer;
+      color: var(--accent);
+      transition: color 0.2s;
+      outline: none;
+      padding: 0.25rem 0.5rem;
+      border-radius: 50%;
+      align-self: center;
+    }
+    #darkModeToggle:hover {
+      color: #0074d9;
+      background: rgba(0,0,0,0.04);
+    }
+    .container {
+      max-width: 800px;
+      margin: 2.5rem auto 1.5rem auto;
+      padding: 0 1rem;
+      flex: 1 0 auto;
+    }
+
+    .proj-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+      color: #0074d9;
+    }
+    .proj-meta {
+      font-size: 1.05rem;
+      color: #888;
+      margin-bottom: 1.5rem;
+    }
+    .proj-summary {
+      font-size: 1.15rem;
+      color: #555;
+      margin-bottom: 2rem;
+    }
+    .proj-section {
+      margin-bottom: 2.3rem;
+    }
+    .proj-section h2 {
+      font-size: 1.13rem;
+      color: #0074d9;
+      margin-bottom: 0.7rem;
+      margin-top: 0;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+    }
+    .proj-section ul, .proj-section ol {
+      margin-left: 1.3rem;
+    }
+    .proj-links {
+      margin-top: 2.2rem;
+      margin-bottom: 1rem;
+    }
+    .proj-links a {
+      color: #0074d9;
+      text-decoration: underline;
+      font-size: 1.04rem;
+      margin-right: 1.2rem;
+      transition: color 0.2s;
+    }
+    .proj-links a:hover {
+      color: #005fa3;
+    }
+    .back-link {
+      display: inline-block;
+      margin-top: 1.5rem;
+      margin-bottom: 0.5rem;
+      color: #888;
+      font-size: 0.98rem;
+      text-decoration: none;
+      transition: color 0.18s;
+    }
+    .back-link:hover {
+      color: #0074d9;
+      text-decoration: underline;
+    }
+    @media (max-width: 700px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .logo, nav, #darkModeToggle {
+        margin: 0.7rem 1rem;
+      }
+      nav {
+        margin-right: 0;
+      }
+      #darkModeToggle {
+        align-self: flex-end;
+      }
+      .container {
+        margin-top: 1rem;
+      }
+    }
+    footer {
+      text-align: center;
+      padding: 1.2rem 0 0.7rem 0;
+      color: #888;
+      font-size: 0.98rem;
+      background: var(--light);
+      border-top: 1px solid var(--border);
+      margin-top: 3rem;
+      transition: background 0.2s, color 0.2s;
+      flex-shrink: 0;
+    }
+    footer a {
+      color: #0074d9;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    footer a:hover {
+      color: #005fa3;
+    }
+    body.dark-mode .proj-summary,
+    body.dark-mode .proj-section,
+    body.dark-mode .proj-meta {
+      color: #bbb;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="./index" class="logo">Brian Chan</a>
+    <nav>
+      <a href="./index">Home</a>
+      <a href="./projects" class="active">Projects</a>
+      <a href="./blog">Blog</a>
+      <a href="./about">About</a>
+      <a href="./resource">Resource</a>
+      <a href="./contact">Contact</a>
+    </nav>
+    <button id="darkModeToggle" aria-label="Toggle dark mode">🌙</button>
+  </header>
+  <div class="container">
+    <a href="../projects" class="back-link">&larr; Back to Projects</a>
+    <div class="proj-title">Hydrogen Fuel Cell Storage</div>
+    <div class="proj-meta">2024 &middot; Sustainable Energy &middot; Individual Project</div>
+    <div class="proj-summary">
+      A modular and safe hydrogen storage solution designed for fuel cell applications. This project explores advanced materials, pressure management, and safety controls to enable efficient on-board hydrogen storage for vehicles and stationary systems.
+    </div>
+    <div class="proj-section">
+      <h2>Project Highlights</h2>
+      <ul>
+        <li>Developed a composite storage vessel rated for 700 bar hydrogen pressure.</li>
+        <li>Integrated temperature and pressure sensors for real-time monitoring.</li>
+        <li>Designed a fail-safe pressure release system to enhance user safety.</li>
+        <li>Bench-tested with a PEM fuel cell for validation.</li>
+      </ul>
+    </div>
+    <div class="proj-section">
+      <h2>Technical Details</h2>
+      <ul>
+        <li>Tank Material: Carbon fiber reinforced polymer with aluminum liner.</li>
+        <li>Volume: 20 liters (usable hydrogen: ~1.7 kg at 700 bar).</li>
+        <li>Control System: Arduino-based data acquisition with wireless alerts.</li>
+        <li>Safety: Burst disc, solenoid shutoff, and hydrogen leak detection integrated.</li>
+      </ul>
+    </div>
+    <div class="proj-section">
+      <h2>Challenges</h2>
+      <ul>
+        <li>Mitigating hydrogen embrittlement in metal liners.</li>
+        <li>Ensuring long-term sensor stability under high pressure.</li>
+        <li>Balancing weight, cost, and safety for automotive use.</li>
+      </ul>
+    </div>
+    <div class="proj-section">
+      <h2>Results &amp; Future Work</h2>
+      <ul>
+        <li>Achieved safe storage and successful fuel cell operation in lab tests.</li>
+        <li>Next steps: further reduce vessel weight and integrate IoT remote diagnostics.</li>
+      </ul>
+    </div>
+    <div class="proj-links">
+      <a href="https://github.com/yourusername/hydrogen_fuel_cell_storage" target="_blank">View on GitHub</a>
+      <a href="#" target="_blank">Download Report</a>
+      <!-- Add more links as needed -->
+    </div>
+  </div>
+  <footer>
+    &copy; 2025 Brian Chan. All rights reserved. | 
+    <a href="#">Download Resume</a> | 
+    <a href="mailto:your@email.com">Contact</a>
+  </footer>
+  <script>
+    // Dark mode toggle
+    const toggleBtn = document.getElementById('darkModeToggle');
+    const body = document.body;
+    if (localStorage.getItem('theme') === 'dark') {
+      body.classList.add('dark-mode');
+      toggleBtn.textContent = '☀️';
+      toggleBtn.setAttribute('aria-label', 'Switch to light mode');
+    } else {
+      toggleBtn.textContent = '🌙';
+      toggleBtn.setAttribute('aria-label', 'Switch to dark mode');
+    }
+    toggleBtn.addEventListener('click', () => {
+      body.classList.toggle('dark-mode');
+      if (body.classList.contains('dark-mode')) {
+        toggleBtn.textContent = '☀️';
+        toggleBtn.setAttribute('aria-label', 'Switch to light mode');
+        localStorage.setItem('theme', 'dark');
+      } else {
+        toggleBtn.textContent = '🌙';
+        toggleBtn.setAttribute('aria-label', 'Switch to dark mode');
+        localStorage.setItem('theme', 'light');
+      }
+    });
+  </script>
+</body>
+</html>
