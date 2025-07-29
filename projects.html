@@ -96,7 +96,7 @@
       max-width: 900px;
       margin: 2rem auto;
       padding: 0 1rem;
-      flex: 1 0 auto; /* Makes container grow and push footer down */
+      flex: 1 0 auto;
     }
     .projects-header {
       text-align: center;
@@ -143,6 +143,15 @@
       color: #0074d9;
       margin-bottom: 0.5rem;
     }
+    .project-title a {
+      color: #0074d9;
+      text-decoration: none;
+      transition: color 0.18s;
+    }
+    .project-title a:hover {
+      text-decoration: underline;
+      color: #005fa3;
+    }
     .project-desc {
       color: #666;
       font-size: 1.02rem;
@@ -153,16 +162,6 @@
       font-size: 0.93rem;
       color: #888;
       margin-bottom: 0.3rem;
-    }
-    .project-links a {
-      color: #0074d9;
-      text-decoration: underline;
-      margin-right: 1.1rem;
-      font-size: 0.98rem;
-      transition: color 0.2s;
-    }
-    .project-links a:hover {
-      color: #005fa3;
     }
     @media (max-width: 900px) {
       .projects-list {
@@ -212,7 +211,6 @@
     footer a:hover {
       color: #005fa3;
     }
-    /* Adjust color for dark mode */
     body.dark-mode .projects-header p,
     body.dark-mode .project-desc,
     body.dark-mode .project-meta {
@@ -225,7 +223,7 @@
     <a href="./index" class="logo">Brian Chan</a>
     <nav>
       <a href="./index">Home</a>
-      <a href="./projects">Projects</a>
+      <a href="./projects" class="active">Projects</a>
       <a href="./blog">Blog</a>
       <a href="./about">About</a>
       <a href="./resource">Resource</a>
@@ -240,47 +238,48 @@
     </section>
     <section class="projects-list">
       <div class="project-card">
-        <div class="project-title">Hydrogen Fuel Cell Car</div>
-        <div class="project-meta">2023 &middot; Automotive Engineering</div>
-        <div class="project-desc">
-          Developed a prototype car powered by a PEM hydrogen fuel cell, achieving zero emissions and a 300-mile range per tank. Integrated real-time telemetry and safety systems.
+        <div class="project-title">
+          <a href="./hydrogen_fuel_cell_storage/">Hydrogen Fuel Cell Storage</a>
         </div>
-        <div class="project-links">
-          <a href="#">GitHub</a>
-          <a href="#">Live Demo</a>
+        <div class="project-meta">2024 &middot; Sustainable Energy</div>
+        <div class="project-desc">
+          Modular and safe hydrogen storage solution for fuel cell applications. Advanced composite tank, sensor integration, and safety-focused design.
         </div>
       </div>
       <div class="project-card">
-        <div class="project-title">Home Hydrogen Generator</div>
+        <div class="project-title">
+          <a href="./hydrogen_fuel_cell_car/">Hydrogen Fuel Cell Car</a>
+        </div>
+        <div class="project-meta">2023 &middot; Automotive Engineering</div>
+        <div class="project-desc">
+          Prototype car powered by a PEM hydrogen fuel cell, achieving zero emissions and a 300-mile range per tank. Integrated real-time telemetry and safety systems.
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-title">
+          <a href="./home_hydrogen_generator/">Home Hydrogen Generator</a>
+        </div>
         <div class="project-meta">2022 &middot; Renewable Energy</div>
         <div class="project-desc">
           Designed an electrolyzer system for home use, turning tap water into hydrogen fuel using solar panels. Includes IoT monitoring and safety shut-off mechanisms.
         </div>
-        <div class="project-links">
-          <a href="#">GitHub</a>
-          <a href="#">Report</a>
-        </div>
       </div>
       <div class="project-card">
-        <div class="project-title">Hydrogen Drone Platform</div>
+        <div class="project-title">
+          <a href="./hydrogen_drone/">Hydrogen Drone Platform</a>
+        </div>
         <div class="project-meta">2024 &middot; Aerospace</div>
         <div class="project-desc">
-          Built a quadcopter drone powered by a compact hydrogen fuel cell, extending flight time beyond traditional batteries. Features autonomous navigation and real-time fuel cell diagnostics.
-        </div>
-        <div class="project-links">
-          <a href="#">GitHub</a>
-          <a href="#">Watch Video</a>
+          Quadcopter drone powered by a compact hydrogen fuel cell, extending flight time beyond traditional batteries. Features autonomous navigation and fuel cell diagnostics.
         </div>
       </div>
       <div class="project-card">
-        <div class="project-title">Hydrogen Sensor Network</div>
+        <div class="project-title">
+          <a href="./hydrogen_sensor_network/">Hydrogen Sensor Network</a>
+        </div>
         <div class="project-meta">2023 &middot; IoT, Safety</div>
         <div class="project-desc">
-          Developed a wireless mesh network of hydrogen leak sensors for industrial plants, providing instant alerts and analytics via a web dashboard.
-        </div>
-        <div class="project-links">
-          <a href="#">GitHub</a>
-          <a href="#">Blog Post</a>
+          Wireless mesh network of hydrogen leak sensors for industrial plants, providing instant alerts and analytics via a web dashboard.
         </div>
       </div>
     </section>
@@ -293,7 +292,6 @@
   <script>
     const toggleBtn = document.getElementById('darkModeToggle');
     const body = document.body;
-    // On load: check for saved theme
     if (localStorage.getItem('theme') === 'dark') {
       body.classList.add('dark-mode');
       toggleBtn.textContent = '☀️';
