@@ -123,6 +123,33 @@
       color: #888;
       margin-bottom: 1.5rem;
     }
+    /* Blog Image Styles */
+    .blog-image-wrapper {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .blog-image {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      margin: 0 auto;
+      border-radius: 13px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    }
+    .blog-image-credit {
+      font-size: 0.97rem;
+      color: #888;
+      margin-top: 0.5em;
+      text-align: center;
+    }
+    .blog-image-credit a {
+      color: #0074d9;
+      text-decoration: underline;
+    }
+    .blog-image-credit a:hover {
+      color: #005fa3;
+      text-decoration: underline;
+    }
     .proj-summary {
       font-size: 1.15rem;
       color: #555;
@@ -187,6 +214,9 @@
     body.dark-mode .proj-meta {
       color: #bbb;
     }
+    body.dark-mode .blog-image-credit {
+      color: #aaa;
+    }
   </style>
 </head>
 <body>
@@ -206,6 +236,14 @@
     <a href="/blog" class="back-link">&larr; Back to Blog</a>
     <div class="proj-title">Explore the Latest in AI: The Rise of Agentic AI</div>
     <div class="proj-meta">2025 &middot; Artificial Intelligence &middot; Blog Article</div>
+    <div class="blog-image-wrapper">
+      <img src="/blog/images/ai_picture_testing.jpg" alt="A computer chip with the letter AI a on top of it" class="blog-image">
+      <div class="blog-image-credit">
+        Photo by
+        <a href="https://unsplash.com/@igoromilaev" target="_blank" rel="noopener">Igor Omilaev</a>
+        on <a href="https://unsplash.com/license" target="_blank" rel="noopener">Unsplash License</a>
+      </div>
+    </div>
     <div class="proj-summary">
       Agentic AI is transforming how machines interact with the world. Unlike traditional or generative AI, agentic AI systems can act independently, make decisions, and adapt on their own. This article explores what makes agentic AI unique, how it works, and why it's powering the next wave of innovation across industries.
     </div>
