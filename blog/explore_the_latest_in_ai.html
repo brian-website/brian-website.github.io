@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Explore the Latest in AI | Brian Chan Blog</title>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: var(--primary-bg);
+      color: var(--accent);
+      transition: background 0.2s, color 0.2s;
+    }
+    :root {
+      --primary-bg: #f7f5ee;
+      --accent: #333;
+      --light: #fff;
+      --border: #e0e0e0;
+    }
+    body.dark-mode {
+      --primary-bg: #17191c;
+      --accent: #f7f5ee;
+      --light: #23262b;
+      --border: #282828;
+    }
+    header {
+      background: var(--light);
+      border-bottom: 1px solid var(--border);
+      padding: 0.6rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      position: relative;
+    }
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-left: 2rem;
+      letter-spacing: 1px;
+      color: var(--accent);
+      text-decoration: none;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+    .logo:visited,
+    .logo:active,
+    .logo:hover {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    nav {
+      margin-right: 2rem;
+    }
+    nav a {
+      color: var(--accent);
+      text-decoration: none;
+      margin: 0 0.75rem;
+      font-size: 1.1rem;
+      font-weight: 500;
+      transition:
+        color 0.2s,
+        transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      display: inline-block;
+    }
+    nav a:hover,
+    nav a.active {
+      color: #0074d9;
+      transform: scale(1.18);
+    }
+    #darkModeToggle {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      margin-right: 1.5rem;
+      cursor: pointer;
+      color: var(--accent);
+      transition: color 0.2s;
+      outline: none;
+      padding: 0.25rem 0.5rem;
+      border-radius: 50%;
+      align-self: center;
+    }
+    #darkModeToggle:hover {
+      color: #0074d9;
+      background: rgba(0,0,0,0.04);
+    }
+    .container {
+      max-width: 800px;
+      margin: 2.5rem auto 1.5rem auto;
+      padding: 0 1rem;
+      flex: 1 0 auto;
+    }
+    .back-link {
+      display: inline-block;
+      margin-top: 1.5rem;
+      margin-bottom: 0.5rem;
+      color: #888;
+      font-size: 0.98rem;
+      text-decoration: none;
+      transition: color 0.18s;
+    }
+    .back-link:hover {
+      color: #0074d9;
+      text-decoration: underline;
+    }
+    .proj-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+      color: #0074d9;
+    }
+    .proj-meta {
+      font-size: 1.05rem;
+      color: #888;
+      margin-bottom: 1.5rem;
+    }
+    .proj-summary {
+      font-size: 1.15rem;
+      color: #555;
+      margin-bottom: 2rem;
+    }
+    .proj-section {
+      margin-bottom: 2.3rem;
+    }
+    .proj-section h2 {
+      font-size: 1.13rem;
+      color: #0074d9;
+      margin-bottom: 0.7rem;
+      margin-top: 0;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+    }
+    .proj-section ul, .proj-section ol {
+      margin-left: 1.3rem;
+    }
+    .proj-section ul li {
+      margin-bottom: 0.5em;
+    }
+    @media (max-width: 700px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .logo, nav, #darkModeToggle {
+        margin: 0.7rem 1rem;
+      }
+      nav {
+        margin-right: 0;
+      }
+      #darkModeToggle {
+        align-self: flex-end;
+      }
+      .container {
+        margin-top: 1rem;
+      }
+    }
+    footer {
+      text-align: center;
+      padding: 1.2rem 0 0.7rem 0;
+      color: #888;
+      font-size: 0.98rem;
+      background: var(--light);
+      border-top: 1px solid var(--border);
+      margin-top: 3rem;
+      transition: background 0.2s, color 0.2s;
+      flex-shrink: 0;
+    }
+    footer a {
+      color: #0074d9;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    footer a:hover {
+      color: #005fa3;
+    }
+    body.dark-mode .proj-summary,
+    body.dark-mode .proj-section,
+    body.dark-mode .proj-meta {
+      color: #bbb;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/" class="logo">Brian Chan</a>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/projects">Projects</a>
+      <a href="/blog">Blog</a>
+      <a href="/about">About</a>
+      <a href="/resource">Resource</a>
+      <a href="/contact">Contact</a>
+    </nav>
+    <button id="darkModeToggle" aria-label="Toggle dark mode">🌙</button>
+  </header>
+  <div class="container">
+    <a href="/blog" class="back-link">&larr; Back to Blog</a>
+    <div class="proj-title">Explore the Latest in AI: The Rise of Agentic AI</div>
+    <div class="proj-meta">2025 &middot; Artificial Intelligence &middot; Blog Article</div>
+    <div class="proj-summary">
+      Agentic AI is transforming how machines interact with the world. Unlike traditional or generative AI, agentic AI systems can act independently, make decisions, and adapt on their own. This article explores what makes agentic AI unique, how it works, and why it's powering the next wave of innovation across industries.
+    </div>
+    <div class="proj-section">
+      <h2>What is Agentic AI?</h2>
+      <ul>
+        <li>
+          <strong>Agentic AI</strong> refers to intelligent systems that can <strong>set goals, plan, act autonomously, and learn from their experiences</strong>—all with limited human oversight.
+        </li>
+        <li>
+          Unlike traditional AI, agentic AI is proactive: it breaks down complex tasks, handles multi-step processes, and adapts its actions as new information comes in.
+        </li>
+        <li>
+          The core loop: <strong>perceive, reason, act, and learn</strong>—enables agentic AI to tackle complex, real-world challenges.
+        </li>
+      </ul>
+    </div>
+    <div class="proj-section">
+      <h2>The Tech Behind Agentic AI</h2>
+      <ul>
+        <li><strong>Large Language Models (LLMs):</strong> The reasoning "brain" for understanding and planning.</li>
+        <li><strong>Machine Learning &amp; Reinforcement Learning:</strong> Enable the AI to adapt, improve, and optimize its behavior.</li>
+        <li><strong>Natural Language Processing (NLP):</strong> Allows the system to interpret and respond to human language naturally.</li>
+        <li><strong>Planning Algorithms:</strong> Sequence and prioritize tasks efficiently.</li>
+        <li><strong>Memory Systems:</strong> Retain context, recall past actions, and learn from history.</li>
+      </ul>
+    </div>
+    <div class="proj-section">
+      <h2>Real-World Applications</h2>
+      <ul>
+        <li>
+          <strong>Customer Service:</strong> Handles complex, multi-step customer issues by integrating with internal systems and providing customized solutions.
+        </li>
+        <li>
+          <strong>Finance &amp; Trading:</strong> Analyzes live market data, executes trades, develops personalized financial plans, and autonomously detects fraud.
+        </li>
+        <li>
+          <strong>Supply Chain Management:</strong> Forecasts demand, manages inventory, and adjusts logistics in real-time for optimal delivery.
+        </li>
+        <li>
+          <strong>Autonomous Vehicles:</strong> Self-driving cars perceive their surroundings, make navigational decisions, and move independently.
+        </li>
+        <li>
+          <strong>Cybersecurity:</strong> Monitors networks, detects threats, and responds automatically to protect systems.
+        </li>
+      </ul>
+    </div>
+    <div class="proj-section">
+      <h2>Why Agentic AI Matters</h2>
+      <ul>
+        <li>
+          Represents a major leap in artificial intelligence: operating independently, adapting to new situations, and learning from actions.
+        </li>
+        <li>
+          Unlocks new levels of automation, efficiency, and problem-solving across industries.
+        </li>
+        <li>
+          As agentic AI matures, expect smarter businesses, more personalized services, and seamless daily experiences.
+        </li>
+      </ul>
+      <div style="margin-top:1.5em;">
+        <em>Stay tuned to this blog for more updates on the cutting edge of AI!</em>
+      </div>
+    </div>
+  </div>
+  <footer>
+    &copy; 2025 Brian Chan. All rights reserved. | 
+    <a href="#">Download Resume</a> | 
+    <a href="mailto:your@email.com">Contact</a>
+  </footer>
+  <script>
+    // Dark mode toggle
+    const toggleBtn = document.getElementById('darkModeToggle');
+    const body = document.body;
+    if (localStorage.getItem('theme') === 'dark') {
+      body.classList.add('dark-mode');
+      toggleBtn.textContent = '☀️';
+      toggleBtn.setAttribute('aria-label', 'Switch to light mode');
+    } else {
+      toggleBtn.textContent = '🌙';
+      toggleBtn.setAttribute('aria-label', 'Switch to dark mode');
+    }
+    toggleBtn.addEventListener('click', () => {
+      body.classList.toggle('dark-mode');
+      if (body.classList.contains('dark-mode')) {
+        toggleBtn.textContent = '☀️';
+        toggleBtn.setAttribute('aria-label', 'Switch to light mode');
+        localStorage.setItem('theme', 'dark');
+      } else {
+        toggleBtn.textContent = '🌙';
+        toggleBtn.setAttribute('aria-label', 'Switch to dark mode');
+        localStorage.setItem('theme', 'light');
+      }
+    });
+  </script>
+</body>
+</html>
