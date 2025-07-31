@@ -195,30 +195,75 @@
         align-self: flex-end;
       }
     }
+    /* --- NEW FOOTER STYLES --- */
     footer {
       text-align: center;
-      padding: 1.2rem 0 0.7rem 0;
+      padding: 2.5rem 0 2rem 0; /* Increased padding for a taller, more spacious footer */
       color: #888;
-      font-size: 0.98rem;
+      font-size: 1.03rem;
       background: var(--light);
       border-top: 1px solid var(--border);
       margin-top: 3rem;
       transition: background 0.2s, color 0.2s;
       flex-shrink: 0;
     }
-    footer a {
+    .footer-content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+    .footer-main {
+      font-size: 1.08rem;
+      color: #888;
+      margin-bottom: 0.7rem;
+    }
+    .footer-links {
+      margin: 0.2rem 0 1.3rem 0;
+      font-size: 1.06rem;
+    }
+    .footer-links a {
       color: #0074d9;
       text-decoration: none;
+      margin: 0 0.1rem;
       transition: color 0.2s;
     }
-    footer a:hover {
+    .footer-links a:hover {
       color: #005fa3;
+      text-decoration: underline;
+    }
+    .footer-note {
+      font-size: 0.98rem;
+      color: #aaa;
+      margin-top: 0.6rem;
+      line-height: 1.5;
+    }
+    @media (max-width: 700px) {
+      .footer-content {
+        font-size: 1rem;
+      }
+      .footer-note {
+        font-size: 0.93rem;
+      }
+      .footer-links {
+        font-size: 1rem;
+      }
     }
     /* Adjust welcome text color in dark mode */
     body.dark-mode .welcome p,
     body.dark-mode .update-desc,
     body.dark-mode .post-desc {
       color: #bbb;
+    }
+    body.dark-mode .footer-main,
+    body.dark-mode .footer-links,
+    body.dark-mode .footer-note {
+      color: #aaa;
+    }
+    body.dark-mode .footer-links a {
+      color: #7ec8ff;
+    }
+    body.dark-mode .footer-links a:hover {
+      color: #99d6ff;
     }
   </style>
 </head>
@@ -272,7 +317,19 @@
     </div>
   </div>
   <footer>
-    &copy; 2025 Brian Chan. All rights reserved. | <a href="#">Download Resume</a> | <a href="mailto:your@email.com">Contact</a>
+    <div class="footer-content">
+      <div class="footer-main">
+        &copy; 2025 Brian Chan. All rights reserved.
+      </div>
+      <div class="footer-links">
+        <a href="#">Download Resume</a> |
+        <a href="mailto:your@email.com">Contact</a> |
+        <a href="https://choosealicense.com/licenses/mit/" target="_blank" rel="noopener">MIT License</a>
+      </div>
+      <div class="footer-note">
+        This open source project was developed by the owner. We encourage responsible use in accordance with intellectual property laws.
+      </div>
+    </div>
   </footer>
   <script>
     const toggleBtn = document.getElementById('darkModeToggle');
