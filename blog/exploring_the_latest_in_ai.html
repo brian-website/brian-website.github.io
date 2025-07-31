@@ -172,6 +172,32 @@
     .proj-section ul li {
       margin-bottom: 0.5em;
     }
+    /* Read Next styles */
+    .read-next-section {
+      border-top: 1px dashed #e0e0e0;
+      margin: 2.5rem 0 0 0;
+      padding-top: 1.5rem;
+      text-align: left;
+    }
+    .read-next-label {
+      font-size: 1.08rem;
+      color: #888;
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.01em;
+    }
+    .read-next-link {
+      display: inline-block;
+      font-size: 1.13rem;
+      color: #0074d9;
+      font-weight: 600;
+      text-decoration: none;
+      margin-top: 0.3rem;
+      transition: color 0.18s;
+    }
+    .read-next-link:hover {
+      color: #005fa3;
+      text-decoration: underline;
+    }
     @media (max-width: 700px) {
       header {
         flex-direction: column;
@@ -188,6 +214,9 @@
       }
       .container {
         margin-top: 1rem;
+      }
+      .read-next-section {
+        padding-top: 1.1rem;
       }
     }
     footer {
@@ -215,6 +244,9 @@
       color: #bbb;
     }
     body.dark-mode .blog-image-credit {
+      color: #aaa;
+    }
+    body.dark-mode .read-next-label {
       color: #aaa;
     }
   </style>
@@ -308,6 +340,39 @@
         <em>Stay tuned to this blog for more updates on the cutting edge of AI!</em>
       </div>
     </div>
+    
+    <!-- Read Next Section -->
+    <div class="read-next-section">
+      <div class="read-next-label">Read Next</div>
+      <ul style="list-style:none; padding:0; margin:0; display:flex; flex-wrap:wrap; gap:1.3rem 2rem;">
+        <li>
+          <a href="/blog/life-skills-for-techies" class="read-next-link">
+            5 Essential Life Skills for Techies
+          </a>
+          <div style="font-size:0.97rem; color:#888;">Tips and habits every developer should build.</div>
+        </li>
+        <li>
+          <a href="/blog/hydrogen-fuel-cell-storage" class="read-next-link">
+            Hydrogen Fuel Cell Storage: The Future of Energy
+          </a>
+          <div style="font-size:0.97rem; color:#888;">An overview of hydrogen storage technologies.</div>
+        </li>
+        <li>
+          <a href="/blog/minimalist-productivity-tools" class="read-next-link">
+            Minimalist Productivity Tools for Focused Work
+          </a>
+          <div style="font-size:0.97rem; color:#888;">Declutter your workflow with these simple apps.</div>
+        </li>
+        <li>
+          <a href="/blog/learning-to-learn" class="read-next-link">
+            Learning to Learn: Mastering New Tech Fast
+          </a>
+          <div style="font-size:0.97rem; color:#888;">How to rapidly adapt to a changing tech landscape.</div>
+        </li>
+      </ul>
+    </div>
+    <!-- End Read Next Section -->
+    
   </div>
   <footer>
     &copy; 2025 Brian Chan. All rights reserved. | 
