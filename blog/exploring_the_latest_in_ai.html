@@ -121,7 +121,51 @@
     .proj-meta {
       font-size: 1.05rem;
       color: #888;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.1rem;
+    }
+    /* --- Author Section Styles --- */
+    .author-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      font-size: 1.04rem;
+      margin-bottom: 1.4rem;
+      color: #666;
+      flex-wrap: wrap;
+    }
+    .author-logo {
+      width: 2.1rem;
+      height: 2.1rem;
+      object-fit: contain;
+      margin-right: 0.45rem;
+      border: none;
+      background: none;
+      box-shadow: none;
+      display: inline-block;
+      vertical-align: middle;
+      transition: none;
+    }
+    .author-name {
+      font-weight: 600;
+      color: #333;
+      margin-right: 1.5rem;
+    }
+    .last-updated {
+      font-size: 0.97rem;
+      color: #888;
+      margin-left: 1rem;
+      white-space: nowrap;
+    }
+    @media (max-width: 500px) {
+      .author-meta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.2rem;
+      }
+      .author-name, .last-updated {
+        margin-right: 0;
+        margin-left: 0;
+      }
     }
     /* Blog Image Styles */
     .blog-image-wrapper {
@@ -240,7 +284,10 @@
     }
     body.dark-mode .proj-summary,
     body.dark-mode .proj-section,
-    body.dark-mode .proj-meta {
+    body.dark-mode .proj-meta,
+    body.dark-mode .author-meta,
+    body.dark-mode .author-name,
+    body.dark-mode .last-updated {
       color: #bbb;
     }
     body.dark-mode .blog-image-credit {
@@ -274,6 +321,13 @@
     <a href="/blog" class="back-link">&larr; Back to Blog</a>
     <div class="proj-title">Explore the Latest in AI: The Rise of Agentic AI</div>
     <div class="proj-meta">2025 &middot; Artificial Intelligence &middot; Blog Article</div>
+    <!-- Author Section Start -->
+    <div class="author-meta">
+      <img src="/bc_logo.jpeg" alt="Brian Chan Logo" class="author-logo">
+      <span class="author-name">Brian Chan</span>
+      <span class="last-updated">Last updated 25 June 2025</span>
+    </div>
+    <!-- Author Section End -->
     <div class="blog-image-wrapper">
       <img src="/blog/images/ai_picture_testing.jpg" alt="A computer chip with the letter AI a on top of it" class="blog-image">
       <div class="blog-image-credit">
