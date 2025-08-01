@@ -50,6 +50,24 @@
       text-decoration: none;
       cursor: pointer;
       transition: color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .logo-img {
+      width: 2.1rem;
+      height: 2.1rem;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-right: 0.4rem;
+      border: 1.5px solid #eee;
+      background: #fff;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      transition: box-shadow 0.2s;
+      display: inline-block;
+    }
+    .logo:hover .logo-img {
+      box-shadow: 0 2px 8px rgba(0,116,217,0.07);
     }
     .logo:visited,
     .logo:active,
@@ -198,7 +216,7 @@
     /* --- NEW FOOTER STYLES --- */
     footer {
       text-align: center;
-      padding: 2.5rem 0 2rem 0; /* Increased padding for a taller, more spacious footer */
+      padding: 2.5rem 0 2rem 0;
       color: #888;
       font-size: 1.03rem;
       background: var(--light);
@@ -269,7 +287,10 @@
 </head>
 <body>
   <header>
-    <a href="/" class="logo">Brian Chan</a>
+    <a href="index.html" class="logo">
+      <img src="bc_logo.jpeg" alt="Brian Chan Logo" class="logo-img">
+      Brian Chan
+    </a>
     <nav>
       <a href="/">Home</a>
       <a href="/projects">Projects</a>
