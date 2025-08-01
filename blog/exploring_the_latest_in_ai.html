@@ -133,17 +133,23 @@
       color: #666;
       flex-wrap: wrap;
     }
+    .author-by {
+      font-size: 1.02rem;
+      color: #888;
+      margin-right: 0.2rem;
+    }
     .author-logo {
-      width: 2.1rem;
-      height: 2.1rem;
-      object-fit: contain;
+      width: 2.2rem;
+      height: 2.2rem;
+      object-fit: cover;
       margin-right: 0.45rem;
-      border: none;
-      background: none;
-      box-shadow: none;
+      border-radius: 50%;
+      border: 1.5px solid #eee;
+      background: #fff;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.07);
       display: inline-block;
       vertical-align: middle;
-      transition: none;
+      transition: box-shadow 0.2s;
     }
     .author-name {
       font-weight: 600;
@@ -165,6 +171,9 @@
       .author-name, .last-updated {
         margin-right: 0;
         margin-left: 0;
+      }
+      .last-updated {
+        margin-top: 0.2rem;
       }
     }
     /* Blog Image Styles */
@@ -287,7 +296,8 @@
     body.dark-mode .proj-meta,
     body.dark-mode .author-meta,
     body.dark-mode .author-name,
-    body.dark-mode .last-updated {
+    body.dark-mode .last-updated,
+    body.dark-mode .author-by {
       color: #bbb;
     }
     body.dark-mode .blog-image-credit {
@@ -323,6 +333,7 @@
     <div class="proj-meta">2025 &middot; Artificial Intelligence &middot; Blog Article</div>
     <!-- Author Section Start -->
     <div class="author-meta">
+      <span class="author-by">By</span>
       <img src="/bc_logo.jpeg" alt="Brian Chan Logo" class="author-logo">
       <span class="author-name">Brian Chan</span>
       <span class="last-updated">Last updated 25 June 2025</span>
