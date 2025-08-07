@@ -24,6 +24,7 @@
       --accent: #333;
       --light: #fff;
       --border: #e0e0e0;
+      --fixed-header-height: 70px;
     }
     body.dark-mode {
       --primary-bg: #17191c;
@@ -39,7 +40,14 @@
       align-items: center;
       justify-content: space-between;
       flex-wrap: wrap;
-      position: relative;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      height: var(--fixed-header-height);
+      box-sizing: border-box;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
     }
     .logo {
       font-size: 1.5rem;
@@ -105,8 +113,9 @@
     .container {
       max-width: 1200px;
       margin: 2.5rem auto 0 auto;
-      padding: 0 1rem;
+      padding: calc(var(--fixed-header-height) + 2rem) 1rem 0 1rem; /* Top padding for fixed header */
       flex: 1 0 auto;
+      box-sizing: border-box;
     }
     /* --- HERO SECTION --- */
     .hero-flex {
@@ -142,13 +151,6 @@
       margin-bottom: 0.5rem;
       color: #444;
       line-height: 1.45;
-    }
-    .hero-desc-2 {
-      font-size: 1.03rem;
-      color: #444;
-      margin-bottom: 1.2rem;
-      margin-top: 0.3rem;
-      line-height: 1.5;
     }
     .hero-bold {
       font-size: 1.2rem;
@@ -207,6 +209,16 @@
       justify-content: center;
       min-width: 250px;
       min-height: 250px;
+      overflow: hidden;
+    }
+    .hero-image img {
+      width: 88%;
+      height: 88%;
+      object-fit: cover;
+      border-radius: 1.6rem;
+      box-shadow: 0 2px 14px 0 rgba(0,0,0,0.03);
+      display: block;
+      background: #eee;
     }
     /* Responsive adjustments */
     @media (max-width: 1100px) {
@@ -221,10 +233,186 @@
     }
     @media (max-width: 600px) {
       .hero-title { font-size: 1.4rem; }
-      .hero-desc, .hero-desc-2 { font-size: 1.01rem; }
+      .hero-desc { font-size: 1.01rem; }
       .stat-num { font-size: 1.4rem; }
       .hero-image { width: 140px; height: 140px; border-radius: 0.8rem; }
       .hero-stats { gap: 1.2rem; }
+    }
+
+    /* --- TIMELINE SECTION --- */
+    .timeline-section {
+      background: #f3f6fb;
+      padding: 4rem 0 4rem 0;
+      margin-top: 0;
+      box-sizing: border-box;
+      padding-top: 4rem;
+    }
+    .timeline-heading {
+      text-align: center;
+      font-size: 2rem;
+      font-weight: 700;
+      color: #4f46e5;
+      margin-bottom: 3rem;
+      letter-spacing: 0.01em;
+    }
+    .timeline {
+      position: relative;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 4px;
+      height: 100%;
+      background: #b993f8;
+      transform: translateX(-50%);
+      border-radius: 2px;
+    }
+    .timeline-item {
+      display: flex;
+      justify-content: flex-end;
+      align-items: flex-start;
+      margin-bottom: 3.5rem;
+      position: relative;
+      width: 100%;
+    }
+    .timeline-item.left {
+      flex-direction: row;
+    }
+    .timeline-item.right {
+      flex-direction: row-reverse;
+    }
+    .timeline-dot {
+      position: absolute;
+      left: 50%;
+      top: 22px;
+      width: 20px;
+      height: 20px;
+      background: #fff;
+      border: 4px solid #b993f8;
+      border-radius: 50%;
+      z-index: 2;
+      transform: translateX(-50%);
+      box-shadow: 0 2px 12px 0 rgba(100,0,255,0.03);
+    }
+    .timeline-content {
+      background: #fff;
+      border-radius: 1.1rem;
+      box-shadow: 0 2px 24px 0 rgba(80,80,130,0.07);
+      padding: 1.3rem 1.6rem 1.2rem 1.6rem;
+      width: 330px;
+      min-height: 120px;
+      color: #222;
+      position: relative;
+      border: 1px solid #e6e6f0;
+    }
+    .timeline-item.left .timeline-content {
+      margin-right: 48px;
+    }
+    .timeline-item.right .timeline-content {
+      margin-left: 48px;
+    }
+    .timeline-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #222;
+      margin-bottom: 0.3rem;
+    }
+    .timeline-subtitle {
+      font-size: 1rem;
+      color: #555;
+      margin-bottom: 0.3rem;
+    }
+    .timeline-meta {
+      font-size: 0.95rem;
+      color: #888;
+      font-style: italic;
+    }
+    .timeline-meta-list {
+      margin: 0.6em 0 0.5em 0;
+      padding: 0;
+      list-style: none;
+    }
+    .timeline-meta-list li {
+      display: flex;
+      align-items: center;
+      font-size: 1rem;
+      color: #888;
+      margin-bottom: 2px;
+    }
+    .timeline-meta-list svg {
+      width: 1em;
+      height: 1em;
+      margin-right: 0.55em;
+      min-width: 1em;
+      opacity: 0.86;
+      color: #b993f8;
+      vertical-align: middle;
+      stroke-width: 2.2;
+    }
+    .timeline-desc {
+      font-size: 1rem;
+      color: #444;
+      margin-top: 0.6rem;
+      margin-bottom: 1rem;
+    }
+    .timeline-tags {
+      margin-top: 0.4rem;
+    }
+    .timeline-tags span {
+      display: inline-block;
+      background: #f0e9ff;
+      color: #6d28d9;
+      font-size: 0.92rem;
+      font-weight: 500;
+      border-radius: 0.6em;
+      padding: 0.28em 0.8em;
+      margin-right: 0.4em;
+      margin-bottom: 0.15em;
+      letter-spacing: 0.01em;
+    }
+    /* Responsive for timeline */
+    @media (max-width: 900px) {
+      .timeline::before {
+        left: 16px;
+        transform: none;
+      }
+      .timeline-item,
+      .timeline-item.left,
+      .timeline-item.right {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: 2.8rem;
+      }
+      .timeline-dot {
+        left: 16px;
+        top: 22px;
+        transform: none;
+      }
+      .timeline-content {
+        margin: 0 0 0 48px;
+        width: 100%;
+        min-width: 0;
+      }
+      .timeline-item.right .timeline-content {
+        margin: 0 0 0 48px;
+      }
+    }
+    @media (max-width: 600px) {
+      .timeline-section {
+        padding: 2.5rem 0 2.5rem 0;
+      }
+      .timeline {
+        padding: 0 0.2rem;
+      }
+      .timeline-content {
+        padding: 1rem 0.9rem;
+        font-size: 0.95rem;
+      }
     }
 
     /* Footer (unchanged) */
@@ -280,15 +468,35 @@
         font-size: 1rem;
       }
     }
-    /* Adjust hero colors in dark mode */
+    /* Adjust hero and timeline colors in dark mode */
     body.dark-mode .hero-desc,
-    body.dark-mode .hero-desc-2,
     body.dark-mode .stat-label {
       color: #bbb;
     }
     body.dark-mode .hero-image {
       background: #23262b;
       box-shadow: 0 0 32px 0 #17191c;
+    }
+    body.dark-mode .timeline-section {
+      background: #23262b;
+    }
+    body.dark-mode .timeline-content {
+      background: #23262b;
+      border: 1px solid #282828;
+      color: #eee;
+    }
+    body.dark-mode .timeline-title {
+      color: #f7f5ee;
+    }
+    body.dark-mode .timeline-tags span {
+      background: #2d2650;
+      color: #b993f8;
+    }
+    body.dark-mode .timeline-meta-list li {
+      color: #bdbddb;
+    }
+    body.dark-mode .timeline-meta-list svg {
+      color: #d1a8ff;
     }
   </style>
 </head>
@@ -337,10 +545,151 @@
         </div>
       </div>
       <div class="hero-image">
-        <img src="bc_logo.jpeg" alt="Brian Chan" style="width: 88%; height: 88%; object-fit: cover; border-radius: 1.6rem; box-shadow: 0 2px 14px 0 rgba(0,0,0,0.03);" />
+        <img src="bc_logo.jpeg" alt="Brian Chan" />
       </div>
     </section>
   </div>
+
+  <!-- Timeline Section: Place after hero, before footer -->
+  <section class="timeline-section">
+    <h2 class="timeline-heading">My Journey <span aria-label="map" role="img">🗺️</span></h2>
+    <div class="timeline">
+      <!-- Timeline Item 1 -->
+      <div class="timeline-item left">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <div class="timeline-title">
+            Head Boy
+          </div>
+          <div class="timeline-subtitle">
+            <strong>Ackworth School</strong>
+            <ul class="timeline-meta-list">
+              <li>
+                <!-- Calendar SVG -->
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <rect x="3" y="5" width="18" height="16" rx="2" stroke="currentColor"/>
+                  <path d="M16 3v4M8 3v4M3 9h18" stroke="currentColor"/>
+                </svg>
+                Sep 2019 – Jun 2023
+              </li>
+              <li>
+                <!-- Location SVG -->
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 21c-4.5-5.5-7-8.5-7-12A7 7 0 0 1 19 9c0 3.5-2.5 6.5-7 12z" stroke="currentColor"/>
+                  <circle cx="12" cy="9" r="2.5" stroke="currentColor"/>
+                </svg>
+                Yorkshire, UK
+              </li>
+              <li>
+                <!-- Office/Full-time SVG -->
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <rect x="3" y="7" width="18" height="13" rx="2" stroke="currentColor"/>
+                  <path d="M9 7V5a3 3 0 0 1 6 0v2" stroke="currentColor"/>
+                </svg>
+                Student
+              </li>
+            </ul>
+          </div>
+          <div class="timeline-desc">
+            A*AA Alevels <br>
+            Duke of Edinburgh Silver and Bronze. <br>
+            Co-funder of Drone Club. <br>
+            Yorkshire Hockey League 1 goalkeeper.
+          </div>
+          <div class="timeline-tags">
+            <span>HeadBoy</span><span>DofE</span><span>Drone</span><span>Alevel</span>
+          </div>
+        </div>
+      </div>
+      <!-- Timeline Item 2 -->
+      <div class="timeline-item right">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <div class="timeline-title">
+            Student Engineer
+          </div>
+          <div class="timeline-subtitle">
+            <strong>University of Southampton</strong>
+            <ul class="timeline-meta-list">
+              <li>
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <rect x="3" y="5" width="18" height="16" rx="2" stroke="currentColor"/>
+                  <path d="M16 3v4M8 3v4M3 9h18" stroke="currentColor"/>
+                </svg>
+                Sep 2023 – Present
+              </li>
+              <li>
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 21c-4.5-5.5-7-8.5-7-12A7 7 0 0 1 19 9c0 3.5-2.5 6.5-7 12z" stroke="currentColor"/>
+                  <circle cx="12" cy="9" r="2.5" stroke="currentColor"/>
+                </svg>
+                Southampton, UK
+              </li>
+              <li>
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <rect x="3" y="7" width="18" height="13" rx="2" stroke="currentColor"/>
+                  <path d="M9 7V5a3 3 0 0 1 6 0v2" stroke="currentColor"/>
+                </svg>
+                Mechanical Engineering
+              </li>
+            </ul>
+          </div>
+          <div class="timeline-desc">
+            1st Year: 76 <br>
+            2nd Year: 65 <br>
+            Currently working on LH2 level metre. <br>
+            Human factor in Engineering as optional module.
+          </div>
+          <div class="timeline-tags">
+            <span>Mechanical</span><span>LH2</span><span>Python</span><span>Arduino</span>
+          </div>
+        </div>
+      </div>
+      <!-- Timeline Item 3 -->
+      <div class="timeline-item left">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <div class="timeline-title">
+            Content Creator
+          </div>
+          <div class="timeline-subtitle">
+            <strong>chanwork.com</strong>
+            <ul class="timeline-meta-list">
+              <li>
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <rect x="3" y="5" width="18" height="16" rx="2" stroke="currentColor"/>
+                  <path d="M16 3v4M8 3v4M3 9h18" stroke="currentColor"/>
+                </svg>
+                Mar 2025 – Present
+              </li>
+              <li>
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 21c-4.5-5.5-7-8.5-7-12A7 7 0 0 1 19 9c0 3.5-2.5 6.5-7 12z" stroke="currentColor"/>
+                  <circle cx="12" cy="9" r="2.5" stroke="currentColor"/>
+                </svg>
+                Online
+              </li>
+              <li>
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <rect x="3" y="7" width="18" height="13" rx="2" stroke="currentColor"/>
+                  <path d="M9 7V5a3 3 0 0 1 6 0v2" stroke="currentColor"/>
+                </svg>
+                Web Developer
+              </li>
+            </ul>
+          </div>
+          <div class="timeline-desc">
+            Create a website that include portfolio and blogs. <br>
+            Setting up domain and hosting on Github Page.
+          </div>
+          <div class="timeline-tags">
+            <span>Web Developer</span><span>Github</span><span>Creator</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <footer>
     <div class="footer-content">
       <div class="footer-main">
