@@ -2,25 +2,250 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>404 Not Found</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="bc_icon.ico">
+  <title>404 Not Found | Brian Chan</title>
   <style>
-    body { 
-      font-family: 'Segoe UI', Arial, sans-serif; 
-      background: #f7f5ee; /* <-- Changed here */
-      color: #444; 
-      text-align: center; 
-      padding: 7vh 2vw 0 2vw; 
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
     }
-    h1 { font-size: 3rem; color: #0a0a0a; margin-bottom: 1rem;}
-    p { font-size: 1.4rem; margin-bottom: 2rem;}
-    a { color: #0074d9; text-decoration: none; font-weight: bold;}
-    a:hover { text-decoration: underline; }
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: var(--primary-bg);
+      color: var(--accent);
+      transition: background 0.2s, color 0.2s;
+    }
+    :root {
+      --primary-bg: #f7f5ee;
+      --accent: #333;
+      --light: #fff;
+      --border: #e0e0e0;
+      --fixed-header-height: 70px;
+    }
+    header {
+      background: var(--light);
+      border-bottom: 1px solid var(--border);
+      padding: 0.6rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      height: var(--fixed-header-height);
+      box-sizing: border-box;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+    }
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-left: 2rem;
+      letter-spacing: 1px;
+      color: var(--accent);
+      text-decoration: none;
+      cursor: pointer;
+      transition: color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .logo-img {
+      width: 2.1rem;
+      height: 2.1rem;
+      object-fit: contain;
+      margin-right: 0.4rem;
+      border: none;
+      display: inline-block;
+      vertical-align: middle;
+      background: none;
+      box-shadow: none;
+      transition: none;
+    }
+    nav {
+      margin-right: 2rem;
+    }
+    nav a {
+      color: var(--accent);
+      text-decoration: none;
+      margin: 0 0.75rem;
+      font-size: 1.1rem;
+      font-weight: 500;
+      transition:
+        color 0.2s,
+        transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      display: inline-block;
+    }
+    nav a:hover,
+    nav a.active {
+      color: #0074d9;
+      transform: scale(1.18);
+    }
+    .container-404 {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: calc(var(--fixed-header-height) + 4rem) 1rem 0 1rem;
+      flex: 1 0 auto;
+      box-sizing: border-box;
+      min-height: 60vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .error-num {
+      font-size: 7rem;
+      font-weight: 900;
+      color: #4f46e5;
+      margin-bottom: 1.2rem;
+      letter-spacing: -5px;
+      line-height: 1;
+    }
+    .error-msg {
+      font-size: 2.3rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 1.1rem;
+      letter-spacing: -1px;
+    }
+    .error-desc {
+      font-size: 1.2rem;
+      color: #444;
+      margin-bottom: 2.5rem;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .back-home-btn {
+      background: #4f46e5;
+      color: #fff;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 0.7em;
+      padding: 0.7em 2.2em;
+      cursor: pointer;
+      box-shadow: 0 2px 16px 0 rgba(80,80,130,0.14);
+      transition: background 0.2s, transform 0.1s;
+      text-decoration: none;
+      margin-top: 1rem;
+      display: inline-block;
+    }
+    .back-home-btn:hover {
+      background: #3830b8;
+      transform: scale(1.04);
+    }
+    @media (max-width: 600px) {
+      .error-num {
+        font-size: 3.2rem;
+      }
+      .error-msg {
+        font-size: 1.2rem;
+      }
+      .container-404 {
+        padding-top: calc(var(--fixed-header-height) + 1.2rem);
+      }
+    }
+    footer {
+      text-align: center;
+      padding: 2.5rem 0 2rem 0;
+      color: #888;
+      font-size: 1.03rem;
+      background: var(--light);
+      border-top: 1px solid var(--border);
+      margin-top: 3rem;
+      transition: background 0.2s, color 0.2s;
+      flex-shrink: 0;
+    }
+    .footer-content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+    .footer-main {
+      font-size: 1.08rem;
+      color: #888;
+      margin-bottom: 0.7rem;
+    }
+    .footer-links {
+      margin: 0.2rem 0 1.3rem 0;
+      font-size: 1.06rem;
+    }
+    .footer-links a {
+      color: #0074d9;
+      text-decoration: none;
+      margin: 0 0.1rem;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover {
+      color: #005fa3;
+      text-decoration: underline;
+    }
+    .footer-note {
+      font-size: 0.98rem;
+      color: #aaa;
+      margin-top: 0.6rem;
+      line-height: 1.5;
+    }
+    @media (max-width: 700px) {
+      .footer-content {
+        font-size: 1rem;
+      }
+      .footer-note {
+        font-size: 0.93rem;
+      }
+      .footer-links {
+        font-size: 1rem;
+      }
+    }
   </style>
 </head>
 <body>
-  <h1>404</h1>
-  <p>Sorry, the page you are looking for does not exist.</p>
-  <p><a href="/">Back to Home</a></p>
+  <header>
+    <a href="/" class="logo">
+      <img src="bc_logo.png" alt="Brian Chan Logo" class="logo-img">
+      Brian Chan
+    </a>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/projects">Projects</a>
+      <a href="/blog">Blog</a>
+      <a href="/about">About</a>
+      <a href="/resource">Resource</a>
+      <a href="/contact">Contact</a>
+    </nav>
+  </header>
+  <main class="container-404">
+    <div class="error-num">404</div>
+    <div class="error-msg">Page Not Found</div>
+    <div class="error-desc">
+      Sorry, my bog Coco may have chewed up the power cord AGAGIN.
+    </div>
+    <a href="/" class="back-home-btn">Back to Home</a>
+  </main>
+  <footer>
+    <div class="footer-content">
+      <div class="footer-main">
+        &copy; 2025 Brian Chan. All rights reserved.
+      </div>
+      <div class="footer-links">
+        <a href="#">Download Resume</a> |
+        <a href="mailto:your@email.com">Contact</a> |
+        <a href="https://choosealicense.com/licenses/mit/" target="_blank" rel="noopener">MIT License</a>
+      </div>
+      <div class="footer-note">
+        Crafted with passion and a touch of love.<br>
+        Open source and open heart, please use it responsibly.
+      </div>
+    </div>
+  </footer>
 </body>
 </html>
