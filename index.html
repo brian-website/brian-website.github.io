@@ -120,7 +120,6 @@
       transition: all var(--transition);
       display: block;
     }
-    /* Hamburger open state animation */
     .hamburger.open .bar1 {
       transform: rotate(45deg) translate(6px, 7px);
     }
@@ -131,7 +130,6 @@
       transform: rotate(-45deg) translate(7px, -7px);
     }
 
-    /* Slide-out mobile nav */
     .mobile-nav {
       display: none;
       position: fixed;
@@ -190,7 +188,6 @@
     .mobile-nav-close:hover {
       color: #0074d9;
     }
-    /* Overlay for mobile nav */
     .mobile-nav-overlay {
       display: none;
       position: fixed;
@@ -204,7 +201,6 @@
       display: block;
     }
 
-    /* Responsive styles */
     @media (max-width: 900px) {
       nav {
         display: none;
@@ -240,7 +236,6 @@
       flex: 1 0 auto;
       box-sizing: border-box;
     }
-    /* --- HERO SECTION --- */
     .hero-flex {
       display: flex;
       align-items: flex-start;
@@ -284,7 +279,6 @@
       color: var(--accent);
       letter-spacing: 0.01em;
     }
-    /* --- STATS --- */
     .hero-stats {
       display: flex;
       gap: 2.5rem;
@@ -319,7 +313,6 @@
       margin-top: 0.35rem;
       letter-spacing: 0.02em;
     }
-    /* --- HERO IMAGE PLACEHOLDER --- */
     .hero-image {
       flex: 0 0 340px;
       width: 340px;
@@ -344,7 +337,6 @@
       display: block;
       background: #eee;
     }
-    /* Responsive adjustments */
     @media (max-width: 1100px) {
       .container { max-width: 100%; }
       .hero-flex { gap: 1.2rem; }
@@ -362,7 +354,6 @@
       .hero-image { width: 140px; height: 140px; border-radius: 0.8rem; }
       .hero-stats { gap: 1.2rem; }
     }
-    /* --- TIMELINE SECTION --- */
     .timeline-section {
       background: #f3f6fb;
       padding: 4rem 0 4rem 0;
@@ -449,11 +440,6 @@
       font-size: 1rem;
       color: #555;
       margin-bottom: 0.3rem;
-    }
-    .timeline-meta {
-      font-size: 0.95rem;
-      color: #888;
-      font-style: italic;
     }
     .timeline-meta-list {
       margin: 0.6em 0 0.5em 0;
@@ -714,12 +700,183 @@
     </section>
   </div>
 
-  <!-- Timeline Section: Place after hero, before footer -->
   <section class="timeline-section">
     <h2 class="timeline-heading">My Journey <span aria-label="map" role="img">🗺️</span></h2>
     <div class="timeline">
-      <!-- ... your timeline items ... -->
-      <!-- (Omitted for brevity, keep all your timeline items here) -->
+      <!-- Timeline Item 1 -->
+      <div class="timeline-item left">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <div class="timeline-title">Head Boy</div>
+          <div class="timeline-subtitle">
+            <strong>Ackworth School</strong>
+            <ul class="timeline-meta-list">
+              <li>
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <rect x="3" y="5" width="18" height="16" rx="2" stroke="currentColor"/>
+                  <path d="M16 3v4M8 3v4M3 9h18" stroke="currentColor"/>
+                </svg>
+                Sep 2019 – Jun 2023
+              </li>
+              <li>
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 21c-4.5-5.5-7-8.5-7-12A7 7 0 0 1 19 9c0 3.5-2.5 6.5-7 12z" stroke="currentColor"/>
+                  <circle cx="12" cy="9" r="2.5" stroke="currentColor"/>
+                </svg>
+                Yorkshire, UK
+              </li>
+              <li>
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <rect x="3" y="7" width="18" height="13" rx="2" stroke="currentColor"/>
+                  <path d="M9 7V5a3 3 0 0 1 6 0v2" stroke="currentColor"/>
+                </svg>
+                Student
+              </li>
+            </ul>
+          </div>
+          <div class="timeline-desc">
+            Alevels A*AA <br>
+            Duke of Edinburgh Silver and Bronze. <br>
+            Co-funder of Drone Club. <br>
+          </div>
+          <div class="timeline-tags">
+            <span>HeadBoy</span><span>DofE</span><span>Drone</span><span>Alevel</span>
+          </div>
+          <div class="timeline-card-img">
+            <img src="/pictures/head_boy_mac.png" alt="Head Boy Classroom" />
+          </div>
+        </div>
+      </div>
+      <!-- Timeline Item 2 -->
+      <div class="timeline-item right">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <div class="timeline-title">Student Engineer</div>
+          <div class="timeline-subtitle">
+            <strong>University of Southampton</strong>
+            <ul class="timeline-meta-list">
+              <li>
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <rect x="3" y="5" width="18" height="16" rx="2" stroke="currentColor"/>
+                  <path d="M16 3v4M8 3v4M3 9h18" stroke="currentColor"/>
+                </svg>
+                Sep 2023 – Present
+              </li>
+              <li>
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 21c-4.5-5.5-7-8.5-7-12A7 7 0 0 1 19 9c0 3.5-2.5 6.5-7 12z" stroke="currentColor"/>
+                  <circle cx="12" cy="9" r="2.5" stroke="currentColor"/>
+                </svg>
+                Southampton, UK
+              </li>
+              <li>
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <rect x="3" y="7" width="18" height="13" rx="2" stroke="currentColor"/>
+                  <path d="M9 7V5a3 3 0 0 1 6 0v2" stroke="currentColor"/>
+                </svg>
+                Mechanical Engineering
+              </li>
+            </ul>
+          </div>
+          <div class="timeline-desc">
+            Research on LH2 level metre. <br>
+            Human factor in Engineering.
+          </div>
+          <div class="timeline-tags">
+            <span>Mechanical</span><span>LH2</span><span>Python</span><span>Arduino</span>
+          </div>
+          <div class="timeline-card-img">
+            <img src="/pictures/student_engineer.HEIC" alt="Student Engineer Project" />
+          </div>
+        </div>
+      </div>
+      <!-- Timeline Item 3 -->
+      <div class="timeline-item left">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <div class="timeline-title">Trainee Skipper</div>
+          <div class="timeline-subtitle">
+            <strong>Discovery Sailing Project</strong>
+            <ul class="timeline-meta-list">
+              <li>
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <rect x="3" y="5" width="18" height="16" rx="2" stroke="currentColor"/>
+                  <path d="M16 3v4M8 3v4M3 9h18" stroke="currentColor"/>
+                </svg>
+                Apr 2024 – Present
+              </li>
+              <li>
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 21c-4.5-5.5-7-8.5-7-12A7 7 0 0 1 19 9c0 3.5-2.5 6.5-7 12z" stroke="currentColor"/>
+                  <circle cx="12" cy="9" r="2.5" stroke="currentColor"/>
+                </svg>
+                The Solent, UK
+              </li>
+              <li>
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <rect x="3" y="7" width="18" height="13" rx="2" stroke="currentColor"/>
+                  <path d="M9 7V5a3 3 0 0 1 6 0v2" stroke="currentColor"/>
+                </svg>
+                Sailing
+              </li>
+            </ul>
+          </div>
+          <div class="timeline-desc">
+            Working toward RYA Day Skipper. <br>
+            Sailed over 300+ nautical miles.
+          </div>
+          <div class="timeline-tags">
+            <span>Sailing</span><span>RHKYC</span><span>Skipper</span>
+          </div>
+          <div class="timeline-card-img">
+            <img src="/pictures/trainee_skipper_bc.png" alt="Sailing Skipper on Helm" />
+          </div>
+        </div>
+      </div>
+      <!-- Timeline Item 4 -->
+      <div class="timeline-item right">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <div class="timeline-title">Website Director</div>
+          <div class="timeline-subtitle">
+            <strong>chanworks.com</strong>
+            <ul class="timeline-meta-list">
+              <li>
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <rect x="3" y="5" width="18" height="16" rx="2" stroke="currentColor"/>
+                  <path d="M16 3v4M8 3v4M3 9h18" stroke="currentColor"/>
+                </svg>
+                Mar 2025 – Present
+              </li>
+              <li>
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 21c-4.5-5.5-7-8.5-7-12A7 7 0 0 1 19 9c0 3.5-2.5 6.5-7 12z" stroke="currentColor"/>
+                  <circle cx="12" cy="9" r="2.5" stroke="currentColor"/>
+                </svg>
+                Online
+              </li>
+              <li>
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <rect x="3" y="7" width="18" height="13" rx="2" stroke="currentColor"/>
+                  <path d="M9 7V5a3 3 0 0 1 6 0v2" stroke="currentColor"/>
+                </svg>
+                Web Developer
+              </li>
+            </ul>
+          </div>
+          <div class="timeline-desc">
+            Continuous enhancement of website. <br>
+            Domain management and <br>
+            hosting administration.
+          </div>
+          <div class="timeline-tags">
+            <span>Web Developer</span><span>Github</span><span>Founder</span>
+          </div>
+          <div class="timeline-card-img">
+            <img src="your-image.jpg" alt="Content Creator" />
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -738,7 +895,7 @@
         Open source and open heart, please use it responsibly.
       </div>
       <div class="footer-github">
-        <a href="https://github.com/brian-website/brian-website.github.io" target="_blank" rel="noopener" aria-label="GitHub Repository">
+        <a href="https://github.com/your-username/your-repo" target="_blank" rel="noopener" aria-label="GitHub Repository">
           <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
             <path d="M12 0.297c-6.63 0-12 5.373-12 12 
               0 5.303 3.438 9.8 8.205 11.385
