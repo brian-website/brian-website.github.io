@@ -1,11 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <link rel="icon" href="bc_icon.ico">
   <title>Brian Chan</title>
   <style>
+    :root {
+      --primary-bg: #f7f5ee;
+      --accent: #333;
+      --light: #fff;
+      --border: #e0e0e0;
+      --fixed-header-height: 70px;
+      --nav-z: 2000;
+      --hamburger-size: 2.3rem;
+      --transition: 0.23s cubic-bezier(.4,0,.2,1);
+    }
     html, body {
       height: 100%;
       margin: 0;
@@ -20,13 +30,6 @@
       color: var(--accent);
       transition: background 0.2s, color 0.2s;
     }
-    :root {
-      --primary-bg: #f7f5ee;
-      --accent: #333;
-      --light: #fff;
-      --border: #e0e0e0;
-      --fixed-header-height: 70px;
-    }
     header {
       background: var(--light);
       border-bottom: 1px solid var(--border);
@@ -39,7 +42,7 @@
       top: 0;
       left: 0;
       width: 100%;
-      z-index: 1000;
+      z-index: var(--nav-z);
       height: var(--fixed-header-height);
       box-sizing: border-box;
       transition: background 0.2s, color 0.2s, border-color 0.2s;
@@ -56,6 +59,7 @@
       display: flex;
       align-items: center;
       gap: 0.5rem;
+      z-index: calc(var(--nav-z) + 1);
     }
     .logo-img {
       width: 2.1rem;
@@ -71,6 +75,9 @@
     }
     nav {
       margin-right: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
     }
     nav a {
       color: var(--accent);
@@ -88,6 +95,145 @@
       color: #0074d9;
       transform: scale(1.18);
     }
+
+    /* Hamburger menu button */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: var(--hamburger-size);
+      height: var(--hamburger-size);
+      background: none;
+      border: none;
+      cursor: pointer;
+      z-index: calc(var(--nav-z) + 2);
+      margin-right: 1.4rem;
+      margin-left: auto;
+    }
+    .hamburger-bar {
+      width: 28px;
+      height: 3.5px;
+      background: var(--accent);
+      border-radius: 3px;
+      margin: 3.5px 0;
+      transition: all var(--transition);
+      display: block;
+    }
+    /* Hamburger open state animation */
+    .hamburger.open .bar1 {
+      transform: rotate(45deg) translate(6px, 7px);
+    }
+    .hamburger.open .bar2 {
+      opacity: 0;
+    }
+    .hamburger.open .bar3 {
+      transform: rotate(-45deg) translate(7px, -7px);
+    }
+
+    /* Slide-out mobile nav */
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 80vw;
+      max-width: 340px;
+      height: 100vh;
+      background: var(--light);
+      box-shadow: -4px 0 24px 0 rgba(60,60,90,0.08);
+      z-index: calc(var(--nav-z) + 10);
+      transform: translateX(100%);
+      transition: transform var(--transition);
+      padding-top: var(--fixed-header-height);
+      padding-left: 2rem;
+      padding-right: 2rem;
+      box-sizing: border-box;
+      flex-direction: column;
+      align-items: start;
+    }
+    .mobile-nav.open {
+      display: flex;
+      transform: translateX(0);
+    }
+    .mobile-nav a {
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin: 1.1rem 0;
+      transition: color 0.18s;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 0.3em;
+      width: 100%;
+    }
+    .mobile-nav a:last-child {
+      border-bottom: none;
+    }
+    .mobile-nav a:hover,
+    .mobile-nav a.active {
+      color: #0074d9;
+      background: #f0f3ff;
+    }
+    .mobile-nav-close {
+      position: absolute;
+      top: 1.2rem;
+      right: 1.4rem;
+      font-size: 2.2rem;
+      color: #aaa;
+      background: none;
+      border: none;
+      cursor: pointer;
+      z-index: calc(var(--nav-z) + 12);
+      transition: color 0.2s;
+    }
+    .mobile-nav-close:hover {
+      color: #0074d9;
+    }
+    /* Overlay for mobile nav */
+    .mobile-nav-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(50,50,70,0.16);
+      z-index: calc(var(--nav-z) + 5);
+      transition: opacity 0.18s;
+    }
+    .mobile-nav-overlay.open {
+      display: block;
+    }
+
+    /* Responsive styles */
+    @media (max-width: 900px) {
+      nav {
+        display: none;
+      }
+      .hamburger {
+        display: flex;
+      }
+      .mobile-nav {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        /* hidden by default via transform */
+      }
+    }
+    @media (min-width: 901px) {
+      .mobile-nav,
+      .mobile-nav-overlay,
+      .mobile-nav.open,
+      .mobile-nav-overlay.open {
+        display: none !important;
+      }
+      .hamburger {
+        display: none !important;
+      }
+      nav {
+        display: flex !important;
+      }
+    }
+
     .container {
       max-width: 1200px;
       margin: 2.5rem auto 0 auto;
@@ -480,7 +626,25 @@
       <a href="/resource">Resource</a>
       <a href="/contact">Contact</a>
     </nav>
+    <!-- Hamburger for mobile -->
+    <button class="hamburger" aria-label="Open menu" aria-expanded="false">
+      <span class="hamburger-bar bar1"></span>
+      <span class="hamburger-bar bar2"></span>
+      <span class="hamburger-bar bar3"></span>
+    </button>
+    <!-- Slide-out mobile nav -->
+    <div class="mobile-nav" aria-hidden="true">
+      <button class="mobile-nav-close" aria-label="Close menu">&times;</button>
+      <a href="/">Home</a>
+      <a href="/projects">Projects</a>
+      <a href="/blog">Blog</a>
+      <a href="/about">About</a>
+      <a href="/resource">Resource</a>
+      <a href="/contact">Contact</a>
+    </div>
+    <div class="mobile-nav-overlay"></div>
   </header>
+
   <div class="container">
     <section class="hero-flex">
       <div class="hero-content">
@@ -719,5 +883,38 @@
       </div>
     </div>
   </footer>
+
+  <script>
+    // Hamburger & mobile nav logic
+    const hamburger = document.querySelector('.hamburger');
+    const mobileNav = document.querySelector('.mobile-nav');
+    const mobileClose = document.querySelector('.mobile-nav-close');
+    const overlay = document.querySelector('.mobile-nav-overlay');
+
+    function openMobileNav() {
+      hamburger.classList.add('open');
+      mobileNav.classList.add('open');
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      hamburger.setAttribute('aria-expanded', 'true');
+      mobileNav.setAttribute('aria-hidden', 'false');
+    }
+    function closeMobileNav() {
+      hamburger.classList.remove('open');
+      mobileNav.classList.remove('open');
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+      hamburger.setAttribute('aria-expanded', 'false');
+      mobileNav.setAttribute('aria-hidden', 'true');
+    }
+    hamburger.addEventListener('click', openMobileNav);
+    mobileClose.addEventListener('click', closeMobileNav);
+    overlay.addEventListener('click', closeMobileNav);
+
+    // Optional: close menu if window resized to desktop
+    window.addEventListener('resize', function() {
+      if (window.innerWidth > 900) closeMobileNav();
+    });
+  </script>
 </body>
 </html>
