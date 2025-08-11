@@ -225,14 +225,16 @@
     }
     .hero-flex {
       display: flex;
+      flex-direction: column;
       align-items: flex-start;
-      justify-content: space-between;
-      gap: 3rem;
-      flex-wrap: wrap;
-      min-height: calc(100vh - var(--fixed-header-height) - 40px);
+      justify-content: center;
+      position: relative;           /* <-- Key */
+      padding-top: 4rem;            /* Space from top */
+      padding-right: 400px;
+      min-height: calc(70vh - var(--fixed-header-height));
     }
     .hero-content {
-      min-height: 180px;
+      min-height: 2rem;
     }
     .hero-title {
       font-size: 3rem;
@@ -299,18 +301,17 @@
       letter-spacing: 0.02em;
     }
     .hero-image {
-      flex: 0 0 340px;
+      position: absolute; 
+      top: 0;
+      right: 0;
       width: 340px;
       height: 340px;
-      margin-top: 0.5rem;
       background: #f7f7f7;
       border-radius: 2.2rem;
       box-shadow: 0 0 32px 0 #fff8f3;
       display: flex;
       align-items: center;
       justify-content: center;
-      min-width: 250px;
-      min-height: 250px;
       overflow: hidden;
     }
     .hero-image img {
@@ -323,10 +324,10 @@
       background: #eee;
     }
     .hero-typing {
-      font-size: 1.45rem;
+      font-size: 1.2rem;
       color: #292626;
       min-height: 2.6rem;
-      font-weight: 600;
+      font-weight: 1000;
       margin-bottom: 1rem;
       margin-top: 0.1rem;
       letter-spacing: 0.01em;
@@ -355,8 +356,18 @@
       .hero-image { width: 240px; height: 240px; border-radius: 1.3rem; }
     }
     @media (max-width: 900px) {
-      .hero-flex { flex-direction: column; align-items: flex-start; }
-      .hero-image { align-self: center; margin-top: 1.5rem; }
+      .hero-flex {
+      padding-right: 0;
+      align-items: center;
+      padding-top: 2rem;
+      min-height: unset;
+      }
+      .hero-image { 
+      position: static;
+      margin-top: 1.5rem;
+      width: 200px;
+      height: 200px;
+      }
     }
     @media (max-width: 600px) {
       .hero-title { font-size: 1.4rem; }
@@ -365,23 +376,34 @@
       .hero-image { width: 140px; height: 140px; border-radius: 0.8rem; }
       .hero-stats { gap: 1.2rem; }
     }
+    .section-divider {
+      border: none;
+      border-top: 2.5px solid #111;
+      margin: 5rem auto 0.5rem auto; /* Adjust spacing above/below the line */
+      width: 170%;       /* Controls the length of the line */
+      position: relative; 
+      left: 50%;             
+      transform: translateX(-50%);              
+      border-radius: 2px;
+    }
     .timeline-section {
-      background: #180e11;
+      background: #f7f5ee;
       width: 100vw;
       position: relative;
       left: 50%;
-      right: 50%;
       margin-left: -50vw;
       margin-right: -50vw;
       padding: 4rem 0;
     }
     .timeline-heading {
-      text-align: center;
-      font-size: 2rem;
-      font-weight: 700;
-      color: #4f46e5;
-      margin-bottom: 3rem;
+      text-align: left;
+      padding-left: 5rem; /* Change this to control the distance */
+      font-size: 3.5rem;
+      font-weight: 200;
+      color: #000000;
+      margin-bottom: 2rem;
       letter-spacing: 0.01em;
+      font-family: Georgia, serif; 
     }
     .timeline {
       position: relative;
@@ -745,8 +767,9 @@
         <img src="bc_logo.png" alt="Brian Chan" />
       </div>
     </section>
+    <hr class="section-divider">
     <section class="timeline-section">
-      <h2 class="timeline-heading">My Journey </span></h2>
+      <h2 class="timeline-heading">My Journey</h2>
       <div class="timeline">
         <!-- Timeline Item 1 -->
         <div class="timeline-item left">
@@ -780,7 +803,7 @@
               </ul>
             </div>
             <div class="timeline-desc">
-              Alevels A*AA <br>
+              Alevels A*A*A <br>
               Duke of Edinburgh Silver and Bronze. <br>
               Co-funder of Drone Club. <br>
             </div>
@@ -910,9 +933,8 @@
               </ul>
             </div>
             <div class="timeline-desc">
-              Continuous enhancement of website. <br>
-              Domain management and <br>
-              hosting administration.
+              Domain management & <br>
+              Hosting administration.
             </div>
             <div class="timeline-tags">
               <span>Web Developer</span><span>Github</span><span>Founder</span>
@@ -929,15 +951,15 @@
       <h2>Project Showcase</h2>
       <div class="bento-grid">
         <div class="bento-box">
-          <img src="pictures/bento1.jpg" alt="Bento 1">
+          <img src="pictures/bento1.jpg" alt="chanworks.com">
           <div class="bento-overlay">
-            <div class="bento-text">Project 1 Description</div>
+            <div class="bento-text">chanworks.com</div>
           </div>
         </div>
         <div class="bento-box">
-          <img src="pictures/bento2.jpg" alt="Bento 2">
+          <img src="pictures/bento2.jpg" alt="Responsive System Group Project">
           <div class="bento-overlay">
-            <div class="bento-text">Project 2 Description</div>
+            <div class="bento-text">Responsive System Group Project</div>
           </div>
         </div>
         <div class="bento-box">
