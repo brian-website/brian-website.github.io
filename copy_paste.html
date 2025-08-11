@@ -219,7 +219,7 @@
     .container {
       max-width: 1200px;
       margin: 2.5rem auto 0 auto;
-      padding: calc(var(--fixed-header-height) + 2rem) 1rem 0 1rem;
+      padding: calc(var(--fixed-header-height) + 1.2rem) 1rem 0 1rem;
       flex: 1 0 auto;
       box-sizing: border-box;
     }
@@ -232,9 +232,7 @@
       min-height: calc(100vh - var(--fixed-header-height) - 40px);
     }
     .hero-content {
-      flex: 1 1 430px;
-      min-width: 310px;
-      max-width: 700px;
+      min-height: 180px;
     }
     .hero-title {
       font-size: 3rem;
@@ -324,6 +322,32 @@
       display: block;
       background: #eee;
     }
+    .hero-typing {
+      font-size: 1.45rem;
+      color: #292626;
+      min-height: 2.6rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      margin-top: 0.1rem;
+      letter-spacing: 0.01em;
+      display: flex;
+      align-items: center;
+      min-height: 2.1em;
+    }
+    .typed-cursor {
+      display: inline-block;
+      width: .7ch;
+      color: #2f3370;
+      animation: blink-cursor 1s steps(1) infinite;
+      font-size: 1.32em;
+      font-weight: 500;
+      position: relative;
+      top: 0.04em;
+    }
+    @keyframes blink-cursor {
+      0%, 49% { opacity: 1; }
+      50%, 100% { opacity: 0; }
+    }
     @media (max-width: 1100px) {
       .container { max-width: 100%; }
       .hero-flex { gap: 1.2rem; }
@@ -342,14 +366,14 @@
       .hero-stats { gap: 1.2rem; }
     }
     .timeline-section {
-        background: #180e11;
-        width: 100vw;
-        position: relative;
-        left: 50%;
-        right: 50%;
-        margin-left: -50vw;
-        margin-right: -50vw;
-        padding: 4rem 0;
+      background: #180e11;
+      width: 100vw;
+      position: relative;
+      left: 50%;
+      right: 50%;
+      margin-left: -50vw;
+      margin-right: -50vw;
+      padding: 4rem 0;
     }
     .timeline-heading {
       text-align: center;
@@ -712,25 +736,9 @@
           Hey! I'm Brian
           <span class="wave">👋</span>
         </div>
-        <div class="hero-desc">
-          welcome to my portfolio.
-        </div>
-        <div class="hero-bold">
-          Build, Learn, Grow – let's make something great together.
-        </div>
-        <div class="hero-stats">
-          <div class="stat-block">
-            <div class="stat-num">5+</div>
-            <div class="stat-label">Projects</div>
-          </div>
-          <div class="stat-block">
-            <div class="stat-num">10+ years</div>
-            <div class="stat-label">Scout</div>
-          </div>
-          <div class="stat-block">
-            <div class="stat-num" style="font-size:2.2rem;">&#8734;</div>
-            <div class="stat-label">Potential</div>
-          </div>
+        <div class="hero-typing">
+          <span id="typed-text"></span>
+          <span class="typed-cursor">|</span>
         </div>
       </div>
       <div class="hero-image">
@@ -1040,6 +1048,27 @@
     overlay.addEventListener('click', closeMobileNav);
     window.addEventListener('resize', function() {
       if (window.innerWidth > 900) closeMobileNav();
+    });
+    // Typing effect for hero-typing
+      document.addEventListener('DOMContentLoaded', function () {
+      const typingText = "Learning as a Student Engineer\nBuilding as a Future Innovator";
+      const typedTextElem = document.getElementById('typed-text');
+      let idx = 0;
+      function renderTypedText(str) {
+        // Replace \n with <br>
+        return str.replace(/\n/g, "<br>");
+      }
+      typedTextElem.innerHTML = "";
+      setTimeout(function() {
+        function typeChar() {
+          if (idx <= typingText.length) {
+            typedTextElem.innerHTML = renderTypedText(typingText.slice(0, idx));
+            idx++;
+            setTimeout(typeChar, 64); // typing speed (ms)
+          }
+        }
+        typeChar();
+      }, 750); // initial delay (ms)
     });
   </script>
 </body>
