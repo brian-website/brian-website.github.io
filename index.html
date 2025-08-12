@@ -1088,7 +1088,7 @@
           if (idx <= typingText.length) {
             typedTextElem.innerHTML = renderTypedText(typingText.slice(0, idx)) + '<span class="typed-cursor">|</span>';
             idx++;
-            setTimeout(typeChar, 64); // typing speed (ms)
+            setTimeout(typeChar, 45); // typing speed (ms)
           } else {
             // After typing, leave the cursor at the end
             typedTextElem.innerHTML = 
