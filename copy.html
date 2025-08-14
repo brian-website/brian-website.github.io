@@ -379,14 +379,14 @@
       border: none;
       border-top: 2.5px solid #111;
       margin: 5rem auto 0.5rem auto;
-      width: 100%;
+      width: 150%;
       position: relative; 
       left: 50%;             
       transform: translateX(-50%);              
       border-radius: 2px;
     }
     .timeline-section {
-      background: #f7f5ee;
+      background: var(--primary-bg);
       width: 100vw;
       position: relative;
       left: 50%;
@@ -559,12 +559,13 @@
 
     /* About Me Collage Section */
     .about-collage-section {
-      padding: 3.5rem 0 3.5rem 0;
-      background: #f7f5ee;
-      min-height: 600px;
-      background-image: radial-gradient(#d5dbe2 0.65px, transparent 0.65px), radial-gradient(#d5dbe2 0.65px, #f7f5ee 0.65px);
-      background-size: 18px 18px;
-      background-position: 0 0, 9px 9px;
+      background: var(--primary-bg);
+      width: 100vw;
+      position: relative;
+      left: 50%;
+      margin-left: -50vw;
+      margin-right: -50vw;
+      padding: 4rem 0;
     }
     .about-collage-wrap {
       display: flex;
@@ -1093,6 +1094,7 @@
 
     <!-- About Me Collage Section -->
     <section class="about-collage-section">
+      <h2 class="timeline-heading">About Me</h2>
       <div class="about-collage-wrap">
         <div class="about-collage-images">
           <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=facearea&w=400&q=80" alt="Background 2" class="about-collage-img-bg2">

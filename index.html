@@ -5,11 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <link rel="icon" href="bc_icon.ico">
   <title>Brian Chan</title>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://code.jquery.com https://unpkg.com https://d3js.org https://threejs.org https://cdn.plot.ly https://stackpath.bootstrapcdn.com https://maps.googleapis.com https://cdn.tailwindcss.com https://ajax.googleapis.com https://kit.fontawesome.com https://cdn.datatables.net https://maxcdn.bootstrapcdn.com https://code.highcharts.com https://tako-static-assets-production.s3.amazonaws.com https://www.youtube.com https://fonts.googleapis.com https://fonts.gstatic.com https://pfst.cf2.poecdn.net https://puc.poecdn.net https://i.imgur.com https://wikimedia.org https://*.icons8.com https://*.giphy.com https://picsum.photos https://images.unsplash.com; frame-src 'self' https://www.youtube.com https://trytako.com; child-src 'self'; manifest-src 'self'; worker-src 'self'; upgrade-insecure-requests; block-all-mixed-content;">
   <style>
     :root {
-      --primary-bg: #f7f5ee;
+      --primary-bg: #fcfbf3;
       --accent: #333;
-      --light: #fff;
+      --light: #ffffff;
       --border: #e0e0e0;
       --fixed-header-height: 70px;
       --nav-z: 2000;
@@ -228,8 +229,8 @@
       flex-direction: column;
       align-items: flex-start;
       justify-content: center;
-      position: relative;           /* <-- Key */
-      padding-top: 4rem;            /* Space from top */
+      position: relative;
+      padding-top: 4rem;
       padding-right: 400px;
       min-height: calc(70vh - var(--fixed-header-height));
     }
@@ -377,15 +378,15 @@
     .section-divider {
       border: none;
       border-top: 2.5px solid #111;
-      margin: 5rem auto 0.5rem auto; /* Adjust spacing above/below the line */
-      width: 100%;       /* Controls the length of the line */
+      margin: 5rem auto 0.5rem auto;
+      width: 150%;
       position: relative; 
       left: 50%;             
       transform: translateX(-50%);              
       border-radius: 2px;
     }
     .timeline-section {
-      background: #f7f5ee;
+      background: var(--primary-bg);
       width: 100vw;
       position: relative;
       left: 50%;
@@ -395,7 +396,7 @@
     }
     .timeline-heading {
       text-align: left;
-      padding-left: 5rem; /* Change this to control the distance */
+      padding-left: 5rem;
       font-size: 3.5rem;
       font-weight: 200;
       color: #000000;
@@ -554,6 +555,145 @@
       .timeline { padding: 0 0.2rem; }
       .timeline-content { padding: 1rem 0.9rem; font-size: 0.95rem; }
       .timeline-card-img { height: 160px; }
+    }
+
+    /* About Me Collage Section */
+    .about-collage-section {
+      background: var(--primary-bg);
+      width: 100vw;
+      position: relative;
+      left: 50%;
+      margin-left: -50vw;
+      margin-right: -50vw;
+      padding: 4rem 0;
+    }
+    .about-collage-wrap {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 4rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      flex-wrap: wrap;
+    }
+    .about-collage-images {
+      position: relative;
+      width: 370px;
+      height: 370px;
+      min-width: 250px;
+      min-height: 250px;
+      flex-shrink: 0;
+    }
+    .about-collage-img {
+      position: absolute;
+      width: 82%;
+      height: 82%;
+      left: 10%;
+      top: 10%;
+      object-fit: cover;
+      border-radius: 1.7rem;
+      box-shadow: 0 8px 32px 0 rgba(60,60,80,0.12);
+      border: 7px solid #e2e8f0;
+      background: #eee;
+      z-index: 3;
+      transition: box-shadow 0.18s;
+    }
+    .about-collage-img-bg {
+      position: absolute;
+      width: 84%;
+      height: 84%;
+      left: 7%;
+      top: 13%;
+      object-fit: cover;
+      border-radius: 1.7rem;
+      box-shadow: 0 8px 32px 0 rgba(60,60,80,0.09);
+      border: 6px solid #c9e4ff;
+      background: #fafaff;
+      z-index: 2;
+      transform: rotate(-7deg);
+    }
+    .about-collage-img-bg2 {
+      position: absolute;
+      width: 80%;
+      height: 80%;
+      left: 16%;
+      top: 5%;
+      object-fit: cover;
+      border-radius: 1.4rem;
+      box-shadow: 0 6px 22px 0 rgba(60,60,80,0.06);
+      border: 5px solid #f8f6df;
+      background: #fafaff;
+      z-index: 1;
+      transform: rotate(8deg);
+    }
+    .about-collage-content {
+      flex: 1 1 370px;
+      min-width: 300px;
+      max-width: 560px;
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+      margin-top: 0.5rem;
+    }
+    .about-collage-content p {
+      font-size: 1.14rem;
+      line-height: 1.7;
+      margin: 0 0 1.1rem 0;
+      color: #222;
+    }
+    .about-collage-content a {
+      color: #3570e2;
+      text-decoration: underline;
+      transition: color 0.14s;
+    }
+    .about-collage-content a:hover {
+      color: #0a2875;
+    }
+    .about-collage-btn {
+      margin-top: 1.5rem;
+      padding: 0.7em 2.1em;
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: #222;
+      background: #fff;
+      border: 2.5px solid #222;
+      border-radius: 2em;
+      box-shadow: 0 2px 10px 0 rgba(60,60,80,0.07);
+      cursor: pointer;
+      transition: background 0.17s, color 0.17s, border 0.17s;
+      outline: none;
+      display: inline-block;
+    }
+    .about-collage-btn:hover,
+    .about-collage-btn:focus {
+      background: #3570e2;
+      color: #fff;
+      border-color: #3570e2;
+    }
+    @media (max-width: 950px) {
+      .about-collage-wrap {
+        flex-direction: column;
+        gap: 2.2rem;
+        align-items: center;
+      }
+      .about-collage-content {
+        max-width: 98vw;
+      }
+    }
+    @media (max-width: 600px) {
+      .about-collage-images {
+        width: 95vw;
+        height: 220px;
+        min-width: 160px;
+        min-height: 160px;
+      }
+      .about-collage-content p {
+        font-size: 1rem;
+      }
+      .about-collage-btn {
+        font-size: 1rem;
+        padding: 0.6em 1.4em;
+      }
     }
 
     /* Bento Box Section */
@@ -770,10 +910,12 @@
       </div>
     </section>
     <hr class="section-divider">
+
+    <!-- Timeline Section -->
     <section class="timeline-section">
       <h2 class="timeline-heading">My Journey</h2>
       <div class="timeline">
-        <!-- Timeline Item 1 -->
+         <!-- Timeline Item 1 -->
         <div class="timeline-item left">
           <div class="timeline-dot"></div>
           <div class="timeline-content">
@@ -948,6 +1090,36 @@
         </div>
       </div>
     </section>
+    <hr class="section-divider">
+
+    <!-- About Me Collage Section -->
+    <section class="about-collage-section">
+      <h2 class="timeline-heading">About Me</h2>
+      <div class="about-collage-wrap">
+        <div class="about-collage-images">
+          <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=facearea&w=400&q=80" alt="Background 2" class="about-collage-img-bg2">
+          <img src="https://images.unsplash.com/photo-1465101178521-c1a9136a3c6a?auto=format&fit=facearea&w=400&q=80" alt="Background 1" class="about-collage-img-bg">
+          <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=facearea&w=400&q=80" alt="Brian Chan" class="about-collage-img">
+        </div>
+        <div class="about-collage-content">
+          <p>
+            I'm <b>Brian Chan</b>, a passionate student engineer and aspiring innovator.
+          </p>
+          <p>
+            I grew up in Hong Kong, and my journey has taken me from leading at Ackworth School, to researching hydrogen sensors at the University of Southampton, to sailing the Solent as a trainee skipper. I believe in curiosity, kindness, and the power of creation.
+          </p>
+          <p>
+            Over the last year, I built a responsive group project website, published research on LH2 sensors, and wrote two new sci-fi stories (undergoing intense editing).
+          </p>
+          <p>
+            Cool things I do outside of engineering: <br>
+            <span style="color:#3570e2">Sailing</span>, <span style="color:#3570e2">Piano</span>, <span style="color:#3570e2">Reading</span>
+          </p>
+          <button class="about-collage-btn" onclick="window.location='mailto:your@email.com'">Contact Me</button>
+        </div>
+      </div>
+    </section>
+
     <!-- Bento Box Section START -->
     <section class="bento-section">
       <h2>Project Showcase</h2>
@@ -992,6 +1164,7 @@
     </section>
     <!-- Bento Box Section END -->
   </div>
+
   <footer>
     <div class="footer-content">
       <div class="footer-main">
