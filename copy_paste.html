@@ -555,6 +555,91 @@
       .timeline-content { padding: 1rem 0.9rem; font-size: 0.95rem; }
       .timeline-card-img { height: 160px; }
     }
+    .about-section {
+      background: #f7f5ee;
+      padding: 4rem 0 4rem 0;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .about-container {
+      max-width: 950px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    .about-section h2 {
+      font-size: 2.5rem;
+      color: #2f3370;
+      margin-bottom: 2rem;
+      text-align: left;
+    }
+
+    .about-content {
+      display: flex;
+      align-items: flex-start;
+      gap: 2.5rem;
+      flex-wrap: wrap;
+    }
+
+    .about-photo {
+      width: 180px;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 1.2rem;
+      box-shadow: 0 2px 12px rgba(80,80,130,0.09);
+      margin-bottom: 1rem;
+      background: #f7f5ee;
+    }
+
+    .about-content p {
+      font-size: 1.18rem;
+      color: #444;
+      line-height: 1.6;
+      margin: 0 0 1rem 0;
+    }
+
+    .about-links {
+      list-style: none;
+      padding-left: 0;
+      margin: 1.2rem 0 0 0;
+      display: flex;
+      gap: 1.2rem;
+    }
+    .about-links a {
+      color: #4f46e5;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.18s;
+    }
+    .about-links a:hover {
+      color: #2f3370;
+      text-decoration: underline;
+    }
+
+    /* Responsive tweaks */
+    @media (max-width: 700px) {
+      .about-content {
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+      }
+      .about-section h2 {
+        font-size: 2rem;
+        text-align: center;
+      }
+      .about-photo {
+        width: 110px;
+        height: 110px;
+      }
+      .about-content p {
+        font-size: 1.02rem;
+      }
+      .about-links {
+        justify-content: center;
+        gap: 0.7rem;
+      }
+    }
 
     /* Bento Box Section */
     .bento-section {
@@ -944,6 +1029,31 @@
             <div class="timeline-card-img">
               <img src="/pictures/coding_upscale_compress.jpg" alt="Content Creator" />
             </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <hr class="section-divider">
+    <!-- About Me section will go below this -->
+    <section class="about-section">
+      <h2 class="timeline-heading">About Me</h2>
+      <div class="about-container">
+        <div class="about-content">
+          <img src="/pictures/your-photo.jpg" alt="Photo of Brian Chan" class="about-photo">
+          <div>
+            <p>
+              Hi, I'm Brian Chan, a passionate student engineer and aspiring innovator.
+              I love building things, learning new technologies, and working on projects that make a difference.<br>
+              <br>
+              My journey has taken me from leading as Head Boy at Ackworth School, to researching hydrogen sensors at Southampton, to sailing the Solent as a trainee skipper. I believe in curiosity, kindness, and the power of creation.<br>
+              <br>
+              When I'm not coding or engineering, you'll probably find me at the piano, out on the water, or reading a great book.
+            </p>
+            <ul class="about-links">
+              <li><a href="mailto:your@email.com">Email Me</a></li>
+              <li><a href="https://www.linkedin.com/in/brian-chan-eng" target="_blank">LinkedIn</a></li>
+              <!-- Add more links as desired -->
+            </ul>
           </div>
         </div>
       </div>
