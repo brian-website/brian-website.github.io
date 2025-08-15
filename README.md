@@ -1,3 +1,6 @@
 Hi there, welcome!
 
-Experimenting with Github Page before hosting a custom domain in here.
+This is my portfolio web pages. Where I constantly update software and input meaningful content. 
+
+Enjoy/
+
