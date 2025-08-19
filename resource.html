@@ -229,28 +229,34 @@
     .tabs {
       display: flex;
       justify-content: center;
-      background: #e5e7eb;
+      background: #fcfbf3;
       padding: 0.5rem;
       flex-wrap: wrap;
       border-radius: 14px;
       margin-bottom: 2.2rem;
       gap: 0.2rem;
-      box-shadow: 0 2px 10px #e6e8f466;
-      max-width: 600px;
+      max-width: none;
+      width: 100%;
       margin-left: auto;
       margin-right: auto;
     }
     .tab {
       margin: 0.3rem;
       padding: 0.6rem 1.1rem;
-      background: white;
+      background: #ffffff;
       border-radius: 7px;
       cursor: pointer;
       font-weight: bold;
       transition: background 0.2s, color 0.2s;
+      box-shadow: 0 10px 10px #7492ff;
       font-size: 1.08rem;
       border: none;
       outline: none;
+    }
+    .tab span {
+      color: #0c204a;
+      font-weight: normal;
+      font-size: 0.97em;
     }
     .tab.active {
       background: #2563eb;
@@ -452,10 +458,11 @@
 
   <div class="container">
     <h1 style="text-align:center;font-size:2.3rem;margin-bottom:0.1em;font-weight:800;letter-spacing:-1px;">
-      Internet Hidden Gems
+      Resources
     </h1>
     <p style="text-align:center;color:#666;font-size:1.15rem;margin-bottom:2.4rem;">
-      A curated board of useful, surprising, and fun web resources categorized for discovery.
+      Essential Resource Everyone Should Have Bookmarked.
+      (particular UK Personal Finance)
     </p>
     <!-- Tabs -->
     <div class="tabs">
@@ -636,6 +643,10 @@
         <a href="https://www.citizensadvice.org.uk/debt-and-money/" target="_blank" rel="noopener noreferrer nofollow">Citizens Advice</a>
         <p>No Capes, Just Answers — Citizens Advice, the People’s Champion.</p>
       </div>
+      <div class="card" data-category="personal finance">
+        <a href="https://www.reddit.com/r/beermoneyuk/wiki/index/" target="_blank" rel="noopener noreferrer nofollow">BeerMoneyUK (Reddit)</a>
+        <p>Netflix and… Earn? Discover Fun Ways to Make Extra Money Without Leaving the Couch.</p>
+      </div>
     </div>
   </div>
 
@@ -721,23 +732,71 @@
       if (window.innerWidth > 900) closeMobileNav();
     });
 
-    // Tab logic for resources
+    // Resource tab/category logic with A-Z sorting and dynamic counts
     const tabs = document.querySelectorAll('.tab');
-    const cards = document.querySelectorAll('.card');
+    const cards = Array.from(document.querySelectorAll('.card'));
+    const grid = document.querySelector('.grid');
+
+    // Store original tab labels to avoid duplicate counts
+    tabs.forEach(tab => {
+      tab.setAttribute('data-label', tab.textContent.trim());
+    });
+
+    // Count cards per category
+    const categoryCounts = {};
+    cards.forEach(card => {
+      const cat = card.getAttribute('data-category');
+      categoryCounts[cat] = (categoryCounts[cat] || 0) + 1;
+    });
+
+    // Update tab labels with counts
+    tabs.forEach(tab => {
+      const cat = tab.getAttribute('data-category');
+      const label = tab.getAttribute('data-label');
+      if (categoryCounts[cat]) {
+        tab.innerHTML = `${label} <span>(${categoryCounts[cat]})</span>`;
+      } else {
+        tab.innerHTML = label;
+      }
+    });
+
+    function showCategory(category) {
+      // Get cards for the selected category
+      const filtered = category === 'all'
+        ? cards
+        : cards.filter(card => card.getAttribute('data-category') === category);
+
+      // Sort filtered cards by the link text (A-Z)
+      filtered.sort((a, b) => {
+        const textA = a.querySelector('a').textContent.trim().toLowerCase();
+        const textB = b.querySelector('a').textContent.trim().toLowerCase();
+        return textA.localeCompare(textB);
+      });
+
+      // Remove all cards from grid
+      while (grid.firstChild) {
+        grid.removeChild(grid.firstChild);
+      }
+
+      // Add back only the sorted, filtered cards
+      filtered.forEach(card => grid.appendChild(card));
+    }
+
+    // Add click handlers for tabs
     tabs.forEach(tab => {
       tab.addEventListener('click', () => {
         tabs.forEach(t => t.classList.remove('active'));
         tab.classList.add('active');
         const category = tab.getAttribute('data-category');
-        cards.forEach(card => {
-          if (category === 'all' || card.getAttribute('data-category') === category) {
-            card.classList.remove('hidden');
-          } else {
-            card.classList.add('hidden');
-          }
-        });
+        showCategory(category);
       });
     });
+
+    // On page load, show first tab (default)
+    if (tabs.length > 0) {
+      tabs[0].classList.add('active');
+      showCategory(tabs[0].getAttribute('data-category'));
+    }
   </script>
 </body>
 </html>
