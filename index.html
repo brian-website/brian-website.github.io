@@ -860,6 +860,93 @@
         height: 1.6rem;
       }
     }
+    .faq-section {
+		  background: #fcfbf3;
+		  margin: 0 auto 3rem auto;
+		  max-width: 820px;
+		  padding: 2.2rem 1rem 2.6rem 1rem;
+		}
+		.faq-title {
+		  font-size: 2.2rem;
+		  font-weight: 900;
+		  letter-spacing: -1px;
+		  margin-bottom: 0.7rem;
+		  color: #111;
+		  font-family: inherit;
+		}
+		.faq-category {
+		  color: #b99d5c;
+		  font-size: 1.2rem;
+		  font-weight: 700;
+		  margin-bottom: 1.2rem;
+		  letter-spacing: 0.02em;
+		}
+		.faq-list {
+		  margin: 0;
+		  padding: 0;
+		}
+		.faq-item {
+		  border-bottom: 1.2px solid #b9b9b9;
+		  margin: 0;
+		}
+		.faq-question {
+		  width: 100%;
+		  text-align: left;
+		  background: none;
+		  border: none;
+		  outline: none;
+		  font-family: inherit;
+		  font-size: 1.25rem;
+		  font-weight: 700;
+		  color: #181818;
+		  display: flex;
+		  align-items: center;
+		  justify-content: space-between;
+		  padding: 1.05rem 0;
+		  cursor: pointer;
+		  transition: background 0.13s;
+		  letter-spacing: -0.01em;
+		}
+		.faq-question:hover {
+		  background: #f1f0ea;
+		}
+		.faq-toggle {
+		  font-size: 2.1rem;
+		  color: #222;
+		  font-weight: 400;
+		  transition: transform 0.18s;
+		  display: flex;
+		  align-items: center;
+		  min-width: 1.4em;
+		  justify-content: flex-end;
+		}
+		.faq-question[aria-expanded="true"] .faq-toggle {
+		  transform: rotate(45deg); /* turns + into × */
+		}
+		.faq-answer {
+		  display: none;
+		  font-size: 1.5rem;
+		  font-weight: 400;
+		  color: #444;
+		  padding-bottom: 1.1rem;
+		  padding-top: 0;
+		  line-height: 1.7;
+		  max-width: 700px;
+		  margin-left: 0;
+		}
+		.faq-item.open .faq-answer {
+		  display: block;
+		  animation: faqFadeIn 0.22s;
+		}
+		@keyframes faqFadeIn {
+		  from { opacity: 0; transform: translateY(-0.5em);}
+		  to { opacity: 1; transform: none;}
+		}
+		@media (max-width: 700px) {
+		  .faq-section { max-width: 98vw; padding: 1.3rem 0.4rem; }
+		  .faq-title { font-size: 1.25rem; }
+		  .faq-category { font-size: 1rem; }
+		}
   </style>
 </head>
 <body>
@@ -1123,6 +1210,51 @@
         </div>
       </div>
     </section>
+    <hr class="section-divider">
+
+    <!-- FAQ Section START -->
+		<section class="faq-section">
+		  <h2 class="faq-title">FAQS</h2>
+		  <div class="faq-category">About Brian</div>
+		  <div class="faq-list">
+		    <div class="faq-item">
+		      <button class="faq-question" aria-expanded="false">
+		        <span>What motivates you as an engineer?</span>
+		        <span class="faq-toggle">+</span>
+		      </button>
+		      <div class="faq-answer">
+		        While volunteering in Namibia to help restore the habitat of desert elephants, I saw how heat and environmental stress affect both wildlife and communities. That experience drives me to focus on sustainable engineering that makes a real impact.
+		      </div>
+		    </div>
+		    <div class="faq-item">
+		      <button class="faq-question" aria-expanded="false">
+		        <span>How do you see yourself growing in the next 5 years?</span>
+		        <span class="faq-toggle">+</span>
+		      </button>
+		      <div class="faq-answer">
+		        I see myself developing a strong technical foundation, learning from experienced colleagues, and gradually taking on more responsibility. My goal is to grow into a well‑rounded engineer who contributes to projects and supports the team’s success.
+		      </div>
+		    </div>
+		    <div class="faq-item">
+		      <button class="faq-question" aria-expanded="false">
+		        <span>What is your biggest goal to achieve outside of engineering?</span>
+		        <span class="faq-toggle">+</span>
+		      </button>
+		      <div class="faq-answer">
+		        Complete the WMM Seven Star Journey by running all seven iconic marathons: Tokyo, Boston, London, Berlin, Chicago, New York and Sydney. This journey is not only about the runs — it reflects the same qualities I bring to life: long‑term commitment, resilience, and consistent effort.
+		      </div>
+		    </div>
+		    <div class="faq-item">
+		      <button class="faq-question" aria-expanded="false">
+		        <span>How do you usually spend your weekends or free time?</span>
+		        <span class="faq-toggle">+</span>
+		      </button>
+		      <div class="faq-answer">
+		        I usually recharge by running to prepare the upcoming marathon and spending time outdoors. Lately, I’ve also been experimenting with cooking dishes from different countries, which has been a fun way to share meals with friends and a practical alternative to eating out during this cost‑of‑living crisis.
+		      </div>
+		    </div>
+		  </div>
+		</section>
 
     <!-- Bento Box Section START -->
     <section class="bento-section">
@@ -1280,6 +1412,23 @@
         heroTyping.style.minHeight = measure.offsetHeight + 'px';
       }
     });
+
+    document.querySelectorAll('.faq-question').forEach(btn => {
+		  btn.addEventListener('click', function() {
+		    const item = btn.closest('.faq-item');
+		    const isOpen = item.classList.contains('open');
+		    // Close all
+		    document.querySelectorAll('.faq-item.open').forEach(i => {
+		      i.classList.remove('open');
+		      i.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+		    });
+		    // Open this one if it wasn't open
+		    if (!isOpen) {
+		      item.classList.add('open');
+		      btn.setAttribute('aria-expanded', 'true');
+		    }
+		  });
+		});
   </script>
 </body>
 </html>
