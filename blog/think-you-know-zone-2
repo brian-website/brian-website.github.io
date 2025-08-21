@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Think You Know Zone 2 Running? Most Runners Get This Wrong | Brian Chan Blog</title>
+  <link rel="icon" href="bc_icon.ico">
+  <style>
+    /* Reuse same CSS from your template */
+    /* (pasting the exact same styles you provided earlier) */
+    :root {
+      --primary-bg: #fcfbf3;
+      --accent: #333;
+      --light: #fff;
+      --border: #e0e0e0;
+      --fixed-header-height: 70px;
+      --nav-z: 2000;
+      --hamburger-size: 2.3rem;
+      --transition: 0.23s cubic-bezier(.4,0,.2,1);
+    }
+    html, body {height: 100%;margin: 0;padding: 0;overflow-x: hidden;}
+    body {min-height: 100vh;display: flex;flex-direction: column;font-family: 'Segoe UI', Arial, sans-serif;background: var(--primary-bg);color: var(--accent);}
+    header {background: var(--light);border-bottom: 1px solid var(--border);padding: 0.6rem 0;display: flex;align-items: center;justify-content: space-between;flex-wrap: wrap;position: fixed;top: 0;left: 0;width: 100%;z-index: var(--nav-z);height: var(--fixed-header-height);}
+    .logo {font-size: 1.5rem;font-weight: bold;margin-left: 2rem;letter-spacing: 1px;color: var(--accent);text-decoration: none;display: flex;align-items: center;gap: 0.5rem;}
+    .logo-img {width: 2.1rem;height: 2.1rem;object-fit: contain;margin-right: 0.4rem;}
+    nav {margin-right: 2rem;display: flex;align-items: center;}
+    nav a {color: var(--accent);text-decoration: none;margin: 0 0.75rem;font-size: 1.1rem;font-weight: 500;}
+    nav a:hover, nav a.active {color: #0074d9;}
+    .hamburger {display: none;}
+    @media (max-width: 900px) {nav {display: none;}.hamburger {display: flex;}}
+    .container {max-width: 800px;margin: calc(var(--fixed-header-height) + 2.5rem) auto 1.5rem auto;padding: 0 1rem;flex: 1 0 auto;}
+    .back-link {display:inline-block;margin-top:1.5rem;margin-bottom:0.5rem;color:#888;font-size:0.98rem;text-decoration:none;}
+    .proj-title {font-size: 2rem;font-weight: 700;margin-bottom: 0.25rem;color: #0074d9;}
+    .proj-meta {font-size: 1.05rem;color: #888;margin-bottom: 1.1rem;}
+    .author-meta {display:flex;align-items:center;gap:0.7rem;font-size:1.04rem;margin-bottom:1.4rem;color:#666;flex-wrap:wrap;}
+    .author-by {font-size:1.02rem;color:#888;}
+    .author-logo {width:2.2rem;height:2.2rem;border-radius:50%;border:1.5px solid #eee;}
+    .author-name {font-weight:600;color:#333;}
+    .last-updated {font-size:0.97rem;color:#888;}
+    .blog-image-wrapper {text-align:center;margin-bottom:2rem;}
+    .blog-image {max-width:100%;border-radius:13px;box-shadow:0 2px 12px rgba(0,0,0,0.07);}
+    .proj-summary {font-size: 1.15rem;color:#555;margin-bottom:2rem;}
+    .key-takeaways-box {padding:1.2rem 1.6rem;background:var(--light);margin:0.7rem 0 2.3rem 0;}
+    .proj-section {margin-bottom:2.3rem;}
+    .proj-section h2 {font-size:1.13rem;color:#0074d9;margin-bottom:0.7rem;font-weight:600;}
+    footer {text-align:center;padding:2.5rem 0 2rem 0;color:#888;font-size:1.03rem;background:var(--light);border-top:1px solid var(--border);}
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/" class="logo">
+      <img src="bc_logo.png" alt="Brian Chan Logo" class="logo-img"> Brian Chan
+    </a>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/projects">Projects</a>
+      <a href="/blog" class="active">Blog</a>
+      <a href="/about">About</a>
+      <a href="/resource">Resource</a>
+      <a href="/contact">Contact</a>
+    </nav>
+  </header>
+  <div class="container">
+    <a href="/blog" class="back-link">&larr; Back to Blog</a>
+    <div class="proj-title">Think You Know Zone 2 Running? Most Runners Get This Wrong</div>
+    <div class="proj-meta">2025 &middot; Endurance Training &middot; Blog Article</div>
+    <!-- Author -->
+    <div class="author-meta">
+      <span class="author-by">By</span>
+      <img src="/bc_logo.jpeg" alt="Brian Chan Logo" class="author-logo">
+      <span class="author-name">Brian Chan</span>
+      <span class="last-updated">Last updated 21 August 2025</span>
+    </div>
+    <!-- Image -->
+    <div class="blog-image-wrapper">
+      <img src="/blog/images/zone2_running.jpg" alt="Runner training outdoors at an easy pace" class="blog-image">
+      <div class="blog-image-credit">
+        Photo by <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash Contributor</a>
+      </div>
+    </div>
+    <!-- Summary -->
+    <div class="proj-summary">
+      If you’ve ever trained for a half marathon or marathon, chances are you’ve heard: “Spend plenty of time in Zone 2.” But what does that really mean? Is it jogging? Easy running? And how slow is too slow? This article clears up the confusion and explains why Zone 2 training is the foundation of endurance success.
+    </div>
+    <!-- Key Takeaways -->
+    <div class="key-takeaways-box">
+      <div class="key-takeaways-title">KEY TAKEAWAYS</div>
+      <ul>
+        <li>Zone 2 is a comfortably easy effort where you can speak in full sentences.</li>
+        <li>It boosts mitochondria efficiency, improving fat metabolism and endurance.</li>
+        <li>You can measure it by heart rate, the talk test, or pace relative to your fitness.</li>
+        <li>Aim for ~80% of your training volume in Zone 2 for best results.</li>
+        <li>The Karvonen method (using Heart Rate Reserve) personalizes your Zone 2.</li>
+      </ul>
+    </div>
+    <!-- Sections -->
+    <div class="proj-section">
+      <h2>What Exactly is Zone 2 Running?</h2>
+      <p>At its simplest, Zone 2 running is “easy running” -- but not too easy. It’s the effort where you could comfortably hold a conversation in full sentences, but you probably couldn’t sing. Typically, it sits around 60–70% of Heart Rate Reserve (HRR). Think of Zone 2 as the engine room of endurance.</p>
+    </div>
+    <div class="proj-section">
+      <h2>Why Zone 2 Matters for Endurance and Fat Metabolism</h2>
+      <ul>
+        <li>Primarily burns fat as fuel, sparing glycogen.</li>
+        <li>Builds more mitochondria, the cell’s energy power plants.</li>
+        <li>Improves cardiovascular efficiency and oxygen delivery.</li>
+      </ul>
+      <p>These adaptations delay fatigue and “the wall” in marathons—making Zone 2 the quiet secret of endurance runners.</p>
+    </div>
+    <div class="proj-section">
+      <h2>How to Measure Zone 2</h2>
+      <ul>
+        <li><strong>Heart Rate:</strong> ~60–70% HRR, or 65–75% of max HR.</li>
+        <li><strong>Talk Test:</strong> Full sentences = Zone 2; only short words = Zone 3.</li>
+        <li><strong>Pace:</strong> Often 90–120 seconds per mile slower than 10K pace.</li>
+      </ul>
+    </div>
+    <div class="proj-section">
+      <h2>Key Physiological Terms You Should Know</h2>
+      <ul>
+        <li><strong>Heart Rate Reserve (HRR):</strong> Max HR – Resting HR. Used in the Karvonen formula to personalize training zones.</li>
+        <li><strong>Lactate Threshold 1 (LT1):</strong> Top of Zone 2. Staying below LT1 keeps training aerobic.</li>
+        <li><strong>Lactate Threshold 2 (LT2):</strong> Near red-line intensity, top of Zone 4.</li>
+        <li><strong>Karvonen Method:</strong> Target HR = Resting HR + (HRR × % intensity).</li>
+      </ul>
+    </div>
+    <div class="proj-section">
+      <h2>Common Myths and Mistakes</h2>
+      <ul>
+        <li><strong>Myth:</strong> Zone 2 is just jogging. <br> <em>Truth:</em> It’s purposeful steady running.</li>
+        <li><strong>Myth:</strong> Faster is always better. <br> <em>Truth:</em> Zone 3 “grey zone” leaves you tired without gains.</li>
+        <li><strong>Myth:</strong> Elites skip Zone 2. <br> <em>Truth:</em> Many train 70–80% in Zone 2.</li>
+        <li><strong>Myth:</strong> Slow running hurts speed. <br> <em>Truth:</em> Zone 2 builds the base that supports speed.</li>
+      </ul>
+    </div>
+    <div class="proj-section">
+      <h2>How to Incorporate Zone 2 into Your Training</h2>
+      <ul>
+        <li><strong>Weekly Mileage:</strong> 60–80% in Zone 2.</li>
+        <li><strong>Long Runs:</strong> 90–120 minutes steady Zone 2.</li>
+        <li><strong>Recovery Runs:</strong> Zone 1–2 to keep blood flowing.</li>
+        <li><strong>Mix with Speed Work:</strong> 1–2 quality sessions weekly; rest in Zone 2.</li>
+      </ul>
+    </div>
+    <div class="proj-section">
+      <h2>Conclusion: The Power of Slowing Down</h2>
+      <p>Zone 2 might feel too easy at first—but that’s the point. Build your aerobic base, and you’ll run faster, stronger, and longer. If you can chat but not sing, you’re in the sweet spot. Stick with it, and watch your easy pace improve without extra effort.</p>
+    </div>
+    <div class="proj-section">
+      <h2>Recommended Further Reading</h2>
+      <ol>
+        <li><em>International Journal of Sports Physiology and Performance</em></li>
+        <li>
+          <a href="https://www.researchgate.net/publication/389362061_What_Is_Zone_2_Training_Experts'_Viewpoint_on_Definition_Training_Methods_and_Expected_Adaptations" target="_blank" rel="noopener">
+            What Is "Zone 2 Training"?: Experts' Viewpoint on Definition, Training Methods, and Expected Adaptations
+          </a> (DOI:10.1123/ijspp.2024-0303)
+        </li>
+      </ol>
+    </div>
+    <!-- Read Next -->
+    <div class="read-next-section">
+      <div class="read-next-label">Read Next</div>
+      <ul style="list-style:none; padding:0; margin:0; display:flex; flex-wrap:wrap; gap:1.3rem 2rem;">
+        <li>
+          <a href="/blog/life-skills-for-techies" class="read-next-link">5 Essential Life Skills for Techies</a>
+          <div style="font-size:0.97rem; color:#888;">Tips and habits every developer should build.</div>
+        </li>
+        <li>
+          <a href="/blog/hydrogen-fuel-cell-storage" class="read-next-link">Hydrogen Fuel Cell Storage: The Future of Energy</a>
+          <div style="font-size:0.97rem; color:#888;">An overview of hydrogen storage technologies.</div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <footer>
+    <div class="footer-content">
+      <div class="footer-main">&copy; 2025 Brian Chan. All rights reserved.</div>
+      <div class="footer-links">
+        <a href="#">Download Resume</a> | <a href="mailto:your@email.com">Contact</a>
+      </div>
+      <div class="footer-note">Crafted with passion and a touch of love.</div>
+    </div>
+  </footer>
+</body>
+</html>
