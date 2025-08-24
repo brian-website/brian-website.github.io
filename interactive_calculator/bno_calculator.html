@@ -1,129 +1,353 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BNO Citizenship Calculator</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="icon" href="bc_icon.ico">
+  <title>BNO Settlement & Citizenship Calculator</title>
   <style>
     :root {
-      --bg: #f9fafb;
-      --card-bg: #fff;
-      --border: #e5e7eb;
-      --text: #111827;
-      --muted: #6b7280;
-      --accent: #ef4444;
-      --inside: #d1d5db;
-      --radius: 8px;
+      --primary-bg: #fcfbf3;
+      --accent: #333;
+      --light: #fff;
+      --border: #e0e0e0;
+      --fixed-header-height: 70px;
+      --nav-z: 2000;
+      --button-bg: #0074d9;
+      --button-hover-bg: #005fa3;
+      --button-text: #fff;
+      --muted: #888;
+      --danger: #ef4444;
+      --inside: #f2f5fa;
+      --radius: 10px;
+      --transition: 0.23s cubic-bezier(.4,0,.2,1);
     }
-
-    body {
-      font-family: "Inter", "Segoe UI", sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.5;
+    html, body {
+      height: 100%;
       margin: 0;
-      padding: 20px;
+      padding: 0;
+      overflow-x: hidden;
     }
-
-    h2 {
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: var(--primary-bg);
+      color: var(--accent);
+      transition: background 0.2s, color 0.2s;
+    }
+    header {
+      background: var(--light);
+      border-bottom: 1px solid var(--border);
+      padding: 0.6rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: var(--nav-z);
+      height: var(--fixed-header-height);
+      box-sizing: border-box;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+    }
+    .logo {
       font-size: 1.5rem;
-      margin-bottom: 0.75rem;
+      font-weight: bold;
+      margin-left: 2rem;
+      letter-spacing: 1px;
+      color: var(--accent);
+      text-decoration: none;
+      cursor: pointer;
+      transition: color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      z-index: calc(var(--nav-z) + 1);
     }
-
+    .logo-img {
+      width: 2.1rem;
+      height: 2.1rem;
+      object-fit: contain;
+      margin-right: 0.4rem;
+      border: none;
+      display: inline-block;
+      vertical-align: middle;
+      background: none;
+      box-shadow: none;
+      transition: none;
+    }
+    nav {
+      margin-right: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    nav a {
+      color: var(--accent);
+      text-decoration: none;
+      margin: 0 0.75rem;
+      font-size: 1.1rem;
+      font-weight: 500;
+      transition:
+        color 0.2s,
+        transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      display: inline-block;
+    }
+    nav a:hover,
+    nav a.active {
+      color: #0074d9;
+      transform: scale(1.18);
+    }
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 2.3rem;
+      height: 2.3rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      z-index: calc(var(--nav-z) + 2);
+      margin-right: 1.4rem;
+      margin-left: auto;
+    }
+    .hamburger-bar {
+      width: 28px;
+      height: 3.5px;
+      background: var(--accent);
+      border-radius: 3px;
+      margin: 3.5px 0;
+      transition: all var(--transition);
+      display: block;
+    }
+    .hamburger.open .bar1 { transform: rotate(45deg) translate(6px, 7px);}
+    .hamburger.open .bar2 { opacity: 0;}
+    .hamburger.open .bar3 { transform: rotate(-45deg) translate(7px, -7px);}
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 80vw;
+      max-width: 340px;
+      height: 100vh;
+      background: var(--light);
+      box-shadow: -4px 0 24px 0 rgba(60,60,90,0.08);
+      z-index: calc(var(--nav-z) + 10);
+      transform: translateX(100%);
+      transition: transform var(--transition);
+      padding-top: var(--fixed-header-height);
+      padding-left: 2rem;
+      padding-right: 2rem;
+      box-sizing: border-box;
+      flex-direction: column;
+      align-items: start;
+    }
+    .mobile-nav.open {
+      display: flex;
+      transform: translateX(0);
+    }
+    .mobile-nav a {
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin: 1.1rem 0;
+      transition: color 0.18s;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 0.3em;
+      width: 100%;
+    }
+    .mobile-nav a:last-child {
+      border-bottom: none;
+    }
+    .mobile-nav a:hover,
+    .mobile-nav a.active {
+      color: #0074d9;
+      background: #f0f3ff;
+    }
+    .mobile-nav-close {
+      position: absolute;
+      top: 1.2rem;
+      right: 1.4rem;
+      font-size: 2.2rem;
+      color: #aaa;
+      background: none;
+      border: none;
+      cursor: pointer;
+      z-index: calc(var(--nav-z) + 12);
+      transition: color 0.2s;
+    }
+    .mobile-nav-close:hover {
+      color: #0074d9;
+    }
+    .mobile-nav-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(50,50,70,0.16);
+      z-index: calc(var(--nav-z) + 5);
+      transition: opacity 0.18s;
+    }
+    .mobile-nav-overlay.open {
+      display: block;
+    }
+    @media (max-width: 900px) {
+      nav { display: none; }
+      .hamburger { display: flex; }
+      .mobile-nav {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+      }
+    }
+    @media (min-width: 901px) {
+      .mobile-nav,
+      .mobile-nav-overlay,
+      .mobile-nav.open,
+      .mobile-nav-overlay.open {
+        display: none !important;
+      }
+      .hamburger { display: none !important; }
+      nav { display: flex !important; }
+    }
+    .container {
+      max-width: 700px;
+      margin: 2.5rem auto 1.5rem auto;
+      padding: calc(var(--fixed-header-height) + 1.2rem) 1rem 0 1rem;
+      flex: 1 0 auto;
+      box-sizing: border-box;
+    }
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 0.9rem;
+      letter-spacing: -0.5px;
+      font-weight: 700;
+      color: var(--accent);
+      text-align: left;
+      margin-top: 0.3rem;
+    }
     .helper-text {
-      font-size: 0.9rem;
-      color: var(--muted);
-      margin-bottom: 1.2rem;
+      font-size: 1.01rem;
+      color: #555;
+      margin-bottom: 1.3rem;
     }
-
+    label {
+      font-size: 1.02rem;
+      color: #444;
+      margin-bottom: 0.3em;
+      display: block;
+      font-weight: 500;
+    }
     .date-group {
       display: flex;
-      gap: 6px;
-      margin-top: 0.5rem;
+      gap: 7px;
+      margin-top: 0.35rem;
+      margin-bottom: 0.4rem;
     }
-
     .date-group input {
       width: 70px;
-      padding: 8px;
+      padding: 8px 7px;
       border: 1px solid var(--border);
       border-radius: var(--radius);
       text-align: center;
-      font-size: 0.95rem;
-      background: var(--card-bg);
-
-      /* ✅ Remove spinner arrows */
-      -moz-appearance: textfield;
-      appearance: textfield;
+      font-size: 1rem;
+      background: var(--light);
+      color: var(--accent);
+      outline: none;
+      transition: border 0.18s, background 0.18s;
+      box-sizing: border-box;
     }
+    .date-group input:focus {
+      border-color: #0074d9;
+      background: #f0f7fa;
+    }
+    .date-group input.error { border-color: var(--danger); background: #fee2e2; }
     .date-group input::-webkit-inner-spin-button,
     .date-group input::-webkit-outer-spin-button {
       -webkit-appearance: none;
       margin: 0;
     }
-
-    input.invalid { border-color: var(--accent); background: #fee2e2; }
-
-    .error-message {
-      font-size: 0.8rem;
-      color: var(--accent);
-      margin-top: 2px;
+    .date-group input[type=number] {
+      -moz-appearance: textfield;
+      appearance: textfield;
     }
-
+    .error-message {
+      font-size: 0.93rem;
+      color: var(--danger);
+      margin-top: 2px;
+      min-height: 1.3em;
+    }
     .trip-block {
-      background: var(--card-bg);
+      background: var(--light);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 12px;
-      margin-bottom: 14px;
+      padding: 16px 15px 15px 15px;
+      margin-bottom: 17px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+      transition: box-shadow 0.18s;
     }
-
+    .trip-block:hover {
+      box-shadow: 0 6px 18px rgba(0,0,0,0.09);
+      border-color: #0074d9;
+    }
     .trip-title {
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 8px;
       font-weight: 600;
+      font-size: 1.06rem;
+      color: #0074d9;
     }
-
     .remove-btn {
       background: none;
-      border: 1px solid var(--accent);
-      color: var(--accent);
-      padding: 4px 8px;
-      font-size: 0.8rem;
+      border: 1px solid var(--danger);
+      color: var(--danger);
+      padding: 4px 12px;
+      font-size: 0.95rem;
       border-radius: var(--radius);
       cursor: pointer;
+      transition: background 0.17s, color 0.17s;
     }
-    .remove-btn:hover { background: var(--accent); color: #fff; }
-
+    .remove-btn:hover { background: var(--danger); color: #fff; }
     .trip-days {
-      font-size: 0.85rem;
-      margin-top: 6px;
+      font-size: 0.95rem;
+      margin-top: 8px;
       color: var(--muted);
     }
-
-    button {
-      background: #111827;
-      color: #fff;
+    .note { color: #7b7b7b; font-size:0.97em; }
+    .btn {
+      background: var(--button-bg);
+      color: var(--button-text);
       border: none;
-      padding: 10px 16px;
-      margin: 6px 6px 12px 0;
+      padding: 11px 22px;
+      margin: 6px 8px 18px 0;
       border-radius: var(--radius);
       cursor: pointer;
-      font-size: 0.95rem;
+      font-size: 1.06rem;
+      font-weight: 600;
+      transition: background 0.15s, color 0.15s;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+      letter-spacing: 0.01em;
+      outline: none;
     }
-    button:hover { background: #1f2937; }
-
+    .btn:hover { background: var(--button-hover-bg); }
     p { margin: 0.6rem 0; }
-
     .timeline-container {
-      background: var(--card-bg);
+      background: var(--light);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 16px;
-      margin-top: 20px;
+      padding: 19px 17px 13px 17px;
+      margin-top: 25px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
     }
-
     .timeline {
       position: relative;
       height: 36px;
@@ -131,30 +355,28 @@
       border-radius: var(--radius);
       overflow: hidden;
     }
-
     .absence {
       position: absolute;
       top: 0;
       height: 100%;
-      background: var(--accent);
+      background: #ef4444;
       opacity: 0.85;
       cursor: pointer;
+      border-radius: 3px;
     }
-
     .labels {
       display: flex;
       justify-content: space-between;
-      font-size: 0.8rem;
+      font-size: 0.98rem;
       margin-top: 6px;
       color: var(--muted);
     }
-
     .legend {
       margin-top: 10px;
       display: flex;
       gap: 16px;
       flex-wrap: wrap;
-      font-size: 0.85rem;
+      font-size: 0.97rem;
       color: var(--muted);
     }
     .legend-item {
@@ -167,84 +389,406 @@
       height: 14px;
       border-radius: 3px;
     }
-    .legend-red { background: var(--accent); }
+    .legend-red { background: #ef4444; }
     .legend-grey { background: var(--inside); }
-
     .tooltip {
       position: absolute;
       background: #111827;
       color: #fff;
       padding: 6px 8px;
       border-radius: 4px;
-      font-size: 0.8rem;
+      font-size: 0.98rem;
       white-space: nowrap;
       pointer-events: none;
       opacity: 0;
       transition: opacity 0.2s;
       z-index: 20;
     }
+    .extra-info {
+      margin-top: 16px;
+      font-size: 1.01rem;
+      color: var(--text);
+      line-height: 1.5;
+    }
+    .highlight-red {
+      color: var(--danger);
+      font-weight: 700;
+    }
+    .example-text {
+      font-size: 1.01rem;
+      color: var(--muted);
+      margin: 10px 0 18px 0;
+    }
+    /* FAQ styles */
+    .faq-container{margin-top:30px;}
+    .faq-item{border:1px solid var(--border);border-radius:var(--radius);margin-bottom:10px;background:var(--card-bg);}
+    .faq-question{padding:12px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-weight:600;}
+    .faq-answer{padding:12px;display:none;border-top:1px solid var(--border);font-size:1.01rem;}
+    .faq-toggle{font-weight:bold;font-size:1.2rem;}
+    @media (max-width: 700px) {
+      .container { max-width: 100%; padding: calc(var(--fixed-header-height) + 0.8rem) 3vw 0 3vw;}
+      h2 { font-size: 1.35rem;}
+      .trip-block {padding:12px 8px;}
+      .timeline-container {padding:11px 4px 7px 4px;}
+      .faq-answer{font-size:0.98rem;}
+    }
+    footer {
+      text-align: center;
+      padding: 2.5rem 0 2rem 0;
+      color: #888;
+      font-size: 1.03rem;
+      background: var(--light);
+      border-top: 1px solid var(--border);
+      margin-top: 3rem;
+      transition: background 0.2s, color 0.2s;
+      flex-shrink: 0;
+    }
+    .footer-content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+    .footer-main {
+      font-size: 1.08rem;
+      color: #888;
+      margin-bottom: 0.7rem;
+    }
+    .footer-links {
+      margin: 0.2rem 0 1.3rem 0;
+      font-size: 1.06rem;
+    }
+    .footer-links a {
+      color: #0074d9;
+      text-decoration: none;
+      margin: 0 0.1rem;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover {
+      color: #005fa3;
+      text-decoration: underline;
+    }
+    .footer-note {
+      font-size: 0.98rem;
+      color: #aaa;
+      margin-top: 0.6rem;
+      line-height: 1.5;
+    }
+    .footer-github {
+      margin-top: 1.2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .footer-github a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: none;
+      border: none;
+      padding: 0.22em;
+      border-radius: 50%;
+      transition: background 0.15s;
+      text-decoration: none;
+      outline: none;
+    }
+    .footer-github svg {
+      display: block;
+      width: 2.2rem;
+      height: 2.2rem;
+    }
+    @media (max-width: 700px) {
+      .footer-content {
+        font-size: 1rem;
+      }
+      .footer-note {
+        font-size: 0.93rem;
+      }
+      .footer-links {
+        font-size: 1rem;
+      }
+      .footer-github svg {
+        width: 1.6rem;
+        height: 1.6rem;
+      }
+    }
   </style>
 </head>
 <body>
-  <h2>BNO Settlement & Citizenship Calculator</h2>
-  <div class="helper-text">
-    Example: for 1st September 2025, type <b>01</b> <b>09</b> <b>2025</b>
-  </div>
-
-  <div>
-    <label>Visa granted date:</label>
-    <div class="date-group" id="visaStart">
-      <input type="number" class="dd" placeholder="DD" min="1" max="31">
-      <input type="number" class="mm" placeholder="MM" min="1" max="12">
-      <input type="number" class="yyyy" placeholder="YYYY" min="1900" max="2100">
+  <header>
+    <a href="/" class="logo">
+      <img src="bc_logo.png" alt="Brian Chan Logo" class="logo-img">
+      Brian Chan
+    </a>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/projects">Projects</a>
+      <a href="/blog">Blog</a>
+      <a href="/about">About</a>
+      <a href="/resource">Resource</a>
+      <a href="/contact">Contact</a>
+    </nav>
+    <button class="hamburger" aria-label="Open menu" aria-expanded="false">
+      <span class="hamburger-bar bar1"></span>
+      <span class="hamburger-bar bar2"></span>
+      <span class="hamburger-bar bar3"></span>
+    </button>
+    <div class="mobile-nav" aria-hidden="true">
+      <button class="mobile-nav-close" aria-label="Close menu">&times;</button>
+      <a href="/">Home</a>
+      <a href="/projects">Projects</a>
+      <a href="/blog">Blog</a>
+      <a href="/about">About</a>
+      <a href="/resource">Resource</a>
+      <a href="/contact">Contact</a>
     </div>
-    <div class="error-message" id="visaStartError"></div>
-  </div>
-
-  <div id="trips"></div>
-  <button onclick="addTrip()">Add Trip</button>
-  <button onclick="checkEligibility()">Check Eligibility</button>
-
-  <p id="result"></p>
-  <p id="settlementApply"></p>
-  <p id="citizenshipResult"></p>
-
-  <div class="timeline-container" id="timelineContainer" style="display:none;">
-    <div class="timeline" id="timeline"></div>
-    <div class="labels">
-      <span id="startLabel"></span>
-      <span id="endLabel"></span>
+    <div class="mobile-nav-overlay"></div>
+  </header>
+  <div class="container">
+    <h2>BNO Settlement & Citizenship Calculator</h2>
+    <div class="helper-text">
+      Example: for 1st September 2025, type <b>01</b> <b>09</b> <b>2025</b>
     </div>
-    <div class="legend">
-      <div class="legend-item"><span class="legend-box legend-red"></span> Outside UK</div>
-      <div class="legend-item"><span class="legend-box legend-grey"></span> Inside UK</div>
+
+    <!-- Visa start -->
+    <div>
+      <label>Visa start date:</label>
+      <div class="date-group" id="visaStart">
+        <input type="number" class="dd" placeholder="DD" min="1" max="31">
+        <input type="number" class="mm" placeholder="MM" min="1" max="12">
+        <input type="number" class="yyyy" placeholder="YYYY" min="1900" max="2100">
+      </div>
+      <div class="error-message" id="visaStartError"></div>
     </div>
+    <br>
+    <!-- Citizenship app -->
+    <div>
+      <label>Planned citizenship application date:</label>
+      <div class="date-group" id="citizenshipApp">
+        <input type="number" class="dd" placeholder="DD" min="1" max="31">
+        <input type="number" class="mm" placeholder="MM" min="1" max="12">
+        <input type="number" class="yyyy" placeholder="YYYY" min="1900" max="2100">
+      </div>
+      <div class="error-message" id="citizenshipAppError"></div>
+      <div class="note">Default = settlement date + 1 year, but you can change it.</div>
+    </div>
+
+    <div class="example-text">
+      For example: if your flight leaves the UK on <b>01 09 2025</b>, enter this for “Leaving the UK on”.  
+      If you land back in the UK on <b>07 09 2025</b>, enter this for “Date arriving the UK”.
+    </div>
+
+    <div id="trips"></div>
+    <button class="btn" onclick="addTrip()">Add Trip</button>
+    <button class="btn" onclick="checkEligibility()">Check Eligibility</button>
+
+    <p id="result"></p>
+    <p id="settlementApply"></p>
+    <p id="citizenshipResult"></p>
+    <p id="presenceResult"></p>
+
+    <div class="timeline-container" id="timelineContainer" style="display:none;">
+      <div class="timeline" id="timeline"></div>
+      <div class="labels">
+        <span id="startLabel"></span>
+        <span id="endLabel"></span>
+      </div>
+      <div class="legend">
+        <div class="legend-item"><span class="legend-box legend-red"></span> Outside UK</div>
+        <div class="legend-item"><span class="legend-box legend-grey"></span> Inside UK</div>
+      </div>
+      <div class="extra-info">
+        <p><strong>Other eligibility for Settlement:</strong></p>
+        <ul>
+          <li>Pass Life in the UK test</li>
+          <li>Meet English requirement (if aged 18 to 64)</li>
+        </ul>
+        <p><em>Settlement processing time: 6 months</em></p>
+        <p><strong>Other eligibility for Citizenship:</strong></p>
+        <ul>
+          <li>Physically present in the UK exactly 5 years before Home Office receives your application</li>
+          <li>Must provide 2 referees for your application</li>
+        </ul>
+        <p>Apply for <b>Registration</b> (for BNO passport holder) or <b>Naturalisation</b> (for non‑BNO passport holder)</p>
+        <p><em>Citizenship processing time: 6 months</em></p>
+      </div>
+    </div>
+
+    <div class="faq-container">
+      <h3>FAQs</h3>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFAQ(this)">
+          <span>Q: Do I need to add a day trip?</span>
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          <p><b>No.</b> If you left the UK and returned on the same day (for example, left on 01/09/2024 and re‑entered on 01/09/2024), this does not count as any days outside the UK. The calculator only counts full days when you were physically out of the country.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFAQ(this)">
+          <span>Q: Will my results be saved on a server other than my device?</span>
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          <p><b>No.</b> This is an open‑source project with no database or external storage. All calculations happen locally on your device. No data is shared, stored, or accessed by external services -- your results remain completely private to you.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFAQ(this)">
+          <span>Q: How does this system calculate the result?</span>
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          <p>This calculator follows the current BNO visa rules.</p>
+          <p><b>Settlement eligibility:</b> You must not have spent more than 180 days outside the UK in any rolling 12‑month period during the 5 years before your settlement application.</p>
+          <p><b>Citizenship eligibility:</b> You must not have spent more than 450 days outside the UK in total during the 5 years before your application, and no more than 90 days outside the UK in the final 12 months.</p>
+          <p>The calculator applies both sets of requirements together and determines the earliest possible date you could become eligible for citizenship.</p>
+        </div>
+      </div>
+    </div>
+    <div class="tooltip" id="tooltip"></div>
   </div>
-
-  <div class="tooltip" id="tooltip"></div>
-
+  <footer>
+    <div class="footer-content">
+      <div class="footer-main">
+        &copy; 2025 Brian Chan. All rights reserved.
+      </div>
+      <div class="footer-links">
+        <a href="#">Download Resume</a> |
+        <a href="mailto:your@email.com">Contact</a> |
+        <a href="https://choosealicense.com/licenses/mit/" target="_blank" rel="noopener">MIT License</a>
+      </div>
+      <div class="footer-note">
+        Crafted with passion and a touch of love.<br>
+        Open source and open heart, please use it responsibly.
+      </div>
+      <div class="footer-github">
+        <a href="https://github.com/brian-website/brian-website.github.io/" class="github" target="_blank" rel="noopener" aria-label="GitHub Repository">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M12 0.297c-6.63 0-12 5.373-12 12 
+              0 5.303 3.438 9.8 8.205 11.385
+              0.6 0.113 0.82-0.258 0.82-0.577
+              0-0.285-0.01-1.04-0.015-2.04-3.338 0.726-4.042-1.61-4.042-1.61
+              -0.546-1.385-1.333-1.754-1.333-1.754
+              -1.089-0.745 0.084-0.729 0.084-0.729
+              1.205 0.084 1.84 1.236 1.84 1.236
+              1.07 1.834 2.809 1.304 3.495 0.997
+              0.108-0.775 0.418-1.305 0.762-1.605
+              -2.665-0.303-5.467-1.334-5.467-5.93
+              0-1.31 0.469-2.381 1.236-3.221
+              -0.123-0.303-0.535-1.523 0.117-3.176 0 0 1.008-0.322 3.301 1.23
+              0.96-0.267 1.98-0.399 3-0.404
+              1.02 0.005 2.04 0.137 3 0.404
+              2.291-1.552 3.297-1.23 3.297-1.23
+              0.653 1.653 0.241 2.873 0.119 3.176
+              0.77 0.84 1.235 1.911 1.235 3.221
+              0 4.609-2.807 5.625-5.479 5.921
+              0.43 0.372 0.823 1.102 0.823 2.222
+              0 1.604-0.014 2.898-0.014 3.293
+              0 0.322 0.216 0.694 0.825 0.576
+              C20.565 22.092 24 17.592 24 12.297
+              c0-6.627-5.373-12-12-12z"/>
+          </svg>
+        </a>
+        <a href="https://www.linkedin.com/in/brian-chan-eng" class="linkedin" target="_blank" rel="noopener" aria-label="LinkedIn Profile">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="4 4 40 40" width="2.2rem" height="2.2rem">
+            <path fill="#0078d4" d="M42,37c0,2.762-2.238,5-5,5H11c-2.761,0-5-2.238-5-5V11c0-2.762,2.239-5,5-5h26c2.762,0,5,2.238,5,5	V37z"></path>
+            <path d="M30,37V26.901c0-1.689-0.819-2.698-2.192-2.698c-0.815,0-1.414,0.459-1.779,1.364	c-0.017,0.064-0.041,0.325-0.031,1.114L26,37h-7V18h7v1.061C27.022,18.356,28.275,18,29.738,18c4.547,0,7.261,3.093,7.261,8.274	L37,37H30z M11,37V18h3.457C12.454,18,11,16.528,11,14.499C11,12.472,12.478,11,14.514,11c2.012,0,3.445,1.431,3.486,3.479	C18,16.523,16.521,18,14.485,18H18v19H11z" opacity=".05"></path>
+            <path d="M30.5,36.5v-9.599c0-1.973-1.031-3.198-2.692-3.198c-1.295,0-1.935,0.912-2.243,1.677	c-0.082,0.199-0.071,0.989-0.067,1.326L25.5,36.5h-6v-18h6v1.638c0.795-0.823,2.075-1.638,4.238-1.638	c4.233,0,6.761,2.906,6.761,7.774L36.5,36.5H30.5z M11.5,36.5v-18h6v18H11.5z M14.457,17.5c-1.713,0-2.957-1.262-2.957-3.001	c0-1.738,1.268-2.999,3.014-2.999c1.724,0,2.951,1.229,2.986,2.989c0,1.749-1.268,3.011-3.015,3.011H14.457z" opacity=".07"></path>
+            <path fill="#fff" d="M12,19h5v17h-5V19z M14.485,17h-0.028C12.965,17,12,15.888,12,14.499C12,13.08,12.995,12,14.514,12	c1.521,0,2.458,1.08,2.486,2.499C17,15.887,16.035,17,14.485,17z M36,36h-5v-9.099c0-2.198-1.225-3.698-3.192-3.698	c-1.501,0-2.313,1.012-2.707,1.99C24.957,25.543,25,26.511,25,27v9h-5V19h5v2.616C25.721,20.5,26.85,19,29.738,19	c3.578,0,6.261,2.25,6.261,7.274L36,36L36,36z"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </footer>
   <script>
-    function setupAutoJump(group){
-      const inputs = group.querySelectorAll("input");
-      inputs.forEach(input=>{
-        input.addEventListener("input",()=>updateTripDays(group.closest(".trip-block")));
-      });
+    // Header mobile menu logic
+    const hamburger = document.querySelector('.hamburger');
+    const mobileNav = document.querySelector('.mobile-nav');
+    const mobileClose = document.querySelector('.mobile-nav-close');
+    const overlay = document.querySelector('.mobile-nav-overlay');
+    function openMobileNav() {
+      hamburger.classList.add('open');
+      mobileNav.classList.add('open');
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      hamburger.setAttribute('aria-expanded', 'true');
+      mobileNav.setAttribute('aria-hidden', 'false');
+    }
+    function closeMobileNav() {
+      hamburger.classList.remove('open');
+      mobileNav.classList.remove('open');
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+      hamburger.setAttribute('aria-expanded', 'false');
+      mobileNav.setAttribute('aria-hidden', 'true');
+    }
+    hamburger.addEventListener('click', openMobileNav);
+    mobileClose.addEventListener('click', closeMobileNav);
+    overlay.addEventListener('click', closeMobileNav);
+    window.addEventListener('resize', function() {
+      if (window.innerWidth > 900) closeMobileNav();
+    });
+
+    // FAQ toggle
+    function toggleFAQ(el){
+      const answer=el.nextElementSibling;
+      const toggle=el.querySelector(".faq-toggle");
+      if(answer.style.display==="block"){
+        answer.style.display="none";
+        toggle.textContent="+";
+      }else{
+        answer.style.display="block";
+        toggle.textContent="--";
+      }
     }
 
+    function setupAutoJump(group){
+      if(!group) return;
+      const dd=group.querySelector(".dd");
+      const mm=group.querySelector(".mm");
+      const yyyy=group.querySelector(".yyyy");
+      if(dd){ dd.addEventListener("input",()=>{ if(dd.value.length>=2) mm?.focus(); }); }
+      if(mm){ mm.addEventListener("input",()=>{ if(mm.value.length>=2) yyyy?.focus(); }); }
+    }
     function readDateFromGroup(group){
       let dd=parseInt(group.querySelector(".dd")?.value,10);
       let mm=parseInt(group.querySelector(".mm")?.value,10);
       let yyyy=parseInt(group.querySelector(".yyyy")?.value,10);
-      if (isNaN(dd)||isNaN(mm)||isNaN(yyyy)) return null;
+      if(isNaN(dd)||isNaN(mm)||isNaN(yyyy)) return null;
       let d=new Date(yyyy,mm-1,dd);
-      if (d.getFullYear()!==yyyy||d.getMonth()!==mm-1||d.getDate()!==dd) return null;
+      if(d.getFullYear()!==yyyy||d.getMonth()!==mm-1||d.getDate()!==dd) return null;
       return d;
     }
-
-    function formatDate(d){
-      return d ? `${String(d.getDate()).padStart(2,"0")}/${String(d.getMonth()+1).padStart(2,"0")}/${d.getFullYear()}` : "";
+    function writeDateToGroup(group,date){
+      group.querySelector(".dd").value=String(date.getDate()).padStart(2,"0");
+      group.querySelector(".mm").value=String(date.getMonth()+1).padStart(2,"0");
+      group.querySelector(".yyyy").value=date.getFullYear();
     }
-
+    function formatDate(d){ return d?`${String(d.getDate()).padStart(2,"0")}/${String(d.getMonth()+1).padStart(2,"0")}/${d.getFullYear()}`:""; }
+    function updateTripDays(block){
+      let out=readDateFromGroup(block.querySelector(".out"));
+      let back=readDateFromGroup(block.querySelector(".back"));
+      let tripDaysEl=block.querySelector(".trip-days");
+      let backErr=block.querySelector(".back-error");
+      let backInputs=block.querySelectorAll(".back input");
+      backErr.innerText=""; 
+      backInputs.forEach(i=>i.classList.remove("error"));
+      if(out && back){
+        if(back <= out){
+          backErr.innerText="⚠️ Arrival date must be after leaving date.";
+          backInputs.forEach(i=>i.classList.add("error"));
+          tripDaysEl.innerHTML=`Total days out of the UK: -- <br><small>(Only the full days between them are counted)</small>`;
+        } else {
+          let days=Math.floor((back-out)/(1000*60*60*24)) - 1;
+          if(days<0) days=0;
+          tripDaysEl.innerHTML=`Total days out of the UK: ${days} <br><small>(Only the full days between them are counted)</small>`;
+        }
+      } else {
+        tripDaysEl.innerHTML=`Total days out of the UK: -- <br><small>(Only the full days between them are counted)</small>`;
+      }
+    }
     function addTrip(){
       const tripsContainer=document.getElementById("trips");
       const div=document.createElement("div");
@@ -260,76 +804,96 @@
           <input type="number" class="mm" placeholder="MM">
           <input type="number" class="yyyy" placeholder="YYYY">
         </div>
-        <div class="error-message"></div>
+        <div class="error-message out-error"></div>
         <label>Date arriving the UK:</label>
         <div class="date-group back">
           <input type="number" class="dd" placeholder="DD">
           <input type="number" class="mm" placeholder="MM">
           <input type="number" class="yyyy" placeholder="YYYY">
         </div>
-        <div class="error-message"></div>
-        <div class="trip-days">Total days out of the UK: -- <br>
-        <small>(Only the full days between them are counted)</small></div>`;
+        <div class="error-message back-error"></div>
+        <div class="trip-days">Total days out of the UK: -- <br><small>(Only the full days between them are counted)</small></div>`;
       tripsContainer.appendChild(div);
       renumberTrips();
       setupAutoJump(div.querySelector(".out"));
       setupAutoJump(div.querySelector(".back"));
-    }
-
-    function removeTrip(btn){
-      btn.closest(".trip-block").remove();
-      renumberTrips();
-    }
-
-    function renumberTrips(){
-      document.querySelectorAll(".trip-block").forEach((block,i)=>{
-        block.querySelector(".trip-label").textContent="Trip "+(i+1);
+      div.querySelectorAll("input").forEach(inp=>{
+        inp.addEventListener("input",()=>updateTripDays(div));
       });
     }
-
-    function updateTripDays(tripBlock){
-      if(!tripBlock) return;
-      let out=readDateFromGroup(tripBlock.querySelector(".out"));
-      let back=readDateFromGroup(tripBlock.querySelector(".back"));
-      let daysText=tripBlock.querySelector(".trip-days");
-      if(out&&back&&back>out){
-        let days=Math.floor((back-out)/(1000*60*60*24)) - 1;
-        if(days<0) days=0;
-        daysText.innerHTML=`Total days out of the UK: ${days} <br><small>(Only the full days between them are counted)</small>`;
-      } else {
-        daysText.innerHTML=`Total days out of the UK: -- <br><small>(Only the full days between them are counted)</small>`;
+    function removeTrip(btn){ btn.closest(".trip-block").remove(); renumberTrips(); }
+    function renumberTrips(){ document.querySelectorAll(".trip-block").forEach((block,i)=>{ block.querySelector(".trip-label").textContent="Trip "+(i+1); }); }
+    document.getElementById("visaStart").addEventListener("input",()=>{
+      let visaStart=readDateFromGroup(document.getElementById("visaStart"));
+      if(visaStart){
+        let settlement=new Date(visaStart); settlement.setFullYear(settlement.getFullYear()+5);
+        let earliestCit=new Date(settlement); earliestCit.setFullYear(earliestCit.getFullYear()+1);
+        writeDateToGroup(document.getElementById("citizenshipApp"),earliestCit);
       }
-    }
-
+    });
     function checkEligibility(){
-      const visaStartGroup=document.getElementById("visaStart");
-      let visaStartDate=readDateFromGroup(visaStartGroup);
-      if (!visaStartDate){ document.getElementById("result").innerText="⚠️ Invalid visa start date."; return; }
-
+      const visaStartDate=readDateFromGroup(document.getElementById("visaStart"));
+      if(!visaStartDate){ document.getElementById("result").innerText="⚠️ Invalid visa start date."; return; }
       let settlementDate=new Date(visaStartDate); settlementDate.setFullYear(settlementDate.getFullYear()+5);
       let earliestApply=new Date(settlementDate); earliestApply.setDate(earliestApply.getDate()-28);
-      let citizenshipDate=new Date(settlementDate); citizenshipDate.setFullYear(citizenshipDate.getFullYear()+1);
-
+      let appDate=readDateFromGroup(document.getElementById("citizenshipApp"));
+      if(!appDate){ document.getElementById("citizenshipAppError").innerText="⚠️ Invalid application date."; return; }
+      else document.getElementById("citizenshipAppError").innerText="";
       let absences=[];
       document.querySelectorAll(".trip-block").forEach(block=>{
         let out=readDateFromGroup(block.querySelector(".out"));
         let back=readDateFromGroup(block.querySelector(".back"));
-        if(out&&back&&back>out){
-          let days=Math.floor((back-out)/(1000*60*60*24)) - 1;
-          if(days<0) days=0;
-          absences.push({out,back,days});
+        let outErr=block.querySelector(".out-error");
+        let backErr=block.querySelector(".back-error");
+        let backInputs=block.querySelectorAll(".back input");
+        outErr.innerText=""; backErr.innerText="";
+        backInputs.forEach(i=>i.classList.remove("error"));
+        if(out&&back){
+          if(back<=out){
+            backErr.innerText="⚠️ Arrival date must be after leaving date.";
+            backInputs.forEach(i=>i.classList.add("error"));
+          } else {
+            let days=Math.floor((back-out)/(1000*60*60*24)) - 1;
+            if(days<0) days=0;
+            absences.push({out,back,days});
+          }
         }
       });
-
       document.getElementById("result").innerText=`✅ Settlement: Apply settlement before ${formatDate(settlementDate)}`;
       document.getElementById("settlementApply").innerHTML=`Earliest apply Settlement date: ${formatDate(earliestApply)} <br><span class="note">(You can apply settlement 28 days before BNO visa expiry)</span>`;
-      document.getElementById("citizenshipResult").innerText=`✅ Citizenship: Eligible from ${formatDate(citizenshipDate)}`;
-
+      let total5yrs=0,last12m=0;
+      absences.forEach(abs=>{
+        if(abs.back<=appDate) total5yrs+=abs.days;
+        let last12Start=new Date(appDate); last12Start.setFullYear(last12Start.getFullYear()-1);
+        if(abs.back>=last12Start) last12m+=abs.days;
+      });
+      let cMsg="";
+      let failed5yrs=false;
+      if(total5yrs>450){ 
+        cMsg+=`⚠️ More than 450 days outside UK in 5 years before ${formatDate(appDate)} (${total5yrs} days). `; 
+        failed5yrs=true;
+      }
+      if(last12m>90){ 
+        cMsg+=`⚠️ More than 90 days outside UK in last 12 months before ${formatDate(appDate)} (${last12m} days). `; 
+      }
+      if(!cMsg){ 
+        cMsg=`✅ Citizenship: Eligible on ${formatDate(appDate)} (≤450 days in 5 years, ≤90 days in last 12 months).`; 
+      }
+      else if(failed5yrs){ 
+        cMsg+=` <span class="highlight-red">Please consider extend your BNO visa.</span>`; 
+      }
+      document.getElementById("citizenshipResult").innerHTML=cMsg;
+      let checkDate=new Date(appDate); checkDate.setFullYear(checkDate.getFullYear()-5);
+      let wasAbroad=false;
+      absences.forEach(abs=>{ if(checkDate>=abs.out && checkDate<=abs.back){ wasAbroad=true; } });
+      document.getElementById("presenceResult").innerText = wasAbroad
+        ? `⚠️ You were outside the UK on ${formatDate(checkDate)} (5 years before application).`
+        : `✅ You were in the UK on ${formatDate(checkDate)} (5 years before application).`;
       const timeline=document.getElementById("timeline"); timeline.innerHTML="";
       document.getElementById("timelineContainer").style.display="block";
       document.getElementById("startLabel").innerText=formatDate(visaStartDate);
-      document.getElementById("endLabel").innerText=formatDate(citizenshipDate);
-      let totalDur=citizenshipDate-visaStartDate;
+      document.getElementById("endLabel").innerText=formatDate(appDate);
+      let totalDur=appDate-visaStartDate;
       const tooltip=document.getElementById("tooltip");
       absences.forEach(abs=>{
         let left=((abs.out-visaStartDate)/totalDur)*100;
@@ -345,7 +909,8 @@
         timeline.appendChild(div);
       });
     }
-
+    setupAutoJump(document.getElementById("visaStart"));
+    setupAutoJump(document.getElementById("citizenshipApp"));
     addTrip();
   </script>
 </body>
