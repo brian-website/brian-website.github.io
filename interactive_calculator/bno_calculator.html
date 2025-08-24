@@ -3,71 +3,203 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BNO Citizenship Calculator - Timeline Legend with Boxes</title>
+  <title>BNO Citizenship Calculator</title>
   <style>
-    body { font-family: "Segoe UI", sans-serif; padding:20px; background:#fafafa; color:#333; }
-    h2 { margin-top:0; }
-    .helper-text { font-size: 0.9rem; color:#555; margin-bottom:6px; }
-    .date-group { display:flex; gap:4px; align-items:center; margin:4px 0; }
-    .date-group input {
-      width: 60px; padding:6px; text-align:center;
-      font-size:1rem; font-family:monospace;
-      appearance: textfield;
-      -moz-appearance: textfield;
+    :root {
+      --bg: #f9fafb;
+      --card-bg: #fff;
+      --border: #e5e7eb;
+      --text: #111827;
+      --muted: #6b7280;
+      --accent: #ef4444;
+      --inside: #d1d5db;
+      --radius: 8px;
     }
-    .date-group input.year { width:80px; }
-    .date-group input::-webkit-outer-spin-button,
-    .date-group input::-webkit-inner-spin-button {
+
+    body {
+      font-family: "Inter", "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .helper-text {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 1.2rem;
+    }
+
+    .date-group {
+      display: flex;
+      gap: 6px;
+      margin-top: 0.5rem;
+    }
+
+    .date-group input {
+      width: 70px;
+      padding: 8px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      text-align: center;
+      font-size: 0.95rem;
+      background: var(--card-bg);
+
+      /* ✅ Remove spinner arrows */
+      -moz-appearance: textfield;
+      appearance: textfield;
+    }
+    .date-group input::-webkit-inner-spin-button,
+    .date-group input::-webkit-outer-spin-button {
       -webkit-appearance: none;
       margin: 0;
     }
-    .trip-block { margin-bottom: 16px; padding: 8px; background:#fff; border:1px solid #ddd; border-radius:6px; }
-    .trip-title { font-weight: bold; margin-bottom: 6px; display:flex; justify-content:space-between; align-items:center; }
+
+    input.invalid { border-color: var(--accent); background: #fee2e2; }
+
+    .error-message {
+      font-size: 0.8rem;
+      color: var(--accent);
+      margin-top: 2px;
+    }
+
+    .trip-block {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 12px;
+      margin-bottom: 14px;
+    }
+
+    .trip-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
     .remove-btn {
-      background:#f44336; color:#fff; border:none; border-radius:4px;
-      padding:2px 6px; font-size:0.8rem; cursor:pointer;
+      background: none;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      padding: 4px 8px;
+      font-size: 0.8rem;
+      border-radius: var(--radius);
+      cursor: pointer;
     }
-    .remove-btn:hover { background:#c0392b; }
-    .trip-days { font-size:0.85rem; color:#444; margin-top:4px; }
-    .timeline-container { margin-top:30px; padding:10px; background:#fff; border:1px solid #ccc; border-radius:6px; }
-    .timeline { position:relative; height:40px; background:#eee; border-radius:6px; overflow:hidden; }
-    .absence { position:absolute; top:0; height:100%; background:#f66; opacity:0.85; cursor:pointer; }
-    .labels { display:flex; justify-content:space-between; font-size:0.85rem; margin-top:6px; }
-    .legend { margin-top:8px; font-size:0.85rem; color:#333; display:flex; gap:16px; align-items:center; flex-wrap:wrap; }
-    .legend-item { display:flex; align-items:center; gap:6px; }
+    .remove-btn:hover { background: var(--accent); color: #fff; }
+
+    .trip-days {
+      font-size: 0.85rem;
+      margin-top: 6px;
+      color: var(--muted);
+    }
+
+    button {
+      background: #111827;
+      color: #fff;
+      border: none;
+      padding: 10px 16px;
+      margin: 6px 6px 12px 0;
+      border-radius: var(--radius);
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+    button:hover { background: #1f2937; }
+
+    p { margin: 0.6rem 0; }
+
+    .timeline-container {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      margin-top: 20px;
+    }
+
+    .timeline {
+      position: relative;
+      height: 36px;
+      background: var(--inside);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .absence {
+      position: absolute;
+      top: 0;
+      height: 100%;
+      background: var(--accent);
+      opacity: 0.85;
+      cursor: pointer;
+    }
+
+    .labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      margin-top: 6px;
+      color: var(--muted);
+    }
+
+    .legend {
+      margin-top: 10px;
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
     .legend-box {
-      width:16px; height:16px; border-radius:3px; display:inline-block;
+      width: 14px;
+      height: 14px;
+      border-radius: 3px;
     }
-    .legend-red { background:#f66; }
-    .legend-grey { background:#ccc; }
+    .legend-red { background: var(--accent); }
+    .legend-grey { background: var(--inside); }
+
     .tooltip {
-      position: absolute; background:#333; color:#fff;
-      padding: 6px 10px; border-radius: 4px; font-size: 0.8rem;
-      white-space: nowrap; pointer-events: none; opacity:0;
-      transition: opacity 0.2s; z-index: 10;
+      position: absolute;
+      background: #111827;
+      color: #fff;
+      padding: 6px 8px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      white-space: nowrap;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.2s;
+      z-index: 20;
     }
-    input.invalid { border: 2px solid red; background:#ffeaea; }
-    .error-message { font-size: 0.75rem; color: red; margin: 2px 0 6px 4px; }
-    .note { font-size:0.8rem; color:#555; }
   </style>
 </head>
 <body>
   <h2>BNO Settlement & Citizenship Calculator</h2>
-
   <div class="helper-text">
-    For example, 1st of September 2025, type <b>01</b> <b>09</b> <b>2025</b>
+    Example: for 1st September 2025, type <b>01</b> <b>09</b> <b>2025</b>
   </div>
 
   <div>
-    Visa start date:
+    <label>Visa granted date:</label>
     <div class="date-group" id="visaStart">
       <input type="number" class="dd" placeholder="DD" min="1" max="31">
       <input type="number" class="mm" placeholder="MM" min="1" max="12">
-      <input type="number" class="yyyy year" placeholder="YYYY" min="1900" max="2100">
+      <input type="number" class="yyyy" placeholder="YYYY" min="1900" max="2100">
     </div>
     <div class="error-message" id="visaStartError"></div>
   </div>
-  <br>
 
   <div id="trips"></div>
   <button onclick="addTrip()">Add Trip</button>
@@ -84,8 +216,8 @@
       <span id="endLabel"></span>
     </div>
     <div class="legend">
-      <div class="legend-item"><span class="legend-box legend-red"></span> Red indicate days spent outside of the UK</div>
-      <div class="legend-item"><span class="legend-box legend-grey"></span> Grey indicate days spent inside of the UK</div>
+      <div class="legend-item"><span class="legend-box legend-red"></span> Outside UK</div>
+      <div class="legend-item"><span class="legend-box legend-grey"></span> Inside UK</div>
     </div>
   </div>
 
@@ -93,32 +225,16 @@
 
   <script>
     function setupAutoJump(group){
-      const dd = group.querySelector(".dd");
-      const mm = group.querySelector(".mm");
-      const yyyy = group.querySelector(".yyyy");
-
-      dd.addEventListener("input",()=>{
-        if(dd.value.length>2) dd.value=dd.value.slice(0,2);
-        if(dd.value.length===2) mm.focus();
-        updateTripDays(group.closest(".trip-block"));
-      });
-
-      mm.addEventListener("input",()=>{
-        if(mm.value.length>2) mm.value=mm.value.slice(0,2);
-        if(mm.value.length===2) yyyy.focus();
-        updateTripDays(group.closest(".trip-block"));
-      });
-
-      yyyy.addEventListener("input",()=>{
-        if(yyyy.value.length>4) yyyy.value=yyyy.value.slice(0,4);
-        updateTripDays(group.closest(".trip-block"));
+      const inputs = group.querySelectorAll("input");
+      inputs.forEach(input=>{
+        input.addEventListener("input",()=>updateTripDays(group.closest(".trip-block")));
       });
     }
 
     function readDateFromGroup(group){
-      let dd=parseInt(group.querySelector(".dd").value,10);
-      let mm=parseInt(group.querySelector(".mm").value,10);
-      let yyyy=parseInt(group.querySelector(".yyyy").value,10);
+      let dd=parseInt(group.querySelector(".dd")?.value,10);
+      let mm=parseInt(group.querySelector(".mm")?.value,10);
+      let yyyy=parseInt(group.querySelector(".yyyy")?.value,10);
       if (isNaN(dd)||isNaN(mm)||isNaN(yyyy)) return null;
       let d=new Date(yyyy,mm-1,dd);
       if (d.getFullYear()!==yyyy||d.getMonth()!==mm-1||d.getDate()!==dd) return null;
@@ -126,22 +242,7 @@
     }
 
     function formatDate(d){
-      let dd=String(d.getDate()).padStart(2,"0");
-      let mm=String(d.getMonth()+1).padStart(2,"0");
-      let yyyy=d.getFullYear();
-      return `${dd}/${mm}/${yyyy}`;
-    }
-
-    function validateDateGroup(group,errorEl){
-      let d=readDateFromGroup(group);
-      if (!d){ 
-        if(errorEl) errorEl.textContent="⚠️ Invalid date";
-        group.querySelectorAll("input").forEach(i=>i.classList.add("invalid"));
-        return null;
-      }
-      if(errorEl) errorEl.textContent="";
-      group.querySelectorAll("input").forEach(i=>i.classList.remove("invalid"));
-      return d;
+      return d ? `${String(d.getDate()).padStart(2,"0")}/${String(d.getMonth()+1).padStart(2,"0")}/${d.getFullYear()}` : "";
     }
 
     function addTrip(){
@@ -151,26 +252,24 @@
       div.innerHTML=`
         <div class="trip-title">
           <span class="trip-label"></span>
-          <button class="remove-btn" onclick="removeTrip(this)">Remove Trip</button>
+          <button class="remove-btn" onclick="removeTrip(this)">Remove</button>
         </div>
-        Leaving the UK on:
+        <label>Leaving the UK on:</label>
         <div class="date-group out">
-          <input type="number" class="dd" placeholder="DD" min="1" max="31">
-          <input type="number" class="mm" placeholder="MM" min="1" max="12">
-          <input type="number" class="yyyy year" placeholder="YYYY" min="1900" max="2100">
+          <input type="number" class="dd" placeholder="DD">
+          <input type="number" class="mm" placeholder="MM">
+          <input type="number" class="yyyy" placeholder="YYYY">
         </div>
         <div class="error-message"></div>
-        Date arriving the UK:
+        <label>Date arriving the UK:</label>
         <div class="date-group back">
-          <input type="number" class="dd" placeholder="DD" min="1" max="31">
-          <input type="number" class="mm" placeholder="MM" min="1" max="12">
-          <input type="number" class="yyyy year" placeholder="YYYY" min="1900" max="2100">
+          <input type="number" class="dd" placeholder="DD">
+          <input type="number" class="mm" placeholder="MM">
+          <input type="number" class="yyyy" placeholder="YYYY">
         </div>
         <div class="error-message"></div>
-        <div class="trip-days">
-          Total days out of the UK: – <br>
-          <small>(Only the full days between them are counted, as you were physically outside of the UK)</small>
-        </div>`;
+        <div class="trip-days">Total days out of the UK: -- <br>
+        <small>(Only the full days between them are counted)</small></div>`;
       tripsContainer.appendChild(div);
       renumberTrips();
       setupAutoJump(div.querySelector(".out"));
@@ -196,62 +295,35 @@
       if(out&&back&&back>out){
         let days=Math.floor((back-out)/(1000*60*60*24)) - 1;
         if(days<0) days=0;
-        daysText.innerHTML=`Total days out of the UK: ${days} <br><small>(Only the full days between them are counted, as you were physically outside of the UK)</small>`;
+        daysText.innerHTML=`Total days out of the UK: ${days} <br><small>(Only the full days between them are counted)</small>`;
       } else {
-        daysText.innerHTML=`Total days out of the UK: – <br><small>(Only the full days between them are counted, as you were physically outside of the UK)</small>`;
+        daysText.innerHTML=`Total days out of the UK: -- <br><small>(Only the full days between them are counted)</small>`;
       }
     }
 
     function checkEligibility(){
       const visaStartGroup=document.getElementById("visaStart");
-      let visaStartDate=validateDateGroup(visaStartGroup,document.getElementById("visaStartError"));
-      if (!visaStartDate){ document.getElementById("result").innerText="⚠️ Please fix visa start date."; return; }
+      let visaStartDate=readDateFromGroup(visaStartGroup);
+      if (!visaStartDate){ document.getElementById("result").innerText="⚠️ Invalid visa start date."; return; }
 
       let settlementDate=new Date(visaStartDate); settlementDate.setFullYear(settlementDate.getFullYear()+5);
-      let citizenshipDate=new Date(settlementDate); citizenshipDate.setFullYear(citizenshipDate.getFullYear()+1);
       let earliestApply=new Date(settlementDate); earliestApply.setDate(earliestApply.getDate()-28);
+      let citizenshipDate=new Date(settlementDate); citizenshipDate.setFullYear(citizenshipDate.getFullYear()+1);
 
       let absences=[];
       document.querySelectorAll(".trip-block").forEach(block=>{
-        let out=validateDateGroup(block.querySelector(".out"),block.querySelectorAll(".error-message")[0]);
-        let back=validateDateGroup(block.querySelector(".back"),block.querySelectorAll(".error-message")[1]);
-        if (out&&back&&back>out){
+        let out=readDateFromGroup(block.querySelector(".out"));
+        let back=readDateFromGroup(block.querySelector(".back"));
+        if(out&&back&&back>out){
           let days=Math.floor((back-out)/(1000*60*60*24)) - 1;
           if(days<0) days=0;
           absences.push({out,back,days});
         }
       });
-      absences.sort((a,b)=>a.out-b.out);
 
-      let failSett=false;
-      for (let i=0;i<absences.length;i++){
-        let start=absences[i].out, end=new Date(start); end.setFullYear(end.getFullYear()+1);
-        let total=0; 
-        for (let j=0;j<absences.length;j++){ 
-          if (absences[j].out<end && absences[j].back>=start) total+=absences[j].days; 
-        }
-        if (total>180){ failSett=true; break;}
-      }
-      document.getElementById("result").innerText= failSett
-        ? "⚠️ Settlement: Exceeds 180 days in some 12m period."
-        : "✅ Settlement: Apply settlement before "+formatDate(settlementDate);
-
-      document.getElementById("settlementApply").innerHTML=
-        `Earliest apply Settlement date: ${formatDate(earliestApply)} <br><span class="note">(You can apply settlement 28 days before BNO visa expire)</span>`;
-
-      let total5yrs=0,last12m=0;
-      absences.forEach(abs=>{
-        if (abs.out>=visaStartDate && abs.back<=citizenshipDate){
-          total5yrs+=abs.days;
-          let last12Start=new Date(citizenshipDate); last12Start.setFullYear(last12Start.getFullYear()-1);
-          if (abs.back>=last12Start) last12m+=abs.days;
-        }
-      });
-      let cMsg="";
-      if (total5yrs>450) cMsg+=`⚠️ Exceeds 5yr limit (${total5yrs} days). `;
-      if (last12m>90) cMsg+=`⚠️ Exceeds last 12m limit (${last12m} days).`;
-      if (!cMsg) cMsg=`✅ Citizenship: Eligible from ${formatDate(citizenshipDate)} (absences: ${total5yrs} in 5yrs, ${last12m} in last 12m).`;
-      document.getElementById("citizenshipResult").innerText=cMsg;
+      document.getElementById("result").innerText=`✅ Settlement: Apply settlement before ${formatDate(settlementDate)}`;
+      document.getElementById("settlementApply").innerHTML=`Earliest apply Settlement date: ${formatDate(earliestApply)} <br><span class="note">(You can apply settlement 28 days before BNO visa expiry)</span>`;
+      document.getElementById("citizenshipResult").innerText=`✅ Citizenship: Eligible from ${formatDate(citizenshipDate)}`;
 
       const timeline=document.getElementById("timeline"); timeline.innerHTML="";
       document.getElementById("timelineContainer").style.display="block";
@@ -262,9 +334,8 @@
       absences.forEach(abs=>{
         let left=((abs.out-visaStartDate)/totalDur)*100;
         let right=((abs.back-visaStartDate)/totalDur)*100;
-        let width=right-left;
         let div=document.createElement("div");
-        div.className="absence"; div.style.left=left+"%"; div.style.width=width+"%";
+        div.className="absence"; div.style.left=left+"%"; div.style.width=(right-left)+"%";
         div.addEventListener("mousemove",e=>{
           tooltip.style.opacity=1;
           tooltip.style.left=e.pageX+10+"px"; tooltip.style.top=e.pageY-30+"px";
@@ -275,7 +346,6 @@
       });
     }
 
-    setupAutoJump(document.getElementById("visaStart"));
     addTrip();
   </script>
 </body>
