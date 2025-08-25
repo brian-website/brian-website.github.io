@@ -637,7 +637,7 @@
       const email = document.getElementById('email').value.trim();
       const message = document.getElementById('message').value.trim();
       const about = document.querySelector('input[name="about"]:checked')?.value || '';
-      const mailto = `mailto:your@email.com?subject=Message from ${encodeURIComponent(name)} (${encodeURIComponent(email)})&body=About: ${encodeURIComponent(about)}%0A%0A${encodeURIComponent(message)}`;
+      const mailto = `mailto:brian@chanworks.com?subject=${encodeURIComponent(about)} - Message from ${encodeURIComponent(name)} &body=${encodeURIComponent(message)}`;
       window.location.href = mailto;
       // Optional: Show a message after 'sending'
       document.getElementById('formStatus').textContent = 'Thank you! Your email window should open soon.';
