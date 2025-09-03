@@ -497,6 +497,66 @@
         font-size: 1em;
       }
     }
+
+    body {
+      font-family: "Segoe UI", Roboto, sans-serif;
+      background: #f7f9fb;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+    }
+    .table-container {
+      width: 100%;
+      max-width: 750px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      overflow-x: auto;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    thead {
+      background: linear-gradient(135deg, #4facfe, #03e8f4);
+      color: white;
+    }
+    th, td {
+      padding: 14px 16px;
+      text-align: left;
+    }
+    th {
+      font-size: 15px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    tbody tr {
+      color: #222;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    tbody tr:hover {
+      transform: scale(1.01);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    td:first-child {
+      font-weight: bold;
+    }
+    caption {
+      caption-side: top;
+      padding: 12px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    /* Zone color coding */
+    .zone-1 { background: #d9fdd3; }   /* light green */
+    .zone-2 { background: #fff8c4; }   /* pale yellow */
+    .zone-3 { background: #ffe3a3; }   /* light orange */
+    .zone-4 { background: #ffc8a2; }   /* orange */
+    .zone-5 { background: #ffb3b3; }   /* light red */
+
     footer {
       text-align: center;
       padding: 2.5rem 0 2rem 0;
@@ -730,9 +790,52 @@
         &nbsp; 50 + (150 × 0.7) = 155 bpm<br>
         So Zone 2 = 140–155 bpm.
       </div>
-      <p style="color:#888;">
-        [Insert diagram: Heart rate zone chart]
-      </p>
+    </div>
+
+    <div class="table-container">
+      <table>
+        <caption>Heart Rate Training Zones</caption>
+        <thead>
+          <tr>
+            <th>Zone</th>
+            <th>Also known as</th>
+            <th>% of Max Heart Rate</th>
+            <th>Fuel Source</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="zone-1">
+            <td>1</td>
+            <td>Easy</td>
+            <td>50%–60%</td>
+            <td>Fat</td>
+          </tr>
+          <tr class="zone-2">
+            <td>2</td>
+            <td>Aerobic</td>
+            <td>60%–70%</td>
+            <td>Fat</td>
+          </tr>
+          <tr class="zone-3">
+            <td>3</td>
+            <td>Tempo</td>
+            <td>70%–80%</td>
+            <td>Fat, Carbs, Protein</td>
+          </tr>
+          <tr class="zone-4">
+            <td>4</td>
+            <td>Threshold</td>
+            <td>80%–90%</td>
+            <td>Carbs, Protein</td>
+          </tr>
+          <tr class="zone-5">
+            <td>5</td>
+            <td>VO2 Max</td>
+            <td>90%–100%</td>
+            <td>Carbs, Protein</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
 
     <div class="proj-section">
