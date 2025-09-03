@@ -497,66 +497,6 @@
         font-size: 1em;
       }
     }
-
-    body {
-      font-family: "Segoe UI", Roboto, sans-serif;
-      background: #f7f9fb;
-      margin: 0;
-      padding: 20px;
-      display: flex;
-      justify-content: center;
-    }
-    .table-container {
-      width: 100%;
-      max-width: 750px;
-      background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-      overflow-x: auto;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-    thead {
-      background: linear-gradient(135deg, #4facfe, #03e8f4);
-      color: white;
-    }
-    th, td {
-      padding: 14px 16px;
-      text-align: left;
-    }
-    th {
-      font-size: 15px;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-    }
-    tbody tr {
-      color: #222;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-    tbody tr:hover {
-      transform: scale(1.01);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    }
-    td:first-child {
-      font-weight: bold;
-    }
-    caption {
-      caption-side: top;
-      padding: 12px;
-      font-size: 18px;
-      font-weight: bold;
-      color: #333;
-    }
-
-    /* Zone color coding */
-    .zone-1 { background: #d9fdd3; }   /* light green */
-    .zone-2 { background: #fff8c4; }   /* pale yellow */
-    .zone-3 { background: #ffe3a3; }   /* light orange */
-    .zone-4 { background: #ffc8a2; }   /* orange */
-    .zone-5 { background: #ffb3b3; }   /* light red */
-
     footer {
       text-align: center;
       padding: 2.5rem 0 2rem 0;
@@ -790,52 +730,68 @@
         &nbsp; 50 + (150 × 0.7) = 155 bpm<br>
         So Zone 2 = 140–155 bpm.
       </div>
-    </div>
+      <div class="blog-image-wrapper">
+  <svg viewBox="0 0 600 300" class="blog-image" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Heart rate training zones chart">
+    <style>
+      .zone-label { font: 16px Georgia, serif; fill: #222; }
+      .zone-percent { font: bold 14px Arial, sans-serif; fill: #fff; }
+    </style>
+    <!-- Zone bars -->
+    <rect x="0"   y="40" width="120" height="80" fill="#6c9bd2"/>
+    <rect x="120" y="40" width="120" height="80" fill="#4da77a"/>
+    <rect x="240" y="40" width="120" height="80" fill="#e0b44c"/>
+    <rect x="360" y="40" width="120" height="80" fill="#e47c3d"/>
+    <rect x="480" y="40" width="120" height="80" fill="#c94f4f"/>
 
-    <div class="table-container">
-      <table>
-        <caption>Heart Rate Training Zones</caption>
-        <thead>
-          <tr>
-            <th>Zone</th>
-            <th>Also known as</th>
-            <th>% of Max Heart Rate</th>
-            <th>Fuel Source</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="zone-1">
-            <td>1</td>
-            <td>Easy</td>
-            <td>50%–60%</td>
-            <td>Fat</td>
-          </tr>
-          <tr class="zone-2">
-            <td>2</td>
-            <td>Aerobic</td>
-            <td>60%–70%</td>
-            <td>Fat</td>
-          </tr>
-          <tr class="zone-3">
-            <td>3</td>
-            <td>Tempo</td>
-            <td>70%–80%</td>
-            <td>Fat, Carbs, Protein</td>
-          </tr>
-          <tr class="zone-4">
-            <td>4</td>
-            <td>Threshold</td>
-            <td>80%–90%</td>
-            <td>Carbs, Protein</td>
-          </tr>
-          <tr class="zone-5">
-            <td>5</td>
-            <td>VO2 Max</td>
-            <td>90%–100%</td>
-            <td>Carbs, Protein</td>
-          </tr>
-        </tbody>
-      </table>
+    <!-- Labels inside bars -->
+    <text x="60"  y="75" class="zone-percent" text-anchor="middle">
+      <tspan x="60" dy="0">Z1</tspan>
+      <tspan x="60" dy="1.2em">50–60%</tspan>
+    </text>
+    <text x="180" y="75" class="zone-percent" text-anchor="middle">
+      <tspan x="180" dy="0">Z2</tspan>
+      <tspan x="180" dy="1.2em">60–70%</tspan>
+    </text>
+    <text x="300" y="75" class="zone-percent" text-anchor="middle">
+      <tspan x="300" dy="0">Z3</tspan>
+      <tspan x="300" dy="1.2em">70–80%</tspan>
+    </text>
+    <text x="420" y="75" class="zone-percent" text-anchor="middle">
+      <tspan x="420" dy="0">Z4</tspan>
+      <tspan x="420" dy="1.2em">80–90%</tspan>
+    </text>
+    <text x="540" y="75" class="zone-percent" text-anchor="middle">
+      <tspan x="540" dy="0">Z5</tspan>
+      <tspan x="540" dy="1.2em">90–100%</tspan>
+    </text>
+
+    <!-- Title -->
+    <text x="300" y="20" class="zone-label" text-anchor="middle" font-size="20">Heart Rate Training Zones (% of Max HR)</text>
+
+    <!-- Descriptions below -->
+    <text x="60"  y="145" class="zone-label" text-anchor="middle">
+      <tspan x="60" dy="0">Very easy</tspan>
+      <tspan x="60" dy="1.2em">Recovery</tspan>
+    </text>
+    <text x="180" y="145" class="zone-label" text-anchor="middle">
+      <tspan x="180" dy="0">Easy</tspan>
+      <tspan x="180" dy="1.2em">Aerobic</tspan>
+    </text>
+    <text x="300" y="145" class="zone-label" text-anchor="middle">
+      <tspan x="300" dy="0">Moderate</tspan>
+      <tspan x="300" dy="1.2em">Tempo</tspan>
+    </text>
+    <text x="420" y="145" class="zone-label" text-anchor="middle">
+      <tspan x="420" dy="0">Hard</tspan>
+      <tspan x="420" dy="1.2em">Threshold</tspan>
+    </text>
+    <text x="540" y="145" class="zone-label" text-anchor="middle">
+      <tspan x="540" dy="0">Max effort</tspan>
+      <tspan x="540" dy="1.2em">VO2 Max</tspan>
+    </text>
+  </svg>
+  <div class="blog-image-credit">Illustration: Heart rate zones (example ranges as % of max HR).</div>
+</div>
     </div>
 
     <div class="proj-section">
