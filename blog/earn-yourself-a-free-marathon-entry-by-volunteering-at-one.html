@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Think You Know Zone 2 Running? Most Runners Get This Wrong | Brian Chan Blog</title>
+  <link rel="icon" href="bc_icon.ico">
+  <style>
+    :root {
+      --primary-bg: #fcfbf3;
+      --accent: #333;
+      --light: #fff;
+      --border: #e0e0e0;
+      --fixed-header-height: 70px;
+      --nav-z: 2000;
+      --hamburger-size: 2.3rem;
+      --transition: 0.23s cubic-bezier(.4,0,.2,1);
+    }
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: var(--primary-bg);
+      color: var(--accent);
+      transition: background 0.2s, color 0.2s;
+    }
+    header {
+      background: var(--light);
+      border-bottom: 1px solid var(--border);
+      padding: 0.6rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: var(--nav-z);
+      height: var(--fixed-header-height);
+      box-sizing: border-box;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+    }
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-left: 2rem;
+      letter-spacing: 1px;
+      color: var(--accent);
+      text-decoration: none;
+      cursor: pointer;
+      transition: color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      z-index: calc(var(--nav-z) + 1);
+    }
+    .logo-img {
+      width: 2.1rem;
+      height: 2.1rem;
+      object-fit: contain;
+      margin-right: 0.4rem;
+      border: none;
+      display: inline-block;
+      vertical-align: middle;
+      background: none;
+      box-shadow: none;
+      transition: none;
+    }
+    nav {
+      margin-right: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    nav a {
+      color: var(--accent);
+      text-decoration: none;
+      margin: 0 0.75rem;
+      font-size: 1.1rem;
+      font-weight: 500;
+      transition:
+        color 0.2s,
+        transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      display: inline-block;
+    }
+    nav a:hover,
+    nav a.active {
+      color: #0074d9;
+      transform: scale(1.18);
+    }
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: var(--hamburger-size);
+      height: var(--hamburger-size);
+      background: none;
+      border: none;
+      cursor: pointer;
+      z-index: calc(var(--nav-z) + 2);
+      margin-right: 1.4rem;
+      margin-left: auto;
+    }
+    .hamburger-bar {
+      width: 28px;
+      height: 3.5px;
+      background: var(--accent);
+      border-radius: 3px;
+      margin: 3.5px 0;
+      transition: all var(--transition);
+      display: block;
+    }
+    .hamburger.open .bar1 {
+      transform: rotate(45deg) translate(6px, 7px);
+    }
+    .hamburger.open .bar2 {
+      opacity: 0;
+    }
+    .hamburger.open .bar3 {
+      transform: rotate(-45deg) translate(7px, -7px);
+    }
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 80vw;
+      max-width: 340px;
+      height: 100vh;
+      background: var(--light);
+      box-shadow: -4px 0 24px 0 rgba(60,60,90,0.08);
+      z-index: calc(var(--nav-z) + 10);
+      transform: translateX(100%);
+      transition: transform var(--transition);
+      padding-top: var(--fixed-header-height);
+      padding-left: 2rem;
+      padding-right: 2rem;
+      box-sizing: border-box;
+      flex-direction: column;
+      align-items: start;
+    }
+    .mobile-nav.open {
+      display: flex;
+      transform: translateX(0);
+    }
+    .mobile-nav a {
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin: 1.1rem 0;
+      transition: color 0.18s;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 0.3em;
+      width: 100%;
+    }
+    .mobile-nav a:last-child {
+      border-bottom: none;
+    }
+    .mobile-nav a:hover,
+    .mobile-nav a.active {
+      color: #0074d9;
+      background: #f0f3ff;
+    }
+    .mobile-nav-close {
+      position: absolute;
+      top: 1.2rem;
+      right: 1.4rem;
+      font-size: 2.2rem;
+      color: #aaa;
+      background: none;
+      border: none;
+      cursor: pointer;
+      z-index: calc(var(--nav-z) + 12);
+      transition: color 0.2s;
+    }
+    .mobile-nav-close:hover {
+      color: #0074d9;
+    }
+    .mobile-nav-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(50,50,70,0.16);
+      z-index: calc(var(--nav-z) + 5);
+      transition: opacity 0.18s;
+    }
+    .mobile-nav-overlay.open {
+      display: block;
+    }
+    @media (max-width: 900px) {
+      nav { display: none; }
+      .hamburger { display: flex; }
+      .mobile-nav {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+      }
+    }
+    @media (min-width: 901px) {
+      .mobile-nav,
+      .mobile-nav-overlay,
+      .mobile-nav.open,
+      .mobile-nav-overlay.open {
+        display: none !important;
+      }
+      .hamburger { display: none !important; }
+      nav { display: flex !important; }
+    }
+    .container {
+      max-width: 800px;
+      margin: calc(var(--fixed-header-height) + 2.5rem) auto 1.5rem auto;
+      padding: 0 1rem;
+      flex: 1 0 auto;
+    }
+    .back-link {
+      display: inline-block;
+      margin-top: 1.5rem;
+      margin-bottom: 0.5rem;
+      color: #888;
+      font-size: 0.98rem;
+      text-decoration: none;
+      transition: color 0.18s;
+    }
+    .back-link:hover {
+      color: #0074d9;
+      text-decoration: underline;
+    }
+    .proj-title {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+      color: #2d2e2f;
+    }
+    .proj-meta {
+      font-size: 1.05rem;
+      color: #888;
+      margin-bottom: 1.1rem;
+    }
+    /* --- Author Section Styles --- */
+    .author-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      font-size: 1.04rem;
+      margin-bottom: 1.4rem;
+      color: #666;
+      flex-wrap: wrap;
+    }
+    .author-by {
+      font-size: 1.02rem;
+      color: #888;
+      margin-right: 0.2rem;
+    }
+    .author-logo {
+      width: 2.2rem;
+      height: 2.2rem;
+      object-fit: cover;
+      margin-right: 0.45rem;
+      border-radius: 50%;
+      border: 1.5px solid #eee;
+      background: #fff;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+      display: inline-block;
+      vertical-align: middle;
+      transition: box-shadow 0.2s;
+    }
+    .author-name {
+      font-weight: 600;
+      color: #333;
+      margin-right: 1.5rem;
+    }
+    .last-updated {
+      font-size: 0.97rem;
+      color: #888;
+      margin-left: 1rem;
+      white-space: nowrap;
+    }
+    @media (max-width: 500px) {
+      .author-meta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.2rem;
+      }
+      .author-name, .last-updated {
+        margin-right: 0;
+        margin-left: 0;
+      }
+      .last-updated {
+        margin-top: 0.2rem;
+      }
+    }
+    .key-takeaways-box {
+      border: none;
+      padding: 1.2rem 1.6rem 1.2rem 1.6rem;
+      margin: 0.7rem 0 2.3rem 0;
+      background: var(--light);
+      position: relative;
+      box-shadow: none;
+    }
+    .key-takeaways-title {
+      font-family: Georgia, "Times New Roman", Times, serif;
+			font-size: 21px;
+			font-weight: 400;
+			letter-spacing: 0;
+			line-height: 1.5;
+			color: #222;
+    }
+    .key-takeaways-box ul {
+      margin: 0;
+      padding-left: 1.1em;
+      font-size: 1.08rem;
+    }
+    .key-takeaways-box li {
+      margin-bottom: 0.7em;
+      line-height: 1.5;
+      font-size: 18px;
+    }
+    .key-takeaways-box li:last-child {
+      margin-bottom: 0;
+    }
+    .key-takeaways-box:before,
+    .key-takeaways-box:after {
+      content: "";
+      position: absolute;
+      border-color: #ea7c5d;
+      border-style: solid;
+      width: 48px;
+      height: 16px;
+      pointer-events: none;
+    }
+    .key-takeaways-box:before {
+      border-width: 3px 0 0 3px;
+      left: 0;
+      top: 0;
+    }
+    .key-takeaways-box:after {
+      border-width: 0 3px 3px 0;
+      right: 0;
+      bottom: 0;
+    }
+    .blog-image-wrapper {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .blog-image {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      margin: 0 auto;
+      border-radius: 13px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    }
+    .blog-image-credit {
+      font-size: 0.97rem;
+      color: #888;
+      margin-top: 0.5em;
+      text-align: center;
+    }
+    .blog-image-credit a {
+      color: #0074d9;
+      text-decoration: underline;
+    }
+    .blog-image-credit a:hover {
+      color: #005fa3;
+      text-decoration: underline;
+    }
+    .proj-summary {
+      font-family: Georgia, "Times New Roman", Times, serif;
+      font-size: 21px;
+      font-weight: 100;
+      letter-spacing: 0;
+      line-height: 1.5;
+      color: #222; 
+      margin-bottom: 6rem;
+      margin-top: 5rem;  /* More space above and below each line */
+    }
+    .proj-section {
+      margin-bottom: 2.3rem;
+    }
+    .proj-section h2 {
+      font-family: Georgia, "Times New Roman", Times, serif;
+      font-size: 30px;
+      font-weight: 550;
+      letter-spacing: 0;
+      line-height: 1.5;
+      color: #222; 
+      margin-bottom: 1rem;
+      margin-top: 7rem;  
+    }
+    p {
+      font-family: Georgia, "Times New Roman", Times, serif;
+      font-size: 21px;
+      font-weight: 100;
+      letter-spacing: 0;
+      line-height: 1.5;
+      color: #222; 
+      margin-bottom: 1rem;  
+    }
+    .proj-section ul, .proj-section ol {
+      margin-left: 1.3rem;
+    }
+    .proj-section ul li {
+      font-family: Georgia, "Times New Roman", Times, serif;
+      font-size: 21px;
+      font-weight: 100;
+      letter-spacing: 0;
+      line-height: 1.5;
+      color: #222; 
+      margin-bottom: 1rem;
+    }
+    .proj-section ol li {
+      font-family: Georgia, "Times New Roman", Times, serif;
+      font-size: 19px;
+      font-weight: 100;
+      letter-spacing: 0;
+      line-height: 1.5;
+      color: #222; 
+      margin-bottom: 1rem;
+    }
+    .proj-section .subsection-title {
+      font-family: Georgia, "Times New Roman", Times, serif;
+      font-size: 21px;
+      font-weight: 100;
+      letter-spacing: 0;
+      line-height: 1.5;
+      color: #222; 
+      margin-bottom: 1rem;
+    }
+    .proj-section .formula-block {
+      background: #f6f4ec;
+      border-left: 4px solid #ea7c5d;
+      padding: 0.8em 1em;
+      margin: 1em 0;
+      border-radius: 7px;
+      font-family: monospace;
+      font-size: 1.2em;
+      color: #222;
+      overflow-x: auto;
+      display: block;
+    }
+    .proj-section .external-link {
+      color: #0074d9;
+      text-decoration: underline;
+      word-break: break-all;
+    }
+    .proj-section .external-link:hover {
+      color: #005fa3;
+    }
+    .zone-contents {
+      margin-bottom: 2.1em;
+      background: #f4f0e3;
+      border-radius: 7px;
+      padding: 1em 1.3em 1em 1.3em;
+      box-shadow: 0 1px 5px rgba(0,0,0,0.04);
+      max-width: 600px;
+      font-size: 1.07em;
+    }
+    .zone-contents-title {
+      font-weight: 700;
+      font-size: 1.5em;
+      margin-bottom: 0.4em;
+      color: #b99d5c;
+      letter-spacing: 0.01em;
+    }
+    .zone-contents ol {
+      margin: 0 0 0 1.3em;
+      padding: 0;
+      font-size: 1.1em;
+    }
+    .zone-contents ol li {
+      margin-bottom: 0.33em;
+    }
+    @media (max-width: 700px) {
+      .container {
+        margin-top: 1rem;
+      }
+      .read-next-section {
+        padding-top: 1.1rem;
+      }
+      .read-next-section ul {
+        flex-direction: column;
+        gap: 1.1rem !important;
+      }
+      .zone-contents {
+        padding: 0.7em 0.4em;
+        font-size: 1em;
+      }
+    }
+    footer {
+      text-align: center;
+      padding: 2.5rem 0 2rem 0;
+      color: #888;
+      font-size: 1.03rem;
+      background: var(--light);
+      border-top: 1px solid var(--border);
+      margin-top: 3rem;
+      transition: background 0.2s, color 0.2s;
+      flex-shrink: 0;
+    }
+    .footer-content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+    .footer-main {
+      font-size: 1.08rem;
+      color: #888;
+      margin-bottom: 0.7rem;
+    }
+    .footer-links {
+      margin: 0.2rem 0 1.3rem 0;
+      font-size: 1.06rem;
+    }
+    .footer-links a {
+      color: #0074d9;
+      text-decoration: none;
+      margin: 0 0.1rem;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover {
+      color: #005fa3;
+      text-decoration: underline;
+    }
+    .footer-note {
+      font-size: 0.98rem;
+      color: #aaa;
+      margin-top: 0.6rem;
+      line-height: 1.5;
+    }
+    .footer-github {
+      margin-top: 1.2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .footer-github a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: none;
+      border: none;
+      padding: 0.22em;
+      border-radius: 50%;
+      transition: background 0.15s;
+      text-decoration: none;
+      outline: none;
+    }
+    .footer-github svg {
+      display: block;
+      width: 2.2rem;
+      height: 2.2rem;
+    }
+    @media (max-width: 700px) {
+      .footer-content {
+        font-size: 1rem;
+      }
+      .footer-note {
+        font-size: 0.93rem;
+      }
+      .footer-links {
+        font-size: 1rem;
+      }
+      .footer-github svg {
+        width: 1.6rem;
+        height: 1.6rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/" class="logo">
+      <img src="bc_logo.png" alt="Brian Chan Logo" class="logo-img">
+      Brian Chan
+    </a>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/projects">Projects</a>
+      <a href="/blog">Blog</a>
+      <a href="/#about-me">About</a>
+      <a href="/resource">Resource</a>
+      <a href="/contact">Contact</a>
+    </nav>
+    <button class="hamburger" aria-label="Open menu" aria-expanded="false">
+      <span class="hamburger-bar bar1"></span>
+      <span class="hamburger-bar bar2"></span>
+      <span class="hamburger-bar bar3"></span>
+    </button>
+    <div class="mobile-nav" aria-hidden="true">
+      <button class="mobile-nav-close" aria-label="Close menu">&times;</button>
+      <a href="/">Home</a>
+      <a href="/projects">Projects</a>
+      <a href="/blog">Blog</a>
+      <a href="/#about-me">About</a>
+      <a href="/resource">Resource</a>
+      <a href="/contact">Contact</a>
+    </div>
+    <div class="mobile-nav-overlay"></div>
+  </header>
+  <div class="container">
+    <a href="/blog" class="back-link">&larr; Back to Blog</a>
+    <div class="proj-title">Think You Know Zone 2 Running? Most Runners Get This Wrong.</div>
+    <div class="proj-meta">2025 &middot; Training &amp; Endurance &middot; Blog Article</div>
+    <!-- Author Section Start -->
+    <div class="author-meta">
+      <span class="author-by">By</span>
+      <img src="/bc_logo.png" alt="Brian Chan Logo" class="author-logo">
+      <span class="author-name">Brian Chan</span>
+      <span class="last-updated">Last updated 02 September 2025</span>
+    </div>
+    <!-- Author Section End -->
+
+    <!-- Contents box -->
+    <div class="zone-contents">
+      <div class="zone-contents-title">Contents</div>
+      <ol>
+        <li>Introduction</li>
+        <li>Quick Takeaways</li>
+        <li>Why Volunteering Is A Big Deal in Running</li>
+        <li>Top 10 UK Events Giving Free Race Places to Volunteers</li>
+        <li>A Note on parkrun</li>
+        <li>The Real Value of Volunteering (Beyond the Free Entry)</li>
+        <li>Tips for First-Time Race Volunteers</li>
+        <li>Final Thoughts</li>
+      </ol>
+    </div>
+
+    <div class="proj-summary">
+        Running events are about much more than just the athletes who line up at the start line. Behind every successful race, there’s a small army of volunteers pulling the strings—handing out water, cheering, directing runners, or sweeping up after everyone has crossed the finish. Without them, most events simply couldn’t happen.<br><br>
+        But here’s a little insider secret that many people don’t realize: if you volunteer at a race, you can often earn yourself a free entry into a future event.<br><br>
+        Yes, that’s right—your enthusiasm, support, and time can effectively pay for your next marathon, trail ultra, or 10K. It’s a win-win: you help the running community thrive, and in return you get the chance to participate in your chosen event for free (or at a heavily reduced cost).<br><br>        This guide will walk you through 10 different UK-based organizations that reward race volunteers with future race entries, and we’ll round things off with a quick word about parkrun—an entirely free, volunteer-led global movement. Along the way, you’ll also learn why volunteering is more than just a free race ticket: it’s arguably one of the most rewarding aspects of the sport.<br><br>
+        So, lace up (figuratively), and let’s dive in.
+    </div>
+
+    <!-- Key Takeaways Section Start -->
+    <div class="key-takeaways-box">
+      <div class="key-takeaways-title">QUICK TAKEAWAYS</div>
+      <ul>
+        <li>Volunteering at races can earn you a free entry for future events.</li>
+        <li>Ten UK organisers reward volunteers with free places or entry credits.</li>
+        <li>Many races give extras like shirts, meals, or guaranteed entry spots.</li>
+        <li>Volunteers are vital for safety, atmosphere, and overall race experience.</li>
+        <li>Helping at events inspires motivation and makes you a smarter runner.</li>
+      </ul>
+    </div>
+    <!-- Key Takeaways Section End -->
+
+    <div class="proj-section">
+      <h2>Why Volunteering Is A Big Deal in Running?</h2>
+      <p>
+        Volunteers form the backbone of every race. Before runners arrive, they mark courses, prepare aid stations, and ensure safety. When fatigue strikes mid‑race, it is often a volunteer’s shout of encouragement that keeps athletes moving.<br><br>
+        Their impact reaches beyond helping participants. Volunteering offers perspective on the scale of race logistics. It builds community by uniting athletes, families, and locals. It also motivates, as seeing competitors push through inspires training goals. Many organisers add rewards such as free entries, shirts, or snacks.<br><br>
+        With marathon fees ranging from £40 to well over £100 in major cities, a complimentary place earned through volunteering is both a financial saving and a meaningful reward.
+        </p>
+    </div>
+
+    <div class="proj-section">
+      <h2>Top 10 UK Events Giving Free Race Places to Volunteers</h2>
+      <p>
+        Here’s the meat of it: specific organisations where swapping a day of volunteering can get your name on a start list for free.</li>
+      </p>
+      <p>
+        These adaptations mean you can run longer before fatigue sets in. For marathoners, this is gold: it delays “the wall” by teaching your body to rely less on limited glycogen stores.<br><br>
+        Without a strong Zone 2 base, all the speed work in the world won’t save you from fading in the second half of a long race.
+      </p>
+    </div>
+
+    <div class="proj-section">
+      <h2>How to Measure Zone 2</h2>
+      <div class="subsection-title">a. Heart Rate</div>
+      <p>
+        Use the Karvonen formula (explained later) or your watch’s zone settings. For most runners, Zone 2 is about 60–70% HRR or roughly 65–75% of max heart rate.
+      </p>
+      <div class="subsection-title">b. Talk Test</div>
+      <ul>
+        <li>If you can talk in full sentences without gasping → you’re in Zone 2.</li>
+        <li>If you can only say a few words → you’ve drifted into Zone 3 or higher.</li>
+        <li>If you can sing → you’re probably in Zone 1.</li>
+      </ul>
+      <div class="subsection-title">c. Pace</div>
+      <p>
+        Zone 2 pace is typically 90–120 seconds per mile slower than your 10K race pace.<br>
+        <em>Example:</em> If you run a 10K at 8:00 per mile, your Zone 2 pace might be 9:30–10:00 per mile.
+      </p>
+    </div>
+
+    <div class="proj-section">
+      <h2>Key Physiological Terms You Should Know</h2>
+      <div class="subsection-title">Heart Rate Reserve (HRR)</div>
+      <ul>
+        <li>HRR = Max Heart Rate – Resting Heart Rate.</li>
+        <li>Example: If your max HR is 200 bpm and resting HR is 50 bpm, your HRR = 150.</li>
+        <li>Training zones are then calculated as percentages of HRR added back to your resting HR.</li>
+        <li>This method (the Karvonen method) is more precise than using max HR alone, because it accounts for individual fitness differences.</li>
+      </ul>
+      <div class="subsection-title">Lactate Threshold 1 (LT1)</div>
+      <ul>
+        <li>The intensity where blood lactate first starts to rise above resting levels.</li>
+        <li>LT1 ≈ top of Zone 2. Staying below LT1 means you’re still solidly aerobic.</li>
+      </ul>
+      <div class="subsection-title">Lactate Threshold 2 (LT2)</div>
+      <ul>
+        <li>The intensity where lactate accumulates faster than your body can clear it—essentially your “red line.”</li>
+        <li>LT2 ≈ top of Zone 4. Training here is hard and can’t last long.</li>
+      </ul>
+      <div class="subsection-title">The Karvonen Method</div>
+      <div class="formula-block">
+        Target HR = Resting HR + (HRR × % intensity)<br>
+        <br>
+        Example:<br>
+        Resting HR = 50<br>
+        Max HR = 200 → HRR = 150<br>
+        Zone 2 (60–70%):<br>
+        &nbsp; 50 + (150 × 0.6) = 140 bpm<br>
+        &nbsp; 50 + (150 × 0.7) = 155 bpm<br>
+        So Zone 2 = 140–155 bpm.
+      </div>
+      <div class="blog-image-wrapper">
+  <svg viewBox="0 0 600 300" class="blog-image" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Heart rate training zones chart">
+    <style>
+      .zone-label { font: 16px Georgia, serif; fill: #222; }
+      .zone-percent { font: bold 14px Arial, sans-serif; fill: #fff; }
+    </style>
+    <!-- Zone bars -->
+    <rect x="0"   y="40" width="120" height="80" fill="#6c9bd2"/>
+    <rect x="120" y="40" width="120" height="80" fill="#4da77a"/>
+    <rect x="240" y="40" width="120" height="80" fill="#e0b44c"/>
+    <rect x="360" y="40" width="120" height="80" fill="#e47c3d"/>
+    <rect x="480" y="40" width="120" height="80" fill="#c94f4f"/>
+
+    <!-- Labels inside bars -->
+    <text x="60"  y="75" class="zone-percent" text-anchor="middle">
+      <tspan x="60" dy="0">Z1</tspan>
+      <tspan x="60" dy="1.2em">50–60%</tspan>
+    </text>
+    <text x="180" y="75" class="zone-percent" text-anchor="middle">
+      <tspan x="180" dy="0">Z2</tspan>
+      <tspan x="180" dy="1.2em">60–70%</tspan>
+    </text>
+    <text x="300" y="75" class="zone-percent" text-anchor="middle">
+      <tspan x="300" dy="0">Z3</tspan>
+      <tspan x="300" dy="1.2em">70–80%</tspan>
+    </text>
+    <text x="420" y="75" class="zone-percent" text-anchor="middle">
+      <tspan x="420" dy="0">Z4</tspan>
+      <tspan x="420" dy="1.2em">80–90%</tspan>
+    </text>
+    <text x="540" y="75" class="zone-percent" text-anchor="middle">
+      <tspan x="540" dy="0">Z5</tspan>
+      <tspan x="540" dy="1.2em">90–100%</tspan>
+    </text>
+
+    <!-- Title -->
+    <text x="300" y="20" class="zone-label" text-anchor="middle" font-size="20">Heart Rate Training Zones (% of Max HR)</text>
+
+    <!-- Descriptions below -->
+    <text x="60"  y="145" class="zone-label" text-anchor="middle">
+      <tspan x="60" dy="0">Very easy</tspan>
+      <tspan x="60" dy="1.2em">Recovery</tspan>
+    </text>
+    <text x="180" y="145" class="zone-label" text-anchor="middle">
+      <tspan x="180" dy="0">Easy</tspan>
+      <tspan x="180" dy="1.2em">Aerobic</tspan>
+    </text>
+    <text x="300" y="145" class="zone-label" text-anchor="middle">
+      <tspan x="300" dy="0">Moderate</tspan>
+      <tspan x="300" dy="1.2em">Tempo</tspan>
+    </text>
+    <text x="420" y="145" class="zone-label" text-anchor="middle">
+      <tspan x="420" dy="0">Hard</tspan>
+      <tspan x="420" dy="1.2em">Threshold</tspan>
+    </text>
+    <text x="540" y="145" class="zone-label" text-anchor="middle">
+      <tspan x="540" dy="0">Max effort</tspan>
+      <tspan x="540" dy="1.2em">VO2 Max</tspan>
+    </text>
+  </svg>
+  <div class="blog-image-credit">Illustration: Heart rate zones (example ranges as % of max HR).</div>
+</div>
+    </div>
+
+    <div class="proj-section">
+      <h2>Common Myths and Mistakes</h2>
+      <div class="subsection-title">Myth 1: Zone 2 is just jogging</div>
+      <p>Not quite. True Zone 2 is steady and purposeful. Jogging too slowly (Zone 1) won’t provide the same aerobic stimulus.</p>
+      <div class="subsection-title">Myth 2: Faster is always better</div>
+      <p>Running most of your weekly mileage too fast (Zone 3) leaves you tired, but without the aerobic benefits of Zone 2 or the high intensity gains of Zone 4. It’s “no man’s land.”</p>
+      <div class="subsection-title">Myth 3: Elite runners don’t bother with Zone 2</div>
+      <p>In fact, elites often spend 70–80% of their training in Zone 2. Their easy runs might still look fast, but relative to their fitness, they’re staying aerobic.</p>
+      <div class="subsection-title">Myth 4: You’ll lose speed if you run slow</div>
+      <p>Zone 2 doesn’t make you slower—it supports your ability to run faster for longer. Speed work adds sharpness, but Zone 2 builds the base.</p>
+    </div>
+
+    <div class="proj-section">
+      <h2>How to Incorporate Zone 2 into Your Training</h2>
+      <div class="subsection-title">Weekly Mileage</div>
+      <ul>
+        <li>Aim for 60–80% of your total mileage in Zone 2.</li>
+        <li>Example: If you run 40 miles per week, 25–30 of those should be Zone 2.</li>
+      </ul>
+      <div class="subsection-title">Long Runs</div>
+      <ul>
+        <li>Classic Zone 2 sessions. Run steadily for 90–120 minutes at conversational pace.</li>
+        <li>This is where you build the endurance engine.</li>
+      </ul>
+      <div class="subsection-title">Recovery Runs</div>
+      <ul>
+        <li>Easy days should stay in Zone 2 (or even Zone 1 if you’re tired).</li>
+        <li>This keeps blood flowing without stressing your system.</li>
+      </ul>
+      <div class="subsection-title">Mix with Speed Work</div>
+      <ul>
+        <li>Add 1–2 quality sessions per week (intervals, tempo, hills).</li>
+        <li>The rest should be Zone 2. This balance lets you adapt without burning out.</li>
+      </ul>
+      <div class="subsection-title">Practical Example (Half Marathon Training, 5 days/week)</div>
+      <ul>
+        <li>Mon: Rest or cross train</li>
+        <li>Tue: Intervals (Zone 4)</li>
+        <li>Wed: 5–6 miles Zone 2</li>
+        <li>Thu: Tempo run (Zone 3–4)</li>
+        <li>Fri: Rest</li>
+        <li>Sat: Long run 10–14 miles Zone 2</li>
+        <li>Sun: 4–5 miles Zone 2 recovery</li>
+      </ul>
+    </div>
+
+    <div class="proj-section">
+      <h2>Conclusion: The Power of Slowing Down</h2>
+      <p>
+        Zone 2 running might feel too easy at first—like you’re holding back. But that’s exactly the point. By training your aerobic system, you’re laying the foundation for faster, stronger, and longer running.<br><br>
+        So next time you head out, try the talk test. If you can chat but not sing, you’re in the sweet spot. Stick with it consistently, and you’ll notice something magical: your “easy pace” will gradually get faster, without extra effort.<br><br>
+        Zone 2 is not wasted time—it’s the hidden key to endurance success.
+      </p>
+    </div>
+
+    <div class="proj-section">
+      <h2>Recommended Further Reading</h2>
+      <ol>
+        <li>
+          International Journal of Sports Physiology and Performance
+        </li>
+        <li>
+          <a class="external-link" href="https://www.researchgate.net/publication/389362061_What_Is_Zone_2_Training_Experts'_Viewpoint_on_Definition_Training_Methods_and_Expected_Adaptations?__cf_chl_tk=GiIVq7RjGKg8COaAJbOUYtKo_xP6a38aZAdv5iF9jVI-1755803999-1.0.1.1-JnGBLn3EWdOlWs7vqwsE5y2w1eQbz2nIeuVNX4EWKk4" target="_blank" rel="noopener">
+            What Is "Zone 2 Training"?: Experts' Viewpoint on Definition, Training Methods, and Expected Adaptations
+          </a>
+          <br>
+          (DOI:10.1123/ijspp.2024-0303)
+        </li>
+      </ol>
+    </div>
+
+    <!-- Read Next Section -->
+    <div class="read-next-section">
+      <div class="read-next-label">Read Next</div>
+      <ul style="list-style:none; padding:0; margin:0; display:flex; flex-wrap:wrap; gap:1.3rem 2rem;">
+        <li>
+          <a href="/blog/life-skills-for-techies" class="read-next-link">
+            5 Essential Life Skills for Techies
+          </a>
+          <div style="font-size:0.97rem; color:#888;">Tips and habits every developer should build.</div>
+        </li>
+        <li>
+          <a href="/blog/explore-the-latest-in-ai" class="read-next-link">
+            Explore the Latest in AI: The Rise of Agentic AI
+          </a>
+          <div style="font-size:0.97rem; color:#888;">What agentic AI means and why it matters.</div>
+        </li>
+        <li>
+          <a href="/blog/hydrogen-fuel-cell-storage" class="read-next-link">
+            Hydrogen Fuel Cell Storage: The Future of Energy
+          </a>
+          <div style="font-size:0.97rem; color:#888;">An overview of hydrogen storage technologies.</div>
+        </li>
+        <li>
+          <a href="/blog/minimalist-productivity-tools" class="read-next-link">
+            Minimalist Productivity Tools for Focused Work
+          </a>
+          <div style="font-size:0.97rem; color:#888;">Declutter your workflow with these simple apps.</div>
+        </li>
+      </ul>
+    </div>
+    <!-- End Read Next Section -->
+
+  </div>
+  <footer>
+    <div class="footer-content">
+      <div class="footer-main">
+        &copy; 2025 Brian Chan. All rights reserved.
+      </div>
+      <div class="footer-links">
+        <a href="#">Download Resume</a> |
+        <a href="mailto:your@email.com">Contact</a> |
+        <a href="https://choosealicense.com/licenses/mit/" target="_blank" rel="noopener">MIT License</a>
+      </div>
+      <div class="footer-note">
+        Crafted with passion and a touch of love.<br>
+        Open source and open heart, please use it responsibly.
+      </div>
+      <div class="footer-github">
+        <a href="https://github.com/brian-website/brian-website.github.io/" class="github" target="_blank" rel="noopener" aria-label="GitHub Repository">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M12 0.297c-6.63 0-12 5.373-12 12 
+              0 5.303 3.438 9.8 8.205 11.385
+              0.6 0.113 0.82-0.258 0.82-0.577
+              0-0.285-0.01-1.04-0.015-2.04-3.338 0.726-4.042-1.61-4.042-1.61
+              -0.546-1.385-1.333-1.754-1.333-1.754
+              -1.089-0.745 0.084-0.729 0.084-0.729
+              1.205 0.084 1.84 1.236 1.84 1.236
+              1.07 1.834 2.809 1.304 3.495 0.997
+              0.108-0.775 0.418-1.305 0.762-1.605
+              -2.665-0.303-5.467-1.334-5.467-5.93
+              0-1.31 0.469-2.381 1.236-3.221
+              -0.123-0.303-0.535-1.523 0.117-3.176 0 0 1.008-0.322 3.301 1.23
+              0.96-0.267 1.98-0.399 3-0.404
+              1.02 0.005 2.04 0.137 3 0.404
+              2.291-1.552 3.297-1.23 3.297-1.23
+              0.653 1.653 0.241 2.873 0.119 3.176
+              0.77 0.84 1.235 1.911 1.235 3.221
+              0 4.609-2.807 5.625-5.479 5.921
+              0.43 0.372 0.823 1.102 0.823 2.222
+              0 1.604-0.014 2.898-0.014 3.293
+              0 0.322 0.216 0.694 0.825 0.576
+              C20.565 22.092 24 17.592 24 12.297
+              c0-6.627-5.373-12-12-12z"/>
+          </svg>
+        </a>
+        <a href="https://www.linkedin.com/in/brian-chan-eng" class="linkedin" target="_blank" rel="noopener" aria-label="LinkedIn Profile">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="4 4 40 40" width="2.2rem" height="2.2rem">
+            <path fill="#0078d4" d="M42,37c0,2.762-2.238,5-5,5H11c-2.761,0-5-2.238-5-5V11c0-2.762,2.239-5,5-5h26c2.762,0,5,2.238,5,5	V37z"></path>
+            <path d="M30,37V26.901c0-1.689-0.819-2.698-2.192-2.698c-0.815,0-1.414,0.459-1.779,1.364	c-0.017,0.064-0.041,0.325-0.031,1.114L26,37h-7V18h7v1.061C27.022,18.356,28.275,18,29.738,18c4.547,0,7.261,3.093,7.261,8.274	L37,37H30z M11,37V18h3.457C12.454,18,11,16.528,11,14.499C11,12.472,12.478,11,14.514,11c2.012,0,3.445,1.431,3.486,3.479	C18,16.523,16.521,18,14.485,18H18v19H11z" opacity=".05"></path>
+            <path d="M30.5,36.5v-9.599c0-1.973-1.031-3.198-2.692-3.198c-1.295,0-1.935,0.912-2.243,1.677	c-0.082,0.199-0.071,0.989-0.067,1.326L25.5,36.5h-6v-18h6v1.638c0.795-0.823,2.075-1.638,4.238-1.638	c4.233,0,6.761,2.906,6.761,7.774L36.5,36.5H30.5z M11.5,36.5v-18h6v18H11.5z M14.457,17.5c-1.713,0-2.957-1.262-2.957-3.001	c0-1.738,1.268-2.999,3.014-2.999c1.724,0,2.951,1.229,2.986,2.989c0,1.749-1.268,3.011-3.015,3.011H14.457z" opacity=".07"></path>
+            <path fill="#fff" d="M12,19h5v17h-5V19z M14.485,17h-0.028C12.965,17,12,15.888,12,14.499C12,13.08,12.995,12,14.514,12	c1.521,0,2.458,1.08,2.486,2.499C17,15.887,16.035,17,14.485,17z M36,36h-5v-9.099c0-2.198-1.225-3.698-3.192-3.698	c-1.501,0-2.313,1.012-2.707,1.99C24.957,25.543,25,26.511,25,27v9h-5V19h5v2.616C25.721,20.5,26.85,19,29.738,19	c3.578,0,6.261,2.25,6.261,7.274L36,36L36,36z"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </footer>
+  <script>
+    // Hamburger & mobile nav logic
+    const hamburger = document.querySelector('.hamburger');
+    const mobileNav = document.querySelector('.mobile-nav');
+    const mobileClose = document.querySelector('.mobile-nav-close');
+    const overlay = document.querySelector('.mobile-nav-overlay');
+    function openMobileNav() {
+      hamburger.classList.add('open');
+      mobileNav.classList.add('open');
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      hamburger.setAttribute('aria-expanded', 'true');
+      mobileNav.setAttribute('aria-hidden', 'false');
+    }
+    function closeMobileNav() {
+      hamburger.classList.remove('open');
+      mobileNav.classList.remove('open');
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+      hamburger.setAttribute('aria-expanded', 'false');
+      mobileNav.setAttribute('aria-hidden', 'true');
+    }
+    hamburger.addEventListener('click', openMobileNav);
+    mobileClose.addEventListener('click', closeMobileNav);
+    overlay.addEventListener('click', closeMobileNav);
+    window.addEventListener('resize', function() {
+      if (window.innerWidth > 900) closeMobileNav();
+    });
+  </script>
+</body>
+</html>
