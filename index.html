@@ -320,13 +320,15 @@
       overflow: hidden;
     }
     .hero-image img {
-      width: 88%;
-      height: 88%;
-      object-fit: cover;
-      border-radius: 1.6rem;
-      box-shadow: 0 2px 14px 0 rgba(0,0,0,0.03);
+      max-width: 100%;
+      height: auto;
       display: block;
-      background: #eee;
+      /* remove frame */
+      border: none;
+      box-shadow: none;
+      outline: none;
+      background: transparent;
+      border-radius: 0;
     }
     .hero-typing, #hero-typing-measure {
       font-size: 1.2rem;
