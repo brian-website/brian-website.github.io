@@ -1518,8 +1518,8 @@
       let maxScroll = Math.max(document.body.scrollHeight - window.innerHeight, 0);
 
       // Controls: smaller ease => heavier / slower feel
-      const ease = 0.14;        // easing factor (0.02..0.25). Lower = heavier/laggier.
-      const wheelFactor = 0.8;  // multiplier for wheel delta (0.0..1.5). Lower = less movement per wheel tick.
+      const ease = 0.01;        // easing factor (0.02..0.25). Lower = heavier/laggier.
+      const wheelFactor = 0.01;  // multiplier for wheel delta (0.0..1.5). Lower = less movement per wheel tick.
 
       const isInteractiveElement = (el) => {
         return !!el && (el.closest('input, textarea, select, [contenteditable="true"], button, a') !== null);
