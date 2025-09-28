@@ -1508,25 +1508,96 @@
       lastScrollY = window.scrollY;
     });
 
-    // --- Slow down scroll effect ---
-    (function() {
-      let scrollTarget = 0;        // where the page should scroll to
-      let currentScroll = 0;       // where the page currently is
-      const speed = 0.7;           // easing (smaller = heavier)
-      const slowFactor = 0.7;      // multiplier for scroll distance (0.5 = 50%)
+    // --- Smooth "heavier" scroll effect (improved) ---
+    (function () {
+      // Respect user's reduced motion preference
+      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-      window.addEventListener('wheel', e => {
-        e.preventDefault(); // prevent default scroll
-        scrollTarget += e.deltaY * slowFactor;
-        scrollTarget = Math.max(0, Math.min(scrollTarget, document.body.scrollHeight - window.innerHeight));
+      let targetScroll = window.scrollY || 0;
+      let currentScroll = targetScroll;
+      let maxScroll = Math.max(document.body.scrollHeight - window.innerHeight, 0);
+
+      // Controls: smaller ease => heavier / slower feel
+      const ease = 0.14;        // easing factor (0.02..0.25). Lower = heavier/laggier.
+      const wheelFactor = 0.8;  // multiplier for wheel delta (0.0..1.5). Lower = less movement per wheel tick.
+
+      const isInteractiveElement = (el) => {
+        return !!el && (el.closest('input, textarea, select, [contenteditable="true"], button, a') !== null);
+      };
+
+      // Clamp helper
+      const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+
+      // Update max scroll on resize/content changes
+      function updateMax() {
+        maxScroll = Math.max(document.body.scrollHeight - window.innerHeight, 0);
+        targetScroll = clamp(targetScroll, 0, maxScroll);
+        currentScroll = clamp(currentScroll, 0, maxScroll);
+      }
+      window.addEventListener('resize', updateMax);
+      // in case content changes after load
+      const ro = new MutationObserver(updateMax);
+      ro.observe(document.body, { childList: true, subtree: true, attributes: true });
+
+      // Wheel handler (mouse wheel / touchpad). We only block default when appropriate.
+      window.addEventListener('wheel', function (e) {
+        // Don't override when ctrl (zoom), or when event is from interactive element (forms, etc.)
+        if (e.ctrlKey || isInteractiveElement(e.target)) return;
+
+        // Prevent default native scroll and accumulate our own target
+        e.preventDefault();
+        // Normalize deltaY: for some devices deltaMode may be DOM_DELTA_LINE(1) or DOM_DELTA_PAGE(2)
+        let delta = e.deltaY;
+        if (e.deltaMode === 1) delta *= 16; // line -> pixels (approx)
+        if (e.deltaMode === 2) delta *= window.innerHeight; // page -> pixels
+
+        targetScroll = clamp(targetScroll + delta * wheelFactor, 0, maxScroll);
       }, { passive: false });
 
-      function animateScroll() {
-        currentScroll += (scrollTarget - currentScroll) * speed;
-        window.scrollTo(0, currentScroll);
-        requestAnimationFrame(animateScroll);
+      // Keyboard support (arrow keys, page up/down, space, home/end)
+      window.addEventListener('keydown', function (e) {
+        // Ignore typing in inputs or when modifiers are used
+        if (e.altKey || e.metaKey || e.ctrlKey) return;
+        if (isInteractiveElement(document.activeElement)) return;
+
+        let handled = false;
+        let delta = 0;
+        switch (e.code) {
+          case 'ArrowDown': delta = 40; handled = true; break;
+          case 'ArrowUp': delta = -40; handled = true; break;
+          case 'PageDown': delta = window.innerHeight * 0.9; handled = true; break;
+          case 'PageUp': delta = -window.innerHeight * 0.9; handled = true; break;
+          case 'Space': delta = e.shiftKey ? -window.innerHeight * 0.9 : window.innerHeight * 0.9; handled = true; break;
+          case 'Home': targetScroll = 0; handled = true; break;
+          case 'End': targetScroll = maxScroll; handled = true; break;
+        }
+        if (handled) {
+          e.preventDefault();
+          if (delta !== 0) targetScroll = clamp(targetScroll + delta * wheelFactor, 0, maxScroll);
+        }
+      }, { passive: false });
+
+      // Touch devices: do not hijack native touch scrolling (better UX). If you want to modify touch feel
+      // you'd need a separate handling which is more complex — skip for now.
+      // Animate loop
+      function animate() {
+        // Smoothly move currentScroll toward targetScroll
+        const diff = targetScroll - currentScroll;
+        if (Math.abs(diff) > 0.5) {
+          currentScroll += diff * ease;
+          window.scrollTo(0, Math.round(currentScroll));
+        } else if (Math.abs(diff) > 0) {
+          // Snap to target when very close
+          currentScroll = targetScroll;
+          window.scrollTo(0, Math.round(currentScroll));
+        }
+        requestAnimationFrame(animate);
       }
-      animateScroll();
+      // Initialize positions and start
+      updateMax();
+      currentScroll = window.scrollY || 0;
+      targetScroll = currentScroll;
+      requestAnimationFrame(animate);
     })();
   </script>
 </body>
