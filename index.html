@@ -948,6 +948,14 @@
 		  .faq-title { font-size: 1.25rem; }
 		  .faq-category { font-size: 1rem; }
 		}
+    /* --- Hide on scroll header effect --- */
+    header {
+      transition: transform 0.3s ease-in-out;
+    }
+
+    header.hide {
+      transform: translateY(-100%);
+    }
   </style>
 </head>
 <body>
@@ -1483,6 +1491,43 @@
 		    }
 		  });
 		});
+
+    // --- Hide header on scroll effect ---
+    let lastScrollY = window.scrollY;
+    const headerEl = document.querySelector("header");
+    const threshold = 10;
+
+    window.addEventListener("scroll", () => {
+      if (Math.abs(window.scrollY - lastScrollY) < threshold) return;
+
+      if (window.scrollY > lastScrollY) {
+        headerEl.classList.add("hide");
+      } else {
+        headerEl.classList.remove("hide");
+      }
+      lastScrollY = window.scrollY;
+    });
+
+    // --- Slow down scroll effect ---
+    (function() {
+      let scrollTarget = 0;        // where the page should scroll to
+      let currentScroll = 0;       // where the page currently is
+      const speed = 0.7;           // easing (smaller = heavier)
+      const slowFactor = 0.7;      // multiplier for scroll distance (0.5 = 50%)
+
+      window.addEventListener('wheel', e => {
+        e.preventDefault(); // prevent default scroll
+        scrollTarget += e.deltaY * slowFactor;
+        scrollTarget = Math.max(0, Math.min(scrollTarget, document.body.scrollHeight - window.innerHeight));
+      }, { passive: false });
+
+      function animateScroll() {
+        currentScroll += (scrollTarget - currentScroll) * speed;
+        window.scrollTo(0, currentScroll);
+        requestAnimationFrame(animateScroll);
+      }
+      animateScroll();
+    })();
   </script>
 </body>
 </html>
