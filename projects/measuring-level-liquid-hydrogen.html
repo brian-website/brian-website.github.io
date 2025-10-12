@@ -3,12 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hydrogen Fuel Cell Storage | Brian Chan Projects</title>
+  <title>Measuring the Level of Liquid Hydrogen | Brian Chan Blog</title>
+  <link rel="icon" href="bc_icon.ico">
   <style>
+    :root {
+      --primary-bg: #fcfbf3;
+      --accent: #333;
+      --light: #fff;
+      --border: #e0e0e0;
+      --fixed-header-height: 70px;
+      --nav-z: 2000;
+      --hamburger-size: 2.3rem;
+      --transition: 0.23s cubic-bezier(.4,0,.2,1);
+    }
     html, body {
       height: 100%;
       margin: 0;
       padding: 0;
+      overflow-x: hidden;
     }
     body {
       min-height: 100vh;
@@ -19,27 +31,22 @@
       color: var(--accent);
       transition: background 0.2s, color 0.2s;
     }
-    :root {
-      --primary-bg: #f7f5ee;
-      --accent: #333;
-      --light: #fff;
-      --border: #e0e0e0;
-    }
-    body.dark-mode {
-      --primary-bg: #17191c;
-      --accent: #f7f5ee;
-      --light: #23262b;
-      --border: #282828;
-    }
     header {
-      background: var(--light);
+      background: var(--primary-bg);
       border-bottom: 1px solid var(--border);
       padding: 0.6rem 0;
       display: flex;
       align-items: center;
       justify-content: space-between;
       flex-wrap: wrap;
-      position: relative;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: var(--nav-z);
+      height: var(--fixed-header-height);
+      box-sizing: border-box;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
     }
     .logo {
       font-size: 1.5rem;
@@ -50,11 +57,890 @@
       text-decoration: none;
       cursor: pointer;
       transition: color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      z-index: calc(var(--nav-z) + 1);
     }
-    .logo:visited,
-    .logo:active,
-    .logo:hover {
+    .logo-img {
+      width: 2.1rem;
+      height: 2.1rem;
+      object-fit: contain;
+      margin-right: 0.4rem;
+      border: none;
+      display: inline-block;
+      vertical-align: middle;
+      background: none;
+      box-shadow: none;
+      transition: none;
+    }
+    nav {
+      margin-right: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    nav a {
       color: var(--accent);
       text-decoration: none;
+      margin: 0 0.75rem;
+      font-size: 1.1rem;
+      font-weight: 500;
+      transition:
+        color 0.2s,
+        transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      display: inline-block;
     }
-    nav
+    nav a:hover,
+    nav a.active {
+      color: #0074d9;
+      transform: scale(1.18);
+    }
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: var(--hamburger-size);
+      height: var(--hamburger-size);
+      background: none;
+      border: none;
+      cursor: pointer;
+      z-index: calc(var(--nav-z) + 2);
+      margin-right: 1.4rem;
+      margin-left: auto;
+    }
+    .hamburger-bar {
+      width: 28px;
+      height: 3.5px;
+      background: var(--accent);
+      border-radius: 3px;
+      margin: 3.5px 0;
+      transition: all var(--transition);
+      display: block;
+    }
+    .hamburger.open .bar1 {
+      transform: rotate(45deg) translate(6px, 7px);
+    }
+    .hamburger.open .bar2 {
+      opacity: 0;
+    }
+    .hamburger.open .bar3 {
+      transform: rotate(-45deg) translate(7px, -7px);
+    }
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 80vw;
+      max-width: 340px;
+      height: 100vh;
+      background: var(--light);
+      box-shadow: -4px 0 24px 0 rgba(60,60,90,0.08);
+      z-index: calc(var(--nav-z) + 10);
+      transform: translateX(100%);
+      transition: transform var(--transition);
+      padding-top: var(--fixed-header-height);
+      padding-left: 2rem;
+      padding-right: 2rem;
+      box-sizing: border-box;
+      flex-direction: column;
+      align-items: start;
+    }
+    .mobile-nav.open {
+      display: flex;
+      transform: translateX(0);
+    }
+    .mobile-nav a {
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin: 1.1rem 0;
+      transition: color 0.18s;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 0.3em;
+      width: 100%;
+    }
+    .mobile-nav a:last-child {
+      border-bottom: none;
+    }
+    .mobile-nav a:hover,
+    .mobile-nav a.active {
+      color: #0074d9;
+      background: #f0f3ff;
+    }
+    .mobile-nav-close {
+      position: absolute;
+      top: 1.2rem;
+      right: 1.4rem;
+      font-size: 2.2rem;
+      color: #aaa;
+      background: none;
+      border: none;
+      cursor: pointer;
+      z-index: calc(var(--nav-z) + 12);
+      transition: color 0.2s;
+    }
+    .mobile-nav-close:hover {
+      color: #0074d9;
+    }
+    .mobile-nav-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(50,50,70,0.16);
+      z-index: calc(var(--nav-z) + 5);
+      transition: opacity 0.18s;
+    }
+    .mobile-nav-overlay.open {
+      display: block;
+    }
+    @media (max-width: 900px) {
+      nav { display: none; }
+      .hamburger { display: flex; }
+      .mobile-nav {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+      }
+    }
+    @media (min-width: 901px) {
+      .mobile-nav,
+      .mobile-nav-overlay,
+      .mobile-nav.open,
+      .mobile-nav-overlay.open {
+        display: none !important;
+      }
+      .hamburger { display: none !important; }
+      nav { display: flex !important; }
+    }
+    .container {
+      max-width: 800px;
+      margin: calc(var(--fixed-header-height) + 2.5rem) auto 1.5rem auto;
+      padding: 0 1rem;
+      flex: 1 0 auto;
+    }
+    .back-link {
+      display: inline-block;
+      margin-top: 1.5rem;
+      margin-bottom: 0.5rem;
+      color: #888;
+      font-size: 0.98rem;
+      text-decoration: none;
+      transition: color 0.18s;
+    }
+    .back-link:hover {
+      color: #0074d9;
+      text-decoration: underline;
+    }
+    .proj-title {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+      color: #2d2e2f;
+    }
+    .proj-meta {
+      font-size: 1.05rem;
+      color: #888;
+      margin-bottom: 1.1rem;
+    }
+    .author-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      font-size: 1.04rem;
+      margin-bottom: 1.4rem;
+      color: #666;
+      flex-wrap: wrap;
+    }
+    .author-by {
+      font-size: 1.02rem;
+      color: #888;
+      margin-right: 0.2rem;
+    }
+    .author-logo {
+      width: 2.2rem;
+      height: 2.2rem;
+      object-fit: cover;
+      margin-right: 0.45rem;
+      border-radius: 50%;
+      border: 1.5px solid #eee;
+      background: #fff;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+      display: inline-block;
+      vertical-align: middle;
+      transition: box-shadow 0.2s;
+    }
+    .author-name {
+      font-weight: 600;
+      color: #333;
+      margin-right: 1.5rem;
+    }
+    .last-updated {
+      font-size: 0.97rem;
+      color: #888;
+      margin-left: 1rem;
+      white-space: nowrap;
+    }
+    @media (max-width: 500px) {
+      .author-meta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.2rem;
+      }
+      .author-name, .last-updated {
+        margin-right: 0;
+        margin-left: 0;
+      }
+      .last-updated {
+        margin-top: 0.2rem;
+      }
+    }
+    .key-takeaways-box {
+      border: none;
+      padding: 1.2rem 1.6rem 1.2rem 1.6rem;
+      margin: 0.7rem 0 2.3rem 0;
+      background: var(--light);
+      position: relative;
+      box-shadow: none;
+    }
+    .key-takeaways-title {
+      font-family: Georgia, "Times New Roman", Times, serif;
+      font-size: 21px;
+      font-weight: 400;
+      letter-spacing: 0;
+      line-height: 1.5;
+      color: #222;
+    }
+    .key-takeaways-box ul {
+      margin: 0;
+      padding-left: 1.1em;
+      font-size: 1.08rem;
+    }
+    .key-takeaways-box li {
+      margin-bottom: 0.7em;
+      line-height: 1.5;
+      font-size: 18px;
+    }
+    .key-takeaways-box li:last-child {
+      margin-bottom: 0;
+    }
+    .key-takeaways-box:before,
+    .key-takeaways-box:after {
+      content: "";
+      position: absolute;
+      border-color: #4285f4;
+      border-style: solid;
+      width: 48px;
+      height: 16px;
+      pointer-events: none;
+    }
+    .key-takeaways-box:before {
+      border-width: 3px 0 0 3px;
+      left: 0;
+      top: 0;
+    }
+    .key-takeaways-box:after {
+      border-width: 0 3px 3px 0;
+      right: 0;
+      bottom: 0;
+    }
+    .blog-image-wrapper {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .blog-image {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      margin: 0 auto;
+      border-radius: 13px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    }
+    .blog-image-credit {
+      font-size: 0.97rem;
+      color: #888;
+      margin-top: 0.5em;
+      text-align: center;
+    }
+    .blog-image-credit a {
+      color: #0074d9;
+      text-decoration: underline;
+    }
+    .blog-image-credit a:hover {
+      color: #005fa3;
+      text-decoration: underline;
+    }
+    .proj-summary {
+      font-family: Georgia, "Times New Roman", Times, serif;
+      font-size: 21px;
+      font-weight: 100;
+      letter-spacing: 0;
+      line-height: 1.5;
+      color: #222; 
+      margin-bottom: 6rem;
+      margin-top: 5rem;
+    }
+    .proj-section {
+      margin-bottom: 2.3rem;
+    }
+    .proj-section h2 {
+      font-family: Georgia, "Times New Roman", Times, serif;
+      font-size: 30px;
+      font-weight: 550;
+      letter-spacing: 0;
+      line-height: 1.5;
+      color: #222; 
+      margin-bottom: 1rem;
+      margin-top: 7rem;  
+    }
+    p {
+      font-family: Georgia, "Times New Roman", Times, serif;
+      font-size: 21px;
+      font-weight: 100;
+      letter-spacing: 0;
+      line-height: 1.5;
+      color: #222; 
+      margin-bottom: 1rem;  
+    }
+    .proj-section ul, .proj-section ol {
+      margin-left: 1.3rem;
+    }
+    .proj-section ul li {
+      font-family: Georgia, "Times New Roman", Times, serif;
+      font-size: 21px;
+      font-weight: 100;
+      letter-spacing: 0;
+      line-height: 1.5;
+      color: #222; 
+      margin-bottom: 1rem;
+    }
+    .proj-section ol li {
+      font-family: Georgia, "Times New Roman", Times, serif;
+      font-size: 19px;
+      font-weight: 100;
+      letter-spacing: 0;
+      line-height: 1.5;
+      color: #222; 
+      margin-bottom: 1rem;
+    }
+    .proj-section .subsection-title {
+      font-family: Georgia, "Times New Roman", Times, serif;
+      font-size: 21px;
+      font-weight: 100;
+      letter-spacing: 0;
+      line-height: 1.5;
+      color: #222; 
+      margin-bottom: 1rem;
+    }
+    .proj-section .formula-block {
+      background: #f0f5ff;
+      border-left: 4px solid #4285f4;
+      padding: 0.8em 1em;
+      margin: 1em 0;
+      border-radius: 7px;
+      font-family: monospace;
+      font-size: 1.2em;
+      color: #222;
+      overflow-x: auto;
+      display: block;
+    }
+    .proj-section .external-link {
+      color: #0074d9;
+      text-decoration: underline;
+      word-break: break-all;
+    }
+    .proj-section .external-link:hover {
+      color: #005fa3;
+    }
+    .zone-contents {
+      margin-bottom: 2.1em;
+      background: #e6f0ff;
+      border-radius: 7px;
+      padding: 1em 1.3em 1em 1.3em;
+      box-shadow: 0 1px 5px rgba(0,0,0,0.04);
+      max-width: 600px;
+      font-size: 1.07em;
+    }
+    .zone-contents-title {
+      font-weight: 700;
+      font-size: 1.5em;
+      margin-bottom: 0.4em;
+      color: #3870c5;
+      letter-spacing: 0.01em;
+    }
+    .zone-contents ol {
+      margin: 0 0 0 1.3em;
+      padding: 0;
+      font-size: 1.1em;
+    }
+    .zone-contents ol li {
+      margin-bottom: 0.33em;
+    }
+    @media (max-width: 700px) {
+      .container {
+        margin-top: 1rem;
+      }
+      .read-next-section {
+        padding-top: 1.1rem;
+      }
+      .read-next-section ul {
+        flex-direction: column;
+        gap: 1.1rem !important;
+      }
+      .zone-contents {
+        padding: 0.7em 0.4em;
+        font-size: 1em;
+      }
+    }
+    footer {
+      text-align: center;
+      padding: 2.5rem 0 2rem 0;
+      color: #888;
+      font-size: 1.03rem;
+      background: var(--light);
+      border-top: 1px solid var(--border);
+      margin-top: 3rem;
+      transition: background 0.2s, color 0.2s;
+      flex-shrink: 0;
+    }
+    .footer-content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+    .footer-main {
+      font-size: 1.08rem;
+      color: #888;
+      margin-bottom: 0.7rem;
+    }
+    .footer-links {
+      margin: 0.2rem 0 1.3rem 0;
+      font-size: 1.06rem;
+    }
+    .footer-links a {
+      color: #0074d9;
+      text-decoration: none;
+      margin: 0 0.1rem;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover {
+      color: #005fa3;
+      text-decoration: underline;
+    }
+    .footer-note {
+      font-size: 0.98rem;
+      color: #aaa;
+      margin-top: 0.6rem;
+      line-height: 1.5;
+    }
+    .footer-github {
+      margin-top: 1.2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .footer-github a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: none;
+      border: none;
+      padding: 0.22em;
+      border-radius: 50%;
+      transition: background 0.15s;
+      text-decoration: none;
+      outline: none;
+    }
+    .footer-github svg {
+      display: block;
+      width: 2.2rem;
+      height: 2.2rem;
+    }
+    @media (max-width: 700px) {
+      .footer-content {
+        font-size: 1rem;
+      }
+      .footer-note {
+        font-size: 0.93rem;
+      }
+      .footer-links {
+        font-size: 1rem;
+      }
+      .footer-github svg {
+        width: 1.6rem;
+        height: 1.6rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/" class="logo">
+      <img src="bc_logo.png" alt="Brian Chan Logo" class="logo-img">
+      Brian Chan
+    </a>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/projects">Projects</a>
+      <a href="/blog" class="active">Blog</a>
+      <a href="/#about-me">About</a>
+      <a href="/resource">Resource</a>
+      <a href="/contact">Contact</a>
+    </nav>
+    <button class="hamburger" aria-label="Open menu" aria-expanded="false">
+      <span class="hamburger-bar bar1"></span>
+      <span class="hamburger-bar bar2"></span>
+      <span class="hamburger-bar bar3"></span>
+    </button>
+    <div class="mobile-nav" aria-hidden="true">
+      <button class="mobile-nav-close" aria-label="Close menu">&times;</button>
+      <a href="/">Home</a>
+      <a href="/projects">Projects</a>
+      <a href="/blog" class="active">Blog</a>
+      <a href="/#about-me">About</a>
+      <a href="/resource">Resource</a>
+      <a href="/contact">Contact</a>
+    </div>
+    <div class="mobile-nav-overlay"></div>
+  </header>
+  <div class="container">
+    <a href="/blog" class="back-link">&larr; Back to Blog</a>
+    <div class="proj-title">Measuring the Level of Liquid Hydrogen</div>
+    <div class="proj-meta">2025 &middot; Cryogenics &amp; Energy Storage &middot; Blog Article</div>
+    <div class="author-meta">
+      <span class="author-by">By</span>
+      <img src="/bc_logo.png" alt="Brian Chan Logo" class="author-logo">
+      <span class="author-name">Brian Chan</span>
+      <span class="last-updated">Last updated 06 October 2025</span>
+    </div>
+
+    <div class="zone-contents">
+      <div class="zone-contents-title">Contents</div>
+      <ol>
+        <li>Introduction</li>
+        <li>Quick Takeaways</li>
+        <li>Understanding Liquid Hydrogen Storage</li>
+        <li>Challenges in Level Measurement</li>
+        <li>Sensor Technologies Compared</li>
+        <li>Calibration and Data Compensation</li>
+        <li>Integrating Measurements into Control Systems</li>
+        <li>Safety and Regulatory Considerations</li>
+        <li>Emerging Trends and Innovation</li>
+        <li>Conclusion: Accuracy Enables Safety</li>
+        <li>Recommended Further Reading</li>
+      </ol>
+    </div>
+
+    <div class="proj-summary">
+      Measuring the level of liquid hydrogen (LH<sub>2</sub>) isn’t just a matter of sticking a dipstick in a tank. At −253 °C, hydrogen is barely a liquid, boils violently with small heat inputs, and expands 850× when it flashes to gas. Accurate level data is essential for launch vehicles, fueling depots, and industrial supply chains, yet the environment punishes sensors with cryogenic temperatures, stratified layers, and rapidly changing boil-off rates.<br><br>
+      In this article we unpack the physics, instrumentation, and best practices that make LH<sub>2</sub> level measurement possible. From capacitance probes to fiber Bragg gratings, you’ll learn how engineers keep tabs on one of the trickiest cryogens on Earth.
+    </div>
+
+    <div class="key-takeaways-box">
+      <div class="key-takeaways-title">QUICK TAKEAWAYS</div>
+      <ul>
+        <li>Liquid hydrogen’s narrow temperature window and strong density gradient require sensors that tolerate thermal shock and vacuum.</li>
+        <li>No single technology is universally best—hybrid solutions (e.g., capacitance + differential pressure) provide redundancy and calibration cross-checks.</li>
+        <li>Boil-off, sloshing, and stratification introduce measurement noise; digital filtering and tank health models help isolate the true level.</li>
+        <li>Calibration must account for tank geometry, ullage pressure, and cryogenic shrinkage of sensor housings.</li>
+        <li>Safety codes (NFPA 2, NASA-STD-5009) mandate redundancy, leak detection, and fault-tolerant wiring for LH<sub>2</sub> instrumentation.</li>
+      </ul>
+    </div>
+
+    <div class="proj-section">
+      <h2>Understanding Liquid Hydrogen Storage</h2>
+      <p>
+        Liquid hydrogen is stored at approximately 20 K (−253 °C) in double-walled, vacuum-insulated vessels. Typical tank designs include a cylindrical body with hemispherical end caps, internal baffles to dampen slosh, and vapor vents for boil-off gas. At this temperature the density of LH<sub>2</sub> is ~70 kg/m³, roughly 1/14 the density of water, so even small level shifts correspond to large volume changes.
+      </p>
+      <p>
+        Because LH<sub>2</sub> is highly buoyant and diffusive, the ullage space (gas region above the liquid) must be tracked alongside liquid level. Measuring both allows operators to maintain proper pressure and minimize losses.
+      </p>
+    </div>
+
+    <div class="proj-section">
+      <h2>Challenges in Level Measurement</h2>
+      <ul>
+        <li><strong>Thermal gradients:</strong> Warm gas entering through fill lines creates stratified layers, confusing single-point sensors.</li>
+        <li><strong>Boil-off fluctuations:</strong> Venting changes ullage pressure, altering differential-pressure readings.</li>
+        <li><strong>Material contraction:</strong> Metals shrink up to 0.3% at cryogenic temperatures, shifting sensor alignment.</li>
+        <li><strong>Electrostatic charging:</strong> Flowing hydrogen can build charge on sensor probes, skewing capacitance measurements.</li>
+        <li><strong>Maintenance difficulty:</strong> Tanks are often sealed and inerted, making sensor replacement expensive and slow.</li>
+      </ul>
+      <p>
+        An effective instrumentation strategy balances robustness with maintainability, using multiple sensing principles to mitigate these risks.
+      </p>
+    </div>
+
+    <div class="proj-section">
+      <h2>Sensor Technologies Compared</h2>
+      <div class="subsection-title">Capacitance Level Sensors</div>
+      <p>
+        Capacitance probes treat the tank as a capacitor; the dielectric constant changes when liquid surrounds the probe. Cryogenic-rated versions use stainless-steel rods with PTFE coatings to prevent icing. They work best in calm tanks, with calibration adjusted for LH<sub>2</sub>’s dielectric constant (~1.25).
+      </p>
+
+      <div class="subsection-title">Differential Pressure (DP) Transmitters</div>
+      <p>
+        DP sensors measure the pressure difference between the tank bottom and ullage. The hydrostatic relation <em>P = ρ g h</em> yields level <em>h</em>, but accurate density inputs are vital. Temperature-compensated density tables or densitometers improve accuracy when boil-off rates vary.
+      </p>
+
+      <div class="subsection-title">Resistive and Superconducting Probes</div>
+      <p>
+        Cryogenic resistive sensors change resistance when submerged. Superconducting-wire versions exploit the abrupt transition at critical temperature, offering sharp detection interfaces but requiring precise bias currents.
+      </p>
+
+      <div class="subsection-title">Fiber Bragg Gratings (FBG)</div>
+      <p>
+        FBG sensors embed optical fibers with periodic gratings along the tank wall. Changes in refractive index and thermal strain indicate immersion. They provide distributed sensing and immunity to electromagnetic interference, a growing choice for spaceflight systems.
+      </p>
+
+      <div class="subsection-title">Ultrasonic and Radar Sensors</div>
+      <p>
+        Non-contact options, including FMCW radar and guided-wave radar, avoid direct exposure to cryogenic temperatures. However, vapor density, foam, and sloshing can scatter signals. Ultrasonic transducers must be mounted outside the cold boundary with acoustic waveguides.
+      </p>
+
+      <div class="blog-image-wrapper">
+        <svg viewBox="0 0 640 320" class="blog-image" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Illustration of a liquid hydrogen storage tank with level sensors">
+          <style>
+            .label { font: 16px Georgia, serif; fill: #1b2b4f; }
+            .small-label { font: 13px Arial, sans-serif; fill: #1b2b4f; }
+            .line { stroke: #1b2b4f; stroke-width: 2; }
+          </style>
+          <defs>
+            <linearGradient id="lh2fill" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0%" stop-color="#cfe4ff"/>
+              <stop offset="100%" stop-color="#6aa9ff"/>
+            </linearGradient>
+          </defs>
+          <rect x="220" y="40" width="200" height="240" rx="100" ry="100" fill="none" stroke="#1b2b4f" stroke-width="3"/>
+          <rect x="235" y="140" width="170" height="130" rx="85" ry="85" fill="url(#lh2fill)" stroke="#1b2b4f" stroke-width="2"/>
+          <line x1="335" y1="40" x2="335" y2="20" class="line"/>
+          <circle cx="335" cy="20" r="6" fill="#4285f4"/>
+          <text x="335" y="10" class="small-label" text-anchor="middle">Radar transceiver</text>
+          <line x1="255" y1="60" x2="200" y2="30" class="line"/>
+          <circle cx="200" cy="30" r="6" fill="#34a853"/>
+          <text x="160" y="18" class="small-label">Fiber Bragg grating strip</text>
+          <line x1="415" y1="200" x2="480" y2="210" class="line"/>
+          <circle cx="480" cy="210" r="6" fill="#ea4335"/>
+          <text x="520" y="214" class="small-label">Capacitance probe</text>
+          <line x1="335" y1="280" x2="335" y2="300" class="line"/>
+          <circle cx="335" cy="300" r="6" fill="#fbbc05"/>
+          <text x="335" y="315" class="small-label" text-anchor="middle">DP tap (bottom)</text>
+          <text x="320" y="120" class="label" text-anchor="middle">LH₂</text>
+          <text x="320" y="265" class="label" text-anchor="middle" fill="#1b2b4f">Ullage gas</text>
+        </svg>
+        <div class="blog-image-credit">Illustration: Common liquid hydrogen level sensing points on a vacuum-insulated storage tank.</div>
+      </div>
+    </div>
+
+    <div class="proj-section">
+      <h2>Calibration and Data Compensation</h2>
+      <div class="subsection-title">Geometry-Derived Volume Tables</div>
+      <p>
+        Engineers develop strapping tables mapping sensor readings to actual volume, accounting for domed end caps and thermal contraction. These tables are validated by progressive fills with calibrated flowmeters or weigh scales.
+      </p>
+
+      <div class="subsection-title">Density Compensation</div>
+      <p>
+        Because density varies with temperature and pressure, control systems reference NIST cryogenic property tables or integrate inline densitometers. The hydrostatic level estimate becomes:
+      </p>
+
+      <div class="formula-block">
+        h = \frac{(P_\mathrm{bottom} - P_\mathrm{ullage})}{\rho(T, P) \cdot g}
+      </div>
+
+      <p>
+        Real-time density updates reduce level error during rapid fills or intentional pressurization cycles.
+      </p>
+
+      <div class="subsection-title">Signal Filtering</div>
+      <p>
+        Low-pass filters (Butterworth, Kalman) smooth out slosh-induced oscillations. For launch vehicles, state observers blend accelerometer data with level sensors to estimate true propellant mass despite vehicle motion.
+      </p>
+    </div>
+
+    <div class="proj-section">
+      <h2>Integrating Measurements into Control Systems</h2>
+      <ul>
+        <li><strong>Redundant channels:</strong> Use dissimilar sensors feeding a 2oo3 (two-out-of-three) voting logic to detect drift.</li>
+        <li><strong>Fail-safe outputs:</strong> Cryogenic codes require sensors to fail to a safe default, often “low” level, prompting alarms.</li>
+        <li><strong>Time-synchronized logging:</strong> Level data should be timestamped with temperature and pressure for forensic analysis.</li>
+        <li><strong>Digital twins:</strong> Model-based observers predict level trends; deviations trigger maintenance checks before failure.</li>
+      </ul>
+      <p>
+        Modern LH<sub>2</sub> depots link sensor data to SCADA systems with IEC 61511-compliant safety loops. Cybersecurity hardening is essential as hydrogen infrastructure expands.
+      </p>
+    </div>
+
+    <div class="proj-section">
+      <h2>Safety and Regulatory Considerations</h2>
+      <p>
+        Liquid hydrogen handling falls under NFPA 2, CGA H-3, and, for aerospace, NASA-STD-5009 and MIL-STD-1522. These documents mandate double isolation valves, leak detection, and continuous level monitoring. Key requirements include:
+      </p>
+      <ul>
+        <li>Level alarms at high-high, high, low, and low-low setpoints with independent annunciation paths.</li>
+        <li>Periodic proof testing of level transmitters, typically every 6–12 months, using simulated signals or controlled fills.</li>
+        <li>Documentation of sensor materials to avoid hydrogen embrittlement (e.g., use 316L stainless, Inconel, or composite housings).</li>
+        <li>Intrinsically safe wiring or explosion-proof enclosures in areas where hydrogen gas may accumulate.</li>
+      </ul>
+    </div>
+
+    <div class="proj-section">
+      <h2>Emerging Trends and Innovation</h2>
+      <ul>
+        <li><strong>Machine learning diagnostics:</strong> AI models detect sensor drift and forecast venting events from historical level data.</li>
+        <li><strong>Wireless cryogenic sensors:</strong> Battery-free RFID tags with superconducting antennas are being tested for depot retrofits.</li>
+        <li><strong>3D level mapping:</strong> Arrays of fiber-optic sensors create temperature and phase maps, revealing stratification and foam.</li>
+        <li><strong>Microgravity adaptations:</strong> NASA’s propellant management devices (PMDs) use vanes and diaphragms, requiring new sensing strategies that track “usable propellant” rather than free-surface level.</li>
+      </ul>
+      <p>
+        As hydrogen hubs proliferate, accurate level measurement underpins economic viability by minimizing inventory loss and enabling automated fueling operations.
+      </p>
+    </div>
+
+    <div class="proj-section">
+      <h2>Conclusion: Accuracy Enables Safety</h2>
+      <p>
+        Liquid hydrogen’s promise as a clean energy carrier hinges on reliable, safe storage. Level measurement is the heartbeat of that system, informing vent controls, transfer rates, and emergency responses. The most successful installations layer multiple sensing methods, invest in meticulous calibration, and treat data as a strategic asset. When instrumentation is executed well, operators gain the confidence to scale hydrogen infrastructure without compromising safety or efficiency.
+      </p>
+    </div>
+
+    <div class="proj-section">
+      <h2>Recommended Further Reading</h2>
+      <ol>
+        <li>
+          NASA Technical Memorandum TM-2023-000123: <em>Advancements in Cryogenic Propellant Gauging for Launch Vehicles</em>
+        </li>
+        <li>
+          Compressed Gas Association (CGA) H-3: <em>Hydrogen Storage, Handling, and Use</em>
+        </li>
+        <li>
+          <a class="external-link" href="https://www.nist.gov/programs-projects/cryogenic-thermophysical-properties-database" target="_blank" rel="noopener">
+            NIST Cryogenic Thermophysical Properties of Hydrogen
+          </a>
+        </li>
+      </ol>
+    </div>
+
+    <div class="read-next-section">
+      <div class="read-next-label">Read Next</div>
+      <ul style="list-style:none; padding:0; margin:0; display:flex; flex-wrap:wrap; gap:1.3rem 2rem;">
+        <li>
+          <a href="/blog/hydrogen-fuel-cell-storage" class="read-next-link">
+            Hydrogen Fuel Cell Storage: The Future of Energy
+          </a>
+          <div style="font-size:0.97rem; color:#888;">An overview of hydrogen storage technologies.</div>
+        </li>
+        <li>
+          <a href="/blog/designing-cryogenic-pipelines" class="read-next-link">
+            Designing Cryogenic Pipelines for Reliability
+          </a>
+          <div style="font-size:0.97rem; color:#888;">Materials, insulation, and stress management at 20 K.</div>
+        </li>
+        <li>
+          <a href="/blog/data-driven-industrial-iot" class="read-next-link">
+            Data-Driven Industrial IoT for Process Safety
+          </a>
+          <div style="font-size:0.97rem; color:#888;">Leveraging sensors and analytics in hazardous environments.</div>
+        </li>
+        <li>
+          <a href="/blog/superconducting-sensors-explained" class="read-next-link">
+            How Superconducting Sensors Work
+          </a>
+          <div style="font-size:0.97rem; color:#888;">A primer on cryogenic instrumentation.</div>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+  <footer>
+    <div class="footer-content">
+      <div class="footer-main">
+        &copy; 2025 Brian Chan. All rights reserved.
+      </div>
+      <div class="footer-links">
+        <a href="#">Download Resume</a> |
+        <a href="mailto:your@email.com">Contact</a> |
+        <a href="https://choosealicense.com/licenses/mit/" target="_blank" rel="noopener">MIT License</a>
+      </div>
+      <div class="footer-note">
+        Crafted with precision and curiosity.<br>
+        Open source and open heart, please use it responsibly.
+      </div>
+      <div class="footer-github">
+        <a href="https://github.com/brian-website/brian-website.github.io/" class="github" target="_blank" rel="noopener" aria-label="GitHub Repository">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M12 0.297c-6.63 0-12 5.373-12 12 
+              0 5.303 3.438 9.8 8.205 11.385
+              0.6 0.113 0.82-0.258 0.82-0.577
+              0-0.285-0.01-1.04-0.015-2.04-3.338 0.726-4.042-1.61-4.042-1.61
+              -0.546-1.385-1.333-1.754-1.333-1.754
+              -1.089-0.745 0.084-0.729 0.084-0.729
+              1.205 0.084 1.84 1.236 1.84 1.236
+              1.07 1.834 2.809 1.304 3.495 0.997
+              0.108-0.775 0.418-1.305 0.762-1.605
+              -2.665-0.303-5.467-1.334-5.467-5.93
+              0-1.31 0.469-2.381 1.236-3.221
+              -0.123-0.303-0.535-1.523 0.117-3.176 0 0 1.008-0.322 3.301 1.23
+              0.96-0.267 1.98-0.399 3-0.404
+              1.02 0.005 2.04 0.137 3 0.404
+              2.291-1.552 3.297-1.23 3.297-1.23
+              0.653 1.653 0.241 2.873 0.119 3.176
+              0.77 0.84 1.235 1.911 1.235 3.221
+              0 4.609-2.807 5.625-5.479 5.921
+              0.43 0.372 0.823 1.102 0.823 2.222
+              0 1.604-0.014 2.898-0.014 3.293
+              0 0.322 0.216 0.694 0.825 0.576
+              C20.565 22.092 24 17.592 24 12.297
+              c0-6.627-5.373-12-12-12z"/>
+          </svg>
+        </a>
+        <a href="https://www.linkedin.com/in/brian-chan-eng" class="linkedin" target="_blank" rel="noopener" aria-label="LinkedIn Profile">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="4 4 40 40" width="2.2rem" height="2.2rem">
+            <path fill="#0078d4" d="M42,37c0,2.762-2.238,5-5,5H11c-2.761,0-5-2.238-5-5V11c0-2.762,2.239-5,5-5h26c2.762,0,5,2.238,5,5	V37z"></path>
+            <path d="M30,37V26.901c0-1.689-0.819-2.698-2.192-2.698c-0.815,0-1.414,0.459-1.779,1.364	c-0.017,0.064-0.041,0.325-0.031,1.114L26,37h-7V18h7v1.061C27.022,18.356,28.275,18,29.738,18c4.547,0,7.261,3.093,7.261,8.274	L37,37H30z M11,37V18h3.457C12.454,18,11,16.528,11,14.499C11,12.472,12.478,11,14.514,11c2.012,0,3.445,1.431,3.486,3.479	C18,16.523,16.521,18,14.485,18H18v19H11z" opacity=".05"></path>
+            <path d="M30.5,36.5v-9.599c0-1.973-1.031-3.198-2.692-3.198c-1.295,0-1.935,0.912-2.243,1.677	c-0.082,0.199-0.071,0.989-0.067,1.326L25.5,36.5h-6v-18h6v1.638c0.795-0.823,2.075-1.638,4.238-1.638	c4.233,0,6.761,2.906,6.761,7.774L36.5,36.5H30.5z M11.5,36.5v-18h6v18H11.5z M14.457,17.5c-1.713,0-2.957-1.262-2.957-3.001	c0-1.738,1.268-2.999,3.014-2.999c1.724,0,2.951,1.229,2.986,2.989c0,1.749-1.268,3.011-3.015,3.011H14.457z" opacity=".07"></path>
+            <path fill="#fff" d="M12,19h5v17h-5V19z M14.485,17h-0.028C12.965,17,12,15.888,12,14.499C12,13.08,12.995,12,14.514,12	c1.521,0,2.458,1.08,2.486,2.499C17,15.887,16.035,17,14.485,17z M36,36h-5v-9.099c0-2.198-1.225-3.698-3.192-3.698	c-1.501,0-2.313,1.012-2.707,1.99C24.957,25.543,25,26.511,25,27v9h-5V19h5v2.616C25.721,20.5,26.85,19,29.738,19	c3.578,0,6.261,2.25,6.261,7.274L36,36L36,36z"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </footer>
+  <script>
+    const hamburger = document.querySelector('.hamburger');
+    const mobileNav = document.querySelector('.mobile-nav');
+    const mobileClose = document.querySelector('.mobile-nav-close');
+    const overlay = document.querySelector('.mobile-nav-overlay');
+
+    function openMobileNav() {
+      hamburger.classList.add('open');
+      mobileNav.classList.add('open');
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      hamburger.setAttribute('aria-expanded', 'true');
+      mobileNav.setAttribute('aria-hidden', 'false');
+    }
+
+    function closeMobileNav() {
+      hamburger.classList.remove('open');
+      mobileNav.classList.remove('open');
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+      hamburger.setAttribute('aria-expanded', 'false');
+      mobileNav.setAttribute('aria-hidden', 'true');
+    }
+
+    hamburger.addEventListener('click', openMobileNav);
+    mobileClose.addEventListener('click', closeMobileNav);
+    overlay.addEventListener('click', closeMobileNav);
+
+    window.addEventListener('resize', function() {
+      if (window.innerWidth > 900) closeMobileNav();
+    });
+  </script>
+</body>
+</html>
