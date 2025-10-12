@@ -1489,7 +1489,7 @@
     // Retractive header on scroll (hide on scroll down, show on scroll up)
     let lastScrollY = window.scrollY;
     let ticking = false;
-    const scrollThreshold = 6;
+    const scrollThreshold = 1;
 
     function updateHeaderOnScroll() {
       const currentScrollY = window.scrollY;
@@ -1513,12 +1513,7 @@
       ticking = false;
     }
 
-    window.addEventListener('scroll', () => {
-      if (!ticking) {
-        window.requestAnimationFrame(updateHeaderOnScroll);
-        ticking = true;
-      }
-    }, { passive: true });
+    window.addEventListener('scroll', updateHeaderOnScroll, { passive: true });
   </script>
 </body>
 </html>
