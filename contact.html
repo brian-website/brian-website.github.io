@@ -29,7 +29,10 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
+      font-family: 'Segoe UI', Arial, sans-serif;
       background: var(--primary-bg);
+      color: var(--accent);
+      transition: background 0.2s, color 0.2s;
     }
     header {
       background: #fcfbf3;
@@ -375,8 +378,15 @@
       .contact-split-left p { font-size: 1rem; }
     }
     footer {
-      background: transparent;
-      margin-top: 0; 
+      text-align: center;
+      padding: 2.5rem 0 2rem 0;
+      color: #888;
+      font-size: 1.03rem;
+      background: var(--light);
+      border-top: 1px solid var(--border);
+      margin-top: 3rem;
+      transition: background 0.2s, color 0.2s;
+      flex-shrink: 0;
     }
     .footer-content {
       max-width: 800px;
@@ -432,15 +442,6 @@
       width: 2.2rem;
       height: 2.2rem;
     }
-    .footer-background {
-      background: var(--light);
-      width: 100vw;
-      flex-shrink: 0;
-    }
-    main {
-      flex: 1 0 auto;
-    }
-
   </style>
 </head>
 <body>
@@ -546,7 +547,6 @@
       </div>
     </section>
   </main>
-  <div class="footer-background">
   <footer>
     <div class="footer-content">
       <div class="footer-main">
@@ -600,7 +600,6 @@
       </div>
     </div>
   </footer>
-  </div>
   <script>
     // Hamburger & mobile nav logic
     const hamburger = document.querySelector('.hamburger');
