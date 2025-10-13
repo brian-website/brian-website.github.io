@@ -34,9 +34,6 @@
       color: var(--accent);
       transition: background 0.2s, color 0.2s;
     }
-    main {
-      flex: 1 0 auto;
-    }
     header {
       background: #fcfbf3;
       padding: 0.6rem 0;
@@ -66,6 +63,16 @@
       align-items: center;
       gap: 0.5rem;
       z-index: calc(var(--nav-z) + 1);
+    }
+    body > footer::after {
+      content: "";
+      display: block;
+      position: fixed;
+      left: 0; right: 0; bottom: 0;
+      height: 100vh;
+      background: var(--light);
+      z-index: -1;
+      pointer-events: none;
     }
     .logo-img {
       width: 2.1rem;
@@ -381,24 +388,15 @@
       .contact-split-left p { font-size: 1rem; }
     }
     footer {
+      text-align: center;
+      padding: 2.5rem 0 2rem 0;
+      color: #888;
+      font-size: 1.03rem;
+      background: var(--light);
+      border-top: 1px solid var(--border);
+      margin-top: 3rem;
+      transition: background 0.2s, color 0.2s;
       flex-shrink: 0;
-      background: var(--light);
-      width: 100vw;           /* Ensure full width */
-      position: relative;     /* For stacking if you use overlay */
-      z-index: 1;
-      box-sizing: border-box;
-    }
-    body > footer::after {
-      content: "";
-      display: block;
-      position: fixed;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      height: 100vh;
-      background: var(--light);
-      z-index: -1;
-      pointer-events: none;
     }
     .footer-content {
       max-width: 800px;
