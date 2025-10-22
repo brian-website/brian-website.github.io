@@ -382,6 +382,45 @@
         display: block;
       }
     }
+    .qt-mini{
+      display:flex;
+      border:2px solid #1f0b0b;
+      background:#fff;
+      border-radius:10px;
+      overflow:hidden;
+      box-shadow:0 2px 6px rgba(0,0,0,0.08);
+      width: 100%;
+      margin-bottom: 1.2rem;
+    }  
+    .qt-left{
+      width:6px;
+      background:#340808;
+      flex-shrink:0;
+    }
+    .qt-content{
+      padding:1rem 1.2rem;
+      flex:1;
+    }
+    .qt-title{
+      font-size:1.18rem;
+      font-weight:700;
+      margin-bottom:1.5rem;
+      color:#111;
+    }
+    .qt-text{
+      font-size:1.04rem;
+      color:#333;
+      line-height:1.55;
+      margin-bottom:1rem;
+    }
+    .qt-author{
+      font-size:0.87rem;
+      color:#666;
+    }
+    @media(max-width:600px){
+      .qt-content{padding:0.9rem;}
+    }
+
     footer {
       text-align: center;
       padding: 2.5rem 0 2rem 0;
@@ -538,6 +577,17 @@
             <span class="blog-card-tag">Student Life</span>
             <span class="blog-card-tag">1-min</span>
           </div>
+        </div>
+      </div>
+      <div class="qt-mini" data-tags="1min">
+        <div class="qt-left"></div>
+        <div class="qt-content">
+          <div class="qt-title">Which Chopin Speaks to You?</div>
+          <div class="qt-text">
+            The 19th Chopin Competition has just finished, and I’m truly impressed by how each pianist interpreted their pieces. I was especially moved by Piano Concerto No. 2 in F minor, Op. 21: II. Larghetto by David Khrikuli. <br>
+            Which of Chopin’s works do you enjoy most — his Études, Preludes, Sonatas, or Mazurkas?
+          </div>
+          <div class="qt-author">Music · 23rd Oct 2025</div>
         </div>
       </div>
       <div class="blog-post-card" data-tags="full">
