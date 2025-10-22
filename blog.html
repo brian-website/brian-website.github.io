@@ -357,8 +357,8 @@
       flex-wrap: wrap;
     }
     .blog-card-tag {
-      background: #f0e9ff;
-      color: #6d28d9;
+      background: #300b2d;
+      color: #ffffff;
       font-size: 0.92rem;
       font-weight: 500;
       border-radius: 0.6em;
@@ -404,7 +404,7 @@
     .qt-title{
       font-size:1.18rem;
       font-weight:700;
-      margin-bottom:1.5rem;
+      margin-bottom:0.3rem;
       color:#111;
     }
     .qt-text{
@@ -416,6 +416,7 @@
     .qt-author{
       font-size:0.87rem;
       color:#666;
+      margin-bottom:1.2rem;
     }
     @media(max-width:600px){
       .qt-content{padding:0.9rem;}
@@ -565,7 +566,7 @@
           </div>
         </div>
       </div>
-      <div class="blog-post-card" data-tags="1min">
+      <div class="blog-post-card" data-tags="full">
         <img class="blog-card-img" src="/blog/images/life-skills.jpg" alt="Life Skills for Techies">
         <div class="blog-card-content">
           <a href="/blog/life-skills-for-techies" class="blog-card-title">5 Essential Life Skills for Techies</a>
@@ -583,11 +584,15 @@
         <div class="qt-left"></div>
         <div class="qt-content">
           <div class="qt-title">Which Chopin Speaks to You?</div>
+          <div class="qt-author">23rd Oct 2025</div>
           <div class="qt-text">
             The 19th Chopin Competition has just finished, and I’m truly impressed by how each pianist interpreted their pieces. I was especially moved by Piano Concerto No. 2 in F minor, Op. 21: II. Larghetto by David Khrikuli. <br>
             Which of Chopin’s works do you enjoy most — his Études, Preludes, Sonatas, or Mazurkas?
           </div>
-          <div class="qt-author">Music · 23rd Oct 2025</div>
+          <div class="blog-card-tags">
+            <span class="blog-card-tag">Classical Music</span>
+            <span class="blog-card-tag">Chopin</span>
+          </div>
         </div>
       </div>
       <div class="blog-post-card" data-tags="full">
@@ -604,7 +609,7 @@
           </div>
         </div>
       </div>
-      <div class="blog-post-card" data-tags="1min">
+      <div class="blog-post-card" data-tags="full">
         <img class="blog-card-img" src="/blog/images/hydrogen.jpg" alt="Hydrogen Cars">
         <div class="blog-card-content">
           <a href="/blog/hydrogen-fuel-cell-storage" class="blog-card-title">Hydrogen Cars: Are We There Yet?</a>
@@ -725,12 +730,22 @@
       const highlight = document.getElementById("highlight");
       highlight.style.transform = `translateX(${index * 100}%)`;
       // Show/hide posts
-      const posts = document.querySelectorAll('.blog-post-card');
+      const posts = document.querySelectorAll('.blog-post-card, .qt-mini');
       if (index === 0) {
-        posts.forEach(post => post.style.display = "");
-      } else if (index === 1) {
+        // Show only posts that are NOT 1min
         posts.forEach(post => {
-          if (post.getAttribute('data-tags').includes('1min')) {
+          const tags = post.getAttribute('data-tags') || '';
+          if (tags.includes('1min')) {
+            post.style.display = "none";
+          } else {
+            post.style.display = "";
+          }
+        });
+      } else if (index === 1) {
+        // Show only posts that ARE 1min
+        posts.forEach(post => {
+          const tags = post.getAttribute('data-tags') || '';
+          if (tags.includes('1min')) {
             post.style.display = "";
           } else {
             post.style.display = "none";
