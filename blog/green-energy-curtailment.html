@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The UK is Paying Millions to Not Use Its Own Green Energy. What's Going On? | Brian Chan Blog</title>
+  <link rel="icon" href="bc_icon.ico">
+  <style>
+    :root {
+      --primary-bg: #fcfbf3;
+      --accent: #333;
+      --light: #fff;
+      --border: #e0e0e0;
+      --fixed-header-height: 70px;
+      --nav-z: 2000;
+      --hamburger-size: 2.3rem;
+      --transition: 0.23s cubic-bezier(.4,0,.2,1);
+    }
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: var(--primary-bg);
+      color: var(--accent);
+      transition: background 0.2s, color 0.2s;
+    }
+    header {
+      background: var(--primary-bg);
+      padding: 0.6rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: var(--nav-z);
+      height: var(--fixed-header-height);
+      box-sizing: border-box;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+    }
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-left: 2rem;
+      letter-spacing: 1px;
+      color: var(--accent);
+      text-decoration: none;
+      cursor: pointer;
+      transition: color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      z-index: calc(var(--nav-z) + 1);
+    }
+    .logo-img {
+      width: 2.1rem;
+      height: 2.1rem;
+      object-fit: contain;
+      margin-right: 0.4rem;
+      border: none;
+      display: inline-block;
+      vertical-align: middle;
+      background: none;
+      box-shadow: none;
+      transition: none;
+    }
+    nav {
+      margin-right: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    nav a {
+      color: var(--accent);
+      text-decoration: none;
+      margin: 0 0.75rem;
+      font-size: 1.1rem;
+      font-weight: 500;
+      transition:
+        color 0.2s,
+        transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      display: inline-block;
+    }
+    nav a:hover,
+    nav a.active {
+      color: #0074d9;
+      transform: scale(1.18);
+    }
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: var(--hamburger-size);
+      height: var(--hamburger-size);
+      background: none;
+      border: none;
+      cursor: pointer;
+      z-index: calc(var(--nav-z) + 2);
+      margin-right: 1.4rem;
+      margin-left: auto;
+    }
+    .hamburger-bar {
+      width: 28px;
+      height: 3.5px;
+      background: var(--accent);
+      border-radius: 3px;
+      margin: 3.5px 0;
+      transition: all var(--transition);
+      display: block;
+    }
+    .hamburger.open .bar1 {
+      transform: rotate(45deg) translate(6px, 7px);
+    }
+    .hamburger.open .bar2 {
+      opacity: 0;
+    }
+    .hamburger.open .bar3 {
+      transform: rotate(-45deg) translate(7px, -7px);
+    }
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 80vw;
+      max-width: 340px;
+      height: 100vh;
+      background: var(--light);
+      box-shadow: -4px 0 24px 0 rgba(60,60,90,0.08);
+      z-index: calc(var(--nav-z) + 10);
+      transform: translateX(100%);
+      transition: transform var(--transition);
+      padding-top: var(--fixed-header-height);
+      padding-left: 2rem;
+      padding-right: 2rem;
+      box-sizing: border-box;
+      flex-direction: column;
+      align-items: start;
+    }
+    .mobile-nav.open {
+      display: flex;
+      transform: translateX(0);
+    }
+    .mobile-nav a {
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin: 1.1rem 0;
+      transition: color 0.18s;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 0.3em;
+      width: 100%;
+    }
+    .mobile-nav a:last-child {
+      border-bottom: none;
+    }
+    .mobile-nav a:hover,
+    .mobile-nav a.active {
+      color: #0074d9;
+      background: #f0f3ff;
+    }
+    .mobile-nav-close {
+      position: absolute;
+      top: 1.2rem;
+      right: 1.4rem;
+      font-size: 2.2rem;
+      color: #aaa;
+      background: none;
+      border: none;
+      cursor: pointer;
+      z-index: calc(var(--nav-z) + 12);
+      transition: color 0.2s;
+    }
+    .mobile-nav-close:hover {
+      color: #0074d9;
+    }
+    .mobile-nav-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(50,50,70,0.16);
+      z-index: calc(var(--nav-z) + 5);
+      transition: opacity 0.18s;
+    }
+    .mobile-nav-overlay.open {
+      display: block;
+    }
+    @media (max-width: 900px) {
+      nav { display: none; }
+      .hamburger { display: flex; }
+      .mobile-nav {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+      }
+    }
+    @media (min-width: 901px) {
+      .mobile-nav,
+      .mobile-nav-overlay,
+      .mobile-nav.open,
+      .mobile-nav-overlay.open {
+        display: none !important;
+      }
+      .hamburger { display: none !important; }
+      nav { display: flex !important; }
+    }
+    .container {
+      max-width: 800px;
+      margin: calc(var(--fixed-header-height) + 2.5rem) auto 1.5rem auto;
+      padding: 0 1rem;
+      flex: 1 0 auto;
+    }
+    .back-link {
+      display: inline-block;
+      margin-top: 1.5rem;
+      margin-bottom: 0.5rem;
+      color: #888;
+      font-size: 0.98rem;
+      text-decoration: none;
+      transition: color 0.18s;
+    }
+    .back-link:hover {
+      color: #0074d9;
+      text-decoration: underline;
+    }
+    .proj-title {
+      font-size: 2.4rem;
+      font-weight: 700;
+      margin-bottom: 0.35rem;
+      color: #2d2e2f;
+      font-family: Georgia, "Times New Roman", Times, serif;
+    }
+    .proj-meta {
+      font-size: 1.05rem;
+      color: #888;
+      margin-bottom: 1.1rem;
+    }
+    .author-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      font-size: 1.04rem;
+      margin-bottom: 1.4rem;
+      color: #666;
+      flex-wrap: wrap;
+    }
+    .author-by {
+      font-size: 1.02rem;
+      color: #888;
+      margin-right: 0.2rem;
+    }
+    .author-logo {
+      width: 2.2rem;
+      height: 2.2rem;
+      object-fit: cover;
+      margin-right: 0.45rem;
+      border-radius: 50%;
+      border: 1.5px solid #eee;
+      background: #fff;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+      display: inline-block;
+      vertical-align: middle;
+      transition: box-shadow 0.2s;
+    }
+    .author-name {
+      font-weight: 600;
+      color: #333;
+      margin-right: 1.5rem;
+    }
+    .last-updated {
+      font-size: 0.97rem;
+      color: #888;
+      margin-left: 1rem;
+      white-space: nowrap;
+    }
+    @media (max-width: 500px) {
+      .author-meta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.2rem;
+      }
+      .author-name, .last-updated {
+        margin-right: 0;
+        margin-left: 0;
+      }
+      .last-updated {
+        margin-top: 0.2rem;
+      }
+    }
+    .key-takeaways-box {
+      border: none;
+      padding: 1.2rem 1.6rem 1.2rem 1.6rem;
+      margin: 0.7rem 0 2.3rem 0;
+      background: var(--light);
+      position: relative;
+      box-shadow: none;
+    }
+    .key-takeaways-title {
+      font-family: Georgia, "Times New Roman", Times, serif;
+      font-size: 21px;
+      font-weight: 400;
+      letter-spacing: 0;
+      line-height: 1.5;
+      color: #222;
+    }
+    .key-takeaways-box ul {
+      margin: 0;
+      padding-left: 1.1em;
+      font-size: 1.08rem;
+    }
+    .key-takeaways-box li {
+      margin-bottom: 0.7em;
+      line-height: 1.5;
+      font-size: 18px;
+    }
+    .key-takeaways-box li:last-child {
+      margin-bottom: 0;
+    }
+    .key-takeaways-box:before,
+    .key-takeaways-box:after {
+      content: "";
+      position: absolute;
+      border-color: #ea7c5d;
+      border-style: solid;
+      width: 48px;
+      height: 16px;
+      pointer-events: none;
+    }
+    .key-takeaways-box:before {
+      border-width: 3px 0 0 3px;
+      left: 0;
+      top: 0;
+    }
+    .key-takeaways-box:after {
+      border-width: 0 3px 3px 0;
+      right: 0;
+      bottom: 0;
+    }
+    .blog-image-wrapper {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .blog-image {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      margin: 0 auto;
+      border-radius: 13px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    }
+    .blog-image-credit {
+      font-size: 0.97rem;
+      color: #888;
+      margin-top: 0.5em;
+      text-align: center;
+    }
+    .blog-image-credit a {
+      color: #0074d9;
+      text-decoration: underline;
+    }
+    .blog-image-credit a:hover {
+      color: #005fa3;
+      text-decoration: underline;
+    }
+    .proj-summary {
+      font-family: Georgia, "Times New Roman", Times, serif;
+      font-size: 21px;
+      font-weight: 100;
+      letter-spacing: 0;
+      line-height: 1.5;
+      color: #222; 
+      margin-bottom: 6rem;
+      margin-top: 5rem;
+    }
+    .proj-section {
+      margin-bottom: 2.3rem;
+    }
+    .proj-section h2 {
+      font-family: Georgia, "Times New Roman", Times, serif;
+      font-size: 30px;
+      font-weight: 550;
+      letter-spacing: 0;
+      line-height: 1.5;
+      color: #222; 
+      margin-bottom: 1rem;
+      margin-top: 7rem;
+    }
+    p {
+      font-family: Georgia, "Times New Roman", Times, serif;
+      font-size: 21px;
+      font-weight: 100;
+      letter-spacing: 0;
+      line-height: 1.5;
+      color: #222; 
+      margin-bottom: 1rem;  
+    }
+    .proj-section ul, .proj-section ol {
+      margin-left: 1.3rem;
+    }
+    .proj-section ul li {
+      font-family: Georgia, "Times New Roman", Times, serif;
+      font-size: 21px;
+      font-weight: 100;
+      letter-spacing: 0;
+      line-height: 1.5;
+      color: #222; 
+      margin-bottom: 1rem;
+    }
+    .proj-section ol li {
+      font-family: Georgia, "Times New Roman", Times, serif;
+      font-size: 19px;
+      font-weight: 100;
+      letter-spacing: 0;
+      line-height: 1.5;
+      color: #222; 
+      margin-bottom: 1rem;
+    }
+    .proj-section .subsection-title {
+      font-family: Georgia, "Times New Roman", Times, serif;
+      font-size: 21px;
+      font-weight: 100;
+      letter-spacing: 0;
+      line-height: 1.5;
+      color: #222; 
+      margin-bottom: 1rem;
+    }
+    .proj-section .external-link {
+      color: #0074d9;
+      text-decoration: underline;
+      word-break: break-all;
+    }
+    .proj-section .external-link:hover {
+      color: #005fa3;
+    }
+    .zone-contents {
+      margin-bottom: 2.1em;
+      background: #f4f0e3;
+      border-radius: 7px;
+      padding: 1em 1.3em 1em 1.3em;
+      box-shadow: 0 1px 5px rgba(0,0,0,0.04);
+      max-width: 600px;
+      font-size: 1.07em;
+    }
+    .zone-contents-title {
+      font-weight: 700;
+      font-size: 1.5em;
+      margin-bottom: 0.4em;
+      color: #b99d5c;
+      letter-spacing: 0.01em;
+    }
+    .zone-contents ol {
+      margin: 0 0 0 1.3em;
+      padding: 0;
+      font-size: 1.1em;
+    }
+    .zone-contents ol li {
+      margin-bottom: 0.33em;
+    }
+    @media (max-width: 700px) {
+      .container {
+        margin-top: 1rem;
+      }
+      .read-next-section {
+        padding-top: 1.1rem;
+      }
+      .read-next-section ul {
+        flex-direction: column;
+        gap: 1.1rem !important;
+      }
+      .zone-contents {
+        padding: 0.7em 0.4em;
+        font-size: 1em;
+      }
+    }
+    footer {
+      text-align: center;
+      padding: 2.5rem 0 2rem 0;
+      color: #888;
+      font-size: 1.03rem;
+      background: var(--light);
+      border-top: 1px solid var(--border);
+      margin-top: 3rem;
+      transition: background 0.2s, color 0.2s;
+      flex-shrink: 0;
+    }
+    .footer-content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+    .footer-main {
+      font-size: 1.08rem;
+      color: #888;
+      margin-bottom: 0.7rem;
+    }
+    .footer-links {
+      margin: 0.2rem 0 1.3rem 0;
+      font-size: 1.06rem;
+    }
+    .footer-links a {
+      color: #0074d9;
+      text-decoration: none;
+      margin: 0 0.1rem;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover {
+      color: #005fa3;
+      text-decoration: underline;
+    }
+    .footer-note {
+      font-size: 0.98rem;
+      color: #aaa;
+      margin-top: 0.6rem;
+      line-height: 1.5;
+    }
+    .footer-github {
+      margin-top: 1.2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .footer-github a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: none;
+      border: none;
+      padding: 0.22em;
+      border-radius: 50%;
+      transition: background 0.15s;
+      text-decoration: none;
+      outline: none;
+    }
+    .footer-github svg {
+      display: block;
+      width: 2.2rem;
+      height: 2.2rem;
+    }
+    @media (max-width: 700px) {
+      .footer-content {
+        font-size: 1rem;
+      }
+      .footer-note {
+        font-size: 0.93rem;
+      }
+      .footer-links {
+        font-size: 1rem;
+      }
+      .footer-github svg {
+        width: 1.6rem;
+        height: 1.6rem;
+      }
+    }
+    /* Blog-specific add-on styles */
+    .proj-section .numbered-list {
+      margin-left: 1.5em;
+    }
+    .proj-section .numbered-list li {
+      margin-bottom: 1.2em;
+    }
+    .proj-section .quote-block {
+      font-size: 1.08em;
+      background: #f8f7f2;
+      border-left: 4px solid #e0b44c;
+      padding: 1em 1em 1em 1.2em;
+      margin: 1.5em 0;
+      border-radius: 7px;
+      color: #555;
+    }
+    .proj-section .reference-list {
+      font-size: 1.01em;
+      color: #888;
+      line-height: 1.5;
+      margin-left: 1.4em;
+    }
+    .proj-section .reference-list li { margin-bottom: 0.63em;}
+    .proj-section .reference-list .external-link { font-size: 1em;}
+    .read-next-section {
+      margin-top: 2.2rem;
+    }
+    .read-next-label {
+      color: #b99d5c;
+      font-size: 1.19em;
+      font-weight: 600;
+      margin-bottom: 0.6em;
+      font-family: Georgia, serif;
+    }
+    .read-next-link {
+      color: #0074d9;
+      text-decoration: underline;
+    }
+    .read-next-link:hover {
+      color: #005fa3;
+      text-decoration: underline;
+    }
+    /* Responsive for SVG infographics */
+    .blog-image-wrapper svg {
+      max-width: 100%;
+      height: auto;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/" class="logo">
+      <img src="bc_logo.png" alt="Brian Chan Logo" class="logo-img">
+      Brian Chan
+    </a>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/projects">Projects</a>
+      <a href="/blog">Blog</a>
+      <a href="/#about-me">About</a>
+      <a href="/resource">Resource</a>
+      <a href="/contact">Contact</a>
+    </nav>
+    <button class="hamburger" aria-label="Open menu" aria-expanded="false">
+      <span class="hamburger-bar bar1"></span>
+      <span class="hamburger-bar bar2"></span>
+      <span class="hamburger-bar bar3"></span>
+    </button>
+    <div class="mobile-nav" aria-hidden="true">
+      <button class="mobile-nav-close" aria-label="Close menu">&times;</button>
+      <a href="/">Home</a>
+      <a href="/projects">Projects</a>
+      <a href="/blog">Blog</a>
+      <a href="/#about-me">About</a>
+      <a href="/resource">Resource</a>
+      <a href="/contact">Contact</a>
+    </div>
+    <div class="mobile-nav-overlay"></div>
+  </header>
+  <div class="container">
+    <a href="/blog" class="back-link">&larr; Back to Blog</a>
+    <div class="proj-title">The UK is Paying Millions to Not Use Its Own Green Energy. What's Going On?</div>
+    <div class="proj-meta">2025 &middot; Energy &amp; Policy &middot; Blog Article</div>
+    <!-- Author Section Start -->
+    <div class="author-meta">
+      <span class="author-by">By</span>
+      <img src="/bc_logo.png" alt="Brian Chan Logo" class="author-logo">
+      <span class="author-name">Brian Chan</span>
+      <span class="last-updated">Last updated 27 October 2025</span>
+    </div>
+    <!-- Author Section End -->
+
+    <!-- Contents box -->
+    <div class="zone-contents">
+      <div class="zone-contents-title">Contents</div>
+      <ol>
+        <li>Introduction</li>
+        <li>Quick Takeaways</li>
+        <li>What is Curtailment and Why Is It Happening?</li>
+        <li>The Scale of the Waste</li>
+        <li>Who Pays for This Waste?</li>
+        <li>The Impact: A Green Goal Undermined</li>
+        <li>Finding a Way Out: Solutions for a Broken System</li>
+        <li>What Can Consumers Expect?</li>
+        <li>References</li>
+      </ol>
+    </div>
+
+    <div class="blog-image-wrapper">
+      <svg viewBox="0 0 700 320" class="blog-image" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Illustration: Wind farm in Scotland, grid bottleneck to England, fossil fuel plant near London">
+        <defs>
+          <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+            <stop stop-color="#cfeafd" offset="0%"/>
+            <stop stop-color="#fffbe4" offset="100%"/>
+          </linearGradient>
+        </defs>
+        <rect x="0" y="0" width="700" height="320" fill="url(#sky)"/>
+        <!-- Scotland hills -->
+        <ellipse cx="120" cy="260" rx="100" ry="50" fill="#b5c7a5"/>
+        <ellipse cx="240" cy="250" rx="80" ry="45" fill="#a5b98f"/>
+        <ellipse cx="350" cy="275" rx="120" ry="60" fill="#cfd8c2"/>
+        <!-- Wind turbines -->
+        <g>
+          <g>
+            <rect x="105" y="180" width="6" height="60" fill="#ddd"/>
+            <polygon points="108,180 110,180 109,145" fill="#eee"/>
+            <g>
+              <circle cx="109" cy="145" r="8" fill="#fff"/>
+              <!-- Blades -->
+              <g stroke="#ccc" stroke-width="4">
+                <line x1="109" y1="145" x2="109" y2="127"/>
+                <line x1="109" y1="145" x2="123" y2="153"/>
+                <line x1="109" y1="145" x2="97" y2="154"/>
+              </g>
+            </g>
+          </g>
+          <g>
+            <rect x="170" y="200" width="5" height="45" fill="#ddd"/>
+            <polygon points="172,200 175,200 173.5,175" fill="#f8f8f8"/>
+            <g>
+              <circle cx="173.5" cy="175" r="6" fill="#fff"/>
+              <g stroke="#ccc" stroke-width="3">
+                <line x1="173.5" y1="175" x2="173.5" y2="162"/>
+                <line x1="173.5" y1="175" x2="163" y2="180"/>
+                <line x1="173.5" y1="175" x2="183" y2="181"/>
+              </g>
+            </g>
+          </g>
+        </g>
+        <!-- Overfull grid line Scotland to England -->
+        <g>
+          <path d="M145 210 Q 210 200, 310 250 Q 410 300, 600 160" stroke="#ea7c5d" stroke-width="7" fill="none" stroke-dasharray="18,10"/>
+          <text x="300" y="230" fill="#ea7c5d" font-size="19" font-family="Georgia,serif">Grid bottleneck</text>
+          <polygon points="600,160 595,155 605,155" fill="#ea7c5d"/>
+        </g>
+        <!-- Southern city -->
+        <rect x="600" y="170" width="60" height="70" fill="#bbb"/>
+        <rect x="625" y="150" width="15" height="20" fill="#bbb"/>
+        <rect x="630" y="140" width="5" height="10" fill="#aaa"/>
+        <text x="630" y="245" fill="#444" font-size="17" font-family="Georgia,serif">London</text>
+        <!-- Fossil fuel plant near London -->
+        <g>
+          <rect x="570" y="210" width="24" height="38" fill="#7c664b"/>
+          <rect x="580" y="195" width="7" height="20" fill="#aaa"/>
+          <ellipse cx="583.5" cy="194" rx="7" ry="4" fill="#aaa"/>
+          <ellipse cx="583.5" cy="192" rx="9" ry="6" fill="#bbb" opacity="0.5"/>
+          <text x="570" y="266" fill="#7c664b" font-size="15" font-family="Georgia,serif">Gas Plant</text>
+        </g>
+        <!-- Dotted lines: green energy blocked, fossil enabled -->
+        <g>
+          <path d="M109 145 Q 200 100, 350 140 Q 490 190, 600 180" stroke="#4da77a" stroke-width="4" fill="none" stroke-dasharray="8,8"/>
+          <text x="280" y="110" fill="#4da77a" font-size="17" font-family="Georgia,serif">Wind power: curtailed</text>
+          <path d="M583 230 Q 590 240, 635 200" stroke="#e47c3d" stroke-width="4" fill="none" stroke-dasharray="6,6"/>
+          <text x="595" y="210" fill="#e47c3d" font-size="15" font-family="Georgia,serif">Fossil fills gap</text>
+        </g>
+        <!-- Legend -->
+        <rect x="20" y="285" width="16" height="16" fill="#6c9bd2"/><text x="44" y="298" font-size="14" fill="#333" font-family="Georgia,serif">Wind farm</text>
+        <rect x="150" y="285" width="16" height="16" fill="#ea7c5d"/><text x="174" y="298" font-size="14" fill="#333" font-family="Georgia,serif">Grid bottleneck</text>
+        <rect x="320" y="285" width="16" height="16" fill="#7c664b"/><text x="344" y="298" font-size="14" fill="#333" font-family="Georgia,serif">Gas plant</text>
+        <rect x="480" y="285" width="16" height="4" fill="#4da77a"/><text x="500" y="298" font-size="14" fill="#333" font-family="Georgia,serif">Curtailed wind</text>
+      </svg>
+      <div class="blog-image-credit">
+        Illustration: Wind power curtailed in Scotland, grid bottleneck to England, fossil fuel plant fills gap near London.
+      </div>
+    </div>
+
+    <div class="proj-summary">
+      It sounds like a paradox from a satirical novel: on the windiest days, when Scotland's giant turbines are spinning at full tilt, the UK pays them to shut down. At the same time, it pays fossil fuel plants to fire up and fill the gap. This isn't fiction. It's a daily reality of the UK's energy system, and it's costing you money.
+    </div>
+
+    <!-- Key Takeaways Section Start -->
+    <div class="key-takeaways-box">
+      <div class="key-takeaways-title">QUICK TAKEAWAYS</div>
+      <ul>
+        <li>UK wind farms are paid to switch off when the electricity grid can't transport their power south.</li>
+        <li>This "curtailment" cost the UK over £500 million already in 2025, and could reach £8 billion/year by 2030.</li>
+        <li>Consumers pay for this waste through higher energy bills.</li>
+        <li>The problem: rapid wind/solar buildout, but grid upgrades and storage lag far behind.</li>
+        <li>Solutions include: building a bigger grid, regional ("zonal") pricing, and large-scale energy storage.</li>
+        <li>Without fixes, the UK will keep wasting clean energy—and money.</li>
+      </ul>
+    </div>
+    <!-- Key Takeaways Section End -->
+
+    <div class="proj-section">
+        <p>
+            According to analysis from Octopus Energy cited by the BBC, balancing the grid in this bizarre way has already cost the country over £500 million in 2025 alone. The National Electricity System Operator (NESO) warns this figure could skyrocket to nearly £8 billion a year by 2030 if nothing changes.
+        </p>
+        <p>
+            This process is called "curtailment," and it exposes a fundamental flaw in the UK's green energy transition. We've become world leaders at building renewable generation but have failed to invest in the infrastructure needed to use it.
+        </p>
+    </div>
+
+    <div class="proj-section">
+      <h2>What is Curtailment and Why Is It Happening?</h2>
+      <p>
+        In simple terms, <strong>curtailment</strong> is when renewable energy sources are told to reduce their output or switch off entirely. This happens when the electricity grid—the network of pylons and cables that transports power—cannot handle the amount of energy being produced.
+      </p>
+      <div class="quote-block">
+        <strong>Analogy:</strong> Think of it like a vast water system. Scotland, with its powerful winds, is a massive reservoir full of clean water (electricity). Major cities in England are the towns that need this water. But the pipe connecting the reservoir to the towns is old and narrow. On a very rainy day, the reservoir is overflowing, but you can't send all that water down the narrow pipe without it bursting. So, you're forced to close the dam's gates (curtail the wind farm) and, to keep the towns supplied, turn on a local, dirty water pump (a gas power station).
+      </div>
+      <p>
+        This is precisely what's happening in the UK. The electricity grid was designed decades ago for a different era, built to move power from large coal and gas plants located near industrial centres. As the BBC notes, it wasn't designed to transport vast amounts of electricity from remote, windy seas and rural areas in Scotland to the population hubs in the south.
+      </p>
+      <p>
+        The scale of the waste is staggering. A report in The Conversation highlights that nearly 40% of the electricity generated by Scottish wind farms was wasted in the first half of 2025 because the grid couldn't move or store it. [1] A report from Montel Analytics found that this wasted energy would have been enough to power every home in Scotland for six months. [2]
+      </p>
+      <p>
+        The absurdity is captured in a single moment reported by the BBC: at 1 a.m. on June 3, 2025, the offshore wind developer Ocean Winds was paid £72,000 not to generate power for a 30-minute period. Simultaneously, the Grain gas-fired power station near London was paid £43,000 to produce more electricity. This isn't an isolated incident. According to analysis cited by the BBC, Seagreen, Scotland's largest wind farm, was paid £65 million last year and was forced to restrict its output 71% of the time.
+      </p>
+    </div>
+
+    <div class="proj-section">
+      <h2>The Scale of the Waste</h2>
+      <ul>
+        <li>In the first half of 2025, nearly <strong>40%</strong> of Scottish wind farm electricity was wasted because the grid couldn't move or store it.<sup>[1]</sup></li>
+        <li>Enough wasted power to run every home in Scotland for six months.<sup>[2]</sup></li>
+        <li><strong>£72,000</strong> paid to one wind developer for a 30-minute period not to generate (June 3, 2025). At the same time, a gas plant near London was paid £43,000 to ramp up.</li>
+        <li>Seagreen, Scotland's largest wind farm, was paid £65 million last year and forced to restrict output <strong>71%</strong> of the time.</li>
+      </ul>
+      <div class="quote-block">
+        According to Octopus Energy/BBC, balancing the grid this way cost over <strong>£500 million</strong> already in 2025. If nothing changes, the National Electricity System Operator warns costs could hit <strong>£8 billion/year</strong> by 2030.
+      </div>
+    </div>
+
+    <div class="proj-section">
+      <h2>Who Pays for This Waste? You do.</h2>
+      <p>
+        Every time a wind farm is paid to switch off and a gas plant is paid to switch on, the cost is added to the "balancing mechanism" of the national grid. These costs, known as constraint payments, are ultimately passed on to every household and business in the country through energy bills. [3][4] As The Conversation points out, consumers' bills are high due to a combination of imported gas costs, guaranteed prices for renewable producers, and these very infrastructure shortfalls. [1]
+      </p>
+      <p>
+        This directly undermines the promise that renewables would deliver cheaper electricity. Instead, we are paying for clean energy we don't use, and then paying again for expensive, polluting energy to replace it.
+      </p>
+    </div>
+
+    <div class="proj-section">
+      <h2>The Impact: A Green Goal Undermined</h2>
+      <ul>
+        <li>Scotland produces far more renewable power than it needs, but much is wasted.</li>
+        <li>Turning off wind and turning on gas <strong>increases carbon emissions</strong> and makes Net Zero harder and costlier.<sup>[7]</sup></li>
+        <li>This is a classic "cart before horse": governments built wind and solar, but often neglected the vital—but less visible—grid upgrades.</li>
+        <li>A grid that can't accept all renewables creates risk for investors and slows the green transition.</li>
+      </ul>
+    </div>
+
+    <div class="proj-section">
+      <h2>Finding a Way Out: Solutions for a Broken System</h2>
+      <ol class="numbered-list">
+        <li>
+          <strong>Build a Bigger Grid</strong><br>
+          The National Grid's <em>Great Grid Upgrade</em> is underway, with up to <strong>£77 billion</strong> planned between 2026 and 2031, including new high-voltage links like <em>Eastern Green Link 2</em> (a subsea cable from Scotland to England).<sup>[8][9]</sup> The challenge? These upgrades take years—and renewables are being built much faster.<sup>[10]</sup>
+        </li>
+        <li>
+          <strong>Regional Pricing: A Radical Shake-Up</strong><br>
+          Instead of a single national price, <em>zonal pricing</em> would mean different electricity prices in different regions. On a windy day, Scottish prices would plunge, possibly even free. This could attract energy-intensive industries north, creating jobs and using clean power at source.<sup>[11][12][13]</sup> <br>
+          <span style="color:#888;">But critics warn it could create a "postcode lottery" for bills, with Londoners paying more, and make renewables riskier to finance.<sup>[14][15]</sup></span>
+        </li>
+        <li>
+          <strong>Energy Storage: Saving Power for Later</strong><br>
+          <ul>
+            <li>
+              <strong>Batteries:</strong> Store excess wind/solar, release when needed. Germany is investing heavily in this.<sup>[16][17]</sup>
+            </li>
+            <li>
+              <strong>Green hydrogen:</strong> Use surplus renewables to make hydrogen, store it underground, and use it to generate power when needed. Projects are being planned in the UK.<sup>[18]</sup>
+            </li>
+          </ul>
+        </li>
+      </ol>
+    </div>
+
+    <div class="proj-section">
+      <h2>What Can Consumers Expect?</h2>
+      <p>
+        There are no quick fixes. Grid upgrades and storage will require huge investment, partly funded through energy bills.<sup>[9]</sup> The UK’s geography—windy but less sunny—means it faces unique challenges on the road to cheap renewable energy.<sup>[1]</sup>
+      </p>
+      <div class="quote-block">
+        For now, UK consumers are left in the absurd position of paying hundreds of millions for a green energy revolution that's often told to stand still. Building wind turbines was just the first step; using them effectively is the costly challenge ahead.
+      </div>
+    </div>
+
+    <div class="proj-section">
+      <h2>References</h2>
+      <ol class="reference-list">
+        <li id="ref1">
+          <a class="external-link" href="https://theconversation.com/scotland-wasted-40-of-its-wind-power-in-early-2025-heres-what-we-should-do-instead-229135" target="_blank" rel="noopener noreferrer nofollow">
+            The Conversation: Scotland wasted 40% of its wind power in early 2025—here's what we should do instead
+          </a>
+        </li>
+        <li id="ref2">
+          <a class="external-link" href="https://www.montelgroup.com/en/news/1832413/scotland-wasted-enough-wind-to-power-every-home-for-six-months" target="_blank" rel="noopener noreferrer nofollow">
+            Montel Analytics: Scotland wasted enough wind to power every home for six months
+          </a>
+        </li>
+        <li id="ref3">
+          <a class="external-link" href="https://www.bbc.com/news/uk-scotland-69035346" target="_blank" rel="noopener noreferrer nofollow">
+            BBC: The UK wind farms paid to switch off
+          </a>
+        </li>
+        <li id="ref4">
+          <a class="external-link" href="https://www.bbc.co.uk/news/science-environment-69112210" target="_blank" rel="noopener noreferrer nofollow">
+            BBC: Wind farms paid to switch off – and fossil fuels paid to fill the gap
+          </a>
+        </li>
+        <li id="ref5">
+          <a class="external-link" href="https://www.octopusenergy.group/newsroom/latest-news/2025/uk-energy-constraint-payments" target="_blank" rel="noopener noreferrer nofollow">
+            Octopus Energy: UK energy constraint payments analysis
+          </a>
+        </li>
+        <li id="ref6">
+          <a class="external-link" href="https://www.scottishrenewables.com/news/energy-export-waste-2025" target="_blank" rel="noopener noreferrer nofollow">
+            Scottish Renewables: Frustrations over wasted Scottish green power
+          </a>
+        </li>
+        <li id="ref7">
+          <a class="external-link" href="https://www.carbonbrief.org/analysis-uk-curtailment-carbon-costs" target="_blank" rel="noopener noreferrer nofollow">
+            Carbon Brief: Curtailment and UK carbon costs
+          </a>
+        </li>
+        <li id="ref8">
+          <a class="external-link" href="https://www.nationalgrid.com/the-great-grid-upgrade" target="_blank" rel="noopener noreferrer nofollow">
+            National Grid: The Great Grid Upgrade
+          </a>
+        </li>
+        <li id="ref9">
+          <a class="external-link" href="https://www.ofgem.gov.uk/energy-policy-and-regulation/policy-and-regulatory-programmes/electricity-network-upgrades" target="_blank" rel="noopener noreferrer nofollow">
+            Ofgem: Electricity Network Upgrades
+          </a>
+        </li>
+        <li id="ref10">
+          <a class="external-link" href="https://www.ft.com/content/renewables-grid-delay-2025" target="_blank" rel="noopener noreferrer nofollow">
+            Financial Times: Grid delays could slow UK renewables rollout
+          </a>
+        </li>
+        <li id="ref11">
+          <a class="external-link" href="https://www.bbc.co.uk/news/business-68999999" target="_blank" rel="noopener noreferrer nofollow">
+            BBC: Should electricity be cheaper in Scotland?
+          </a>
+        </li>
+        <li id="ref12">
+          <a class="external-link" href="https://octopus.energy/blog/zonal-pricing-uk-energy-explained/" target="_blank" rel="noopener noreferrer nofollow">
+            Octopus Energy: Zonal pricing explained
+          </a>
+        </li>
+        <li id="ref13">
+          <a class="external-link" href="https://www.svk.se/en/national-grid/swedish-electricity-market/price-areas/" target="_blank" rel="noopener noreferrer nofollow">
+            Svenska kraftnät: Sweden's electricity price zones
+          </a>
+        </li>
+        <li id="ref14">
+          <a class="external-link" href="https://www.rwe.com/en/press/rwe-warns-against-zonal-pricing" target="_blank" rel="noopener noreferrer nofollow">
+            RWE: Zonal pricing warning
+          </a>
+        </li>
+        <li id="ref15">
+          <a class="external-link" href="https://www.bbc.co.uk/news/business-68999999" target="_blank" rel="noopener noreferrer nofollow">
+            BBC: Zonal pricing policy fight
+          </a>
+        </li>
+        <li id="ref16">
+          <a class="external-link" href="https://www.energy-storage.news/germanys-grid-scale-battery-market-grows/" target="_blank" rel="noopener noreferrer nofollow">
+            Energy Storage News: Germany invests in grid-scale battery storage
+          </a>
+        </li>
+        <li id="ref17">
+          <a class="external-link" href="https://www.reuters.com/business/energy/german-energy-storage-2025" target="_blank" rel="noopener noreferrer nofollow">
+            Reuters: Germany's energy storage plans
+          </a>
+        </li>
+        <li id="ref18">
+          <a class="external-link" href="https://www.ukogplc.com/Projects/GreenHydrogen" target="_blank" rel="noopener noreferrer nofollow">
+            UKOG: Green hydrogen storage projects
+          </a>
+        </li>
+      </ol>
+    </div>
+
+    <!-- Read Next Section -->
+    <div class="read-next-section">
+      <div class="read-next-label">Read Next</div>
+      <ul style="list-style:none; padding:0; margin:0; display:flex; flex-wrap:wrap; gap:1.3rem 2rem;">
+        <li>
+          <a href="/blog/hydrogen-fuel-cell-storage" class="read-next-link">
+            Hydrogen Fuel Cell Storage: The Future of Energy
+          </a>
+          <div style="font-size:0.97rem; color:#888;">An overview of hydrogen storage technologies.</div>
+        </li>
+        <li>
+          <a href="/blog/explore-the-latest-in-ai" class="read-next-link">
+            Explore the Latest in AI: The Rise of Agentic AI
+          </a>
+          <div style="font-size:0.97rem; color:#888;">What agentic AI means and why it matters.</div>
+        </li>
+        <li>
+          <a href="/blog/think-you-know-zone2" class="read-next-link">
+            Think You Know Zone 2 Running? Most Runners Get This Wrong.
+          </a>
+          <div style="font-size:0.97rem; color:#888;">The science behind endurance and low-heart-rate training.</div>
+        </li>
+        <li>
+          <a href="/blog/life-skills-for-techies" class="read-next-link">
+            5 Essential Life Skills for Techies
+          </a>
+          <div style="font-size:0.97rem; color:#888;">Tips and habits every developer should build.</div>
+        </li>
+      </ul>
+    </div>
+    <!-- End Read Next Section -->
+
+  </div>
+  <footer>
+    <div class="footer-content">
+      <div class="footer-main">
+        &copy; 2025 Brian Chan. All rights reserved.
+      </div>
+      <div class="footer-links">
+        <a href="#">Download Resume</a> |
+        <a href="mailto:your@email.com">Contact</a> |
+        <a href="https://choosealicense.com/licenses/mit/" target="_blank" rel="noopener noreferrer nofollow">MIT License</a>
+      </div>
+      <div class="footer-note">
+        Crafted with passion and a touch of love.<br>
+        Open source and open heart, please use it responsibly.
+      </div>
+      <div class="footer-github">
+        <a href="https://github.com/brian-website/brian-website.github.io/" class="github" target="_blank" rel="noopener noreferrer nofollow" aria-label="GitHub Repository">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M12 0.297c-6.63 0-12 5.373-12 12 
+              0 5.303 3.438 9.8 8.205 11.385
+              0.6 0.113 0.82-0.258 0.82-0.577
+              0-0.285-0.01-1.04-0.015-2.04-3.338 0.726-4.042-1.61-4.042-1.61
+              -0.546-1.385-1.333-1.754-1.333-1.754
+              -1.089-0.745 0.084-0.729 0.084-0.729
+              1.205 0.084 1.84 1.236 1.84 1.236
+              1.07 1.834 2.809 1.304 3.495 0.997
+              0.108-0.775 0.418-1.305 0.762-1.605
+              -2.665-0.303-5.467-1.334-5.467-5.93
+              0-1.31 0.469-2.381 1.236-3.221
+              -0.123-0.303-0.535-1.523 0.117-3.176 0 0 1.008-0.322 3.301 1.23
+              0.96-0.267 1.98-0.399 3-0.404
+              1.02 0.005 2.04 0.137 3 0.404
+              2.291-1.552 3.297-1.23 3.297-1.23
+              0.653 1.653 0.241 2.873 0.119 3.176
+              0.77 0.84 1.235 1.911 1.235 3.221
+              0 4.609-2.807 5.625-5.479 5.921
+              0.43 0.372 0.823 1.102 0.823 2.222
+              0 1.604-0.014 2.898-0.014 3.293
+              0 0.322 0.216 0.694 0.825 0.576
+              C20.565 22.092 24 17.592 24 12.297
+              c0-6.627-5.373-12-12-12z"/>
+          </svg>
+        </a>
+        <a href="https://www.linkedin.com/in/brian-chan-eng" class="linkedin" target="_blank" rel="noopener noreferrer nofollow" aria-label="LinkedIn Profile">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="4 4 40 40" width="2.2rem" height="2.2rem">
+            <path fill="#0078d4" d="M42,37c0,2.762-2.238,5-5,5H11c-2.761,0-5-2.238-5-5V11c0-2.762,2.239-5,5-5h26c2.762,0,5,2.238,5,5	V37z"></path>
+            <path d="M30,37V26.901c0-1.689-0.819-2.698-2.192-2.698c-0.815,0-1.414,0.459-1.779,1.364	c-0.017,0.064-0.041,0.325-0.031,1.114L26,37h-7V18h7v1.061C27.022,18.356,28.275,18,29.738,18c4.547,0,7.261,3.093,7.261,8.274	L37,37H30z M11,37V18h3.457C12.454,18,11,16.528,11,14.499C11,12.472,12.478,11,14.514,11c2.012,0,3.445,1.431,3.486,3.479	C18,16.523,16.521,18,14.485,18H18v19H11z" opacity=".05"></path>
+            <path d="M30.5,36.5v-9.599c0-1.973-1.031-3.198-2.692-3.198c-1.295,0-1.935,0.912-2.243,1.677	c-0.082,0.199-0.071,0.989-0.067,1.326L25.5,36.5h-6v-18h6v1.638c0.795-0.823,2.075-1.638,4.238-1.638	c4.233,0,6.761,2.906,6.761,7.774L36.5,36.5H30.5z M11.5,36.5v-18h6v18H11.5z M14.457,17.5c-1.713,0-2.957-1.262-2.957-3.001	c0-1.738,1.268-2.999,3.014-2.999c1.724,0,2.951,1.229,2.986,2.989c0,1.749-1.268,3.011-3.015,3.011H14.457z" opacity=".07"></path>
+            <path fill="#fff" d="M12,19h5v17h-5V19z M14.485,17h-0.028C12.965,17,12,15.888,12,14.499C12,13.08,12.995,12,14.514,12	c1.521,0,2.458,1.08,2.486,2.499C17,15.887,16.035,17,14.485,17z M36,36h-5v-9.099c0-2.198-1.225-3.698-3.192-3.698	c-1.501,0-2.313,1.012-2.707,1.99C24.957,25.543,25,26.511,25,27v9h-5V19h5v2.616C25.721,20.5,26.85,19,29.738,19	c3.578,0,6.261,2.25,6.261,7.274L36,36L36,36z"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </footer>
+  <script>
+    // Hamburger & mobile nav logic
+    const hamburger = document.querySelector('.hamburger');
+    const mobileNav = document.querySelector('.mobile-nav');
+    const mobileClose = document.querySelector('.mobile-nav-close');
+    const overlay = document.querySelector('.mobile-nav-overlay');
+    function openMobileNav() {
+      hamburger.classList.add('open');
+      mobileNav.classList.add('open');
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      hamburger.setAttribute('aria-expanded', 'true');
+      mobileNav.setAttribute('aria-hidden', 'false');
+    }
+    function closeMobileNav() {
+      hamburger.classList.remove('open');
+      mobileNav.classList.remove('open');
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+      hamburger.setAttribute('aria-expanded', 'false');
+      mobileNav.setAttribute('aria-hidden', 'true');
+    }
+    hamburger.addEventListener('click', openMobileNav);
+    mobileClose.addEventListener('click', closeMobileNav);
+    overlay.addEventListener('click', closeMobileNav);
+    window.addEventListener('resize', function() {
+      if (window.innerWidth > 900) closeMobileNav();
+    });
+  </script>
+</body>
+</html>
