@@ -1,0 +1,1455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="icon" href="bc_icon.ico">
+  <title>Brian Chan</title>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://code.jquery.com https://unpkg.com https://d3js.org https://threejs.org https://cdn.plot.ly https://stackpath.bootstrapcdn.com https://maps.googleapis.com https://cdn.tailwindcss.com https://ajax.googleapis.com https://kit.fontawesome.com https://cdn.datatables.net https://maxcdn.bootstrapcdn.com https://code.highcharts.com https://tako-static-assets-production.s3.amazonaws.com https://www.youtube.com https://fonts.googleapis.com https://fonts.gstatic.com https://pfst.cf2.poecdn.net https://puc.poecdn.net https://i.imgur.com https://wikimedia.org https://*.icons8.com https://*.giphy.com https://picsum.photos https://images.unsplash.com; frame-src 'self' https://www.youtube.com https://trytako.com; child-src 'self'; manifest-src 'self'; worker-src 'self'; upgrade-insecure-requests; block-all-mixed-content;">
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+    :root {
+      --primary-bg: #fcfbf3;
+      --accent: #333;
+      --light: #ffffff;
+      --border: #e0e0e0;
+      --fixed-header-height: 70px;
+      --nav-z: 2000;
+      --hamburger-size: 2.3rem;
+      --transition: 0.23s cubic-bezier(.4,0,.2,1);
+    }
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: var(--primary-bg);
+      color: var(--accent);
+      transition: background 0.2s, color 0.2s;
+    }
+    header {
+      background: #fcfbf3;
+      padding: 0.6rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: var(--nav-z);
+      height: var(--fixed-header-height);
+      box-sizing: border-box;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+    }
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-left: 2rem;
+      letter-spacing: 1px;
+      color: var(--accent);
+      text-decoration: none;
+      cursor: pointer;
+      transition: color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      z-index: calc(var(--nav-z) + 1);
+    }
+    .logo-img {
+      width: 2.1rem;
+      height: 2.1rem;
+      object-fit: contain;
+      margin-right: 0.4rem;
+      border: none;
+      display: inline-block;
+      vertical-align: middle;
+      background: none;
+      box-shadow: none;
+      transition: none;
+    }
+    nav {
+      margin-right: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    nav a {
+      color: var(--accent);
+      text-decoration: none;
+      margin: 0 0.75rem;
+      font-size: 1.1rem;
+      font-weight: 500;
+      transition:
+        color 0.2s,
+        transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      display: inline-block;
+    }
+    nav a:hover,
+    nav a.active {
+      color: #0074d9;
+      transform: scale(1.18);
+    }
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: var(--hamburger-size);
+      height: var(--hamburger-size);
+      background: none;
+      border: none;
+      cursor: pointer;
+      z-index: calc(var(--nav-z) + 2);
+      margin-right: 1.4rem;
+      margin-left: auto;
+    }
+    .hamburger-bar {
+      width: 28px;
+      height: 3.5px;
+      background: var(--accent);
+      border-radius: 3px;
+      margin: 3.5px 0;
+      transition: all var(--transition);
+      display: block;
+    }
+    .hamburger.open .bar1 {
+      transform: rotate(45deg) translate(6px, 7px);
+    }
+    .hamburger.open .bar2 {
+      opacity: 0;
+    }
+    .hamburger.open .bar3 {
+      transform: rotate(-45deg) translate(7px, -7px);
+    }
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 80vw;
+      max-width: 340px;
+      height: 100vh;
+      background: #fcfbf3;
+      box-shadow: -4px 0 24px 0 rgba(60,60,90,0.08);
+      z-index: calc(var(--nav-z) + 10);
+      transform: translateX(100%);
+      transition: transform var(--transition);
+      padding-top: var(--fixed-header-height);
+      padding-left: 2rem;
+      padding-right: 2rem;
+      box-sizing: border-box;
+      flex-direction: column;
+      align-items: start;
+    }
+    .mobile-nav.open {
+      display: flex;
+      transform: translateX(0);
+    }
+    .mobile-nav a {
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin: 1.1rem 0;
+      transition: color 0.18s;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 0.3em;
+      width: 100%;
+    }
+    .mobile-nav a:last-child {
+      border-bottom: none;
+    }
+    .mobile-nav a:hover,
+    .mobile-nav a.active {
+      color: #0074d9;
+      background: #f0f3ff;
+    }
+    .mobile-nav-close {
+      position: absolute;
+      top: 1.2rem;
+      right: 1.4rem;
+      font-size: 2.2rem;
+      color: #aaa;
+      background: none;
+      border: none;
+      cursor: pointer;
+      z-index: calc(var(--nav-z) + 12);
+      transition: color 0.2s;
+    }
+    .mobile-nav-close:hover {
+      color: #0074d9;
+    }
+    .mobile-nav-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(50,50,70,0.16);
+      z-index: calc(var(--nav-z) + 5);
+      transition: opacity 0.18s;
+    }
+    .mobile-nav-overlay.open {
+      display: block;
+    }
+    @media (max-width: 900px) {
+      nav { display: none; }
+      .hamburger { display: flex; }
+      .mobile-nav {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+      }
+    }
+    @media (min-width: 901px) {
+      .mobile-nav,
+      .mobile-nav-overlay,
+      .mobile-nav.open,
+      .mobile-nav-overlay.open {
+        display: none !important;
+      }
+      .hamburger { display: none !important; }
+      nav { display: flex !important; }
+    }
+    .container {
+      max-width: 1200px;
+      margin: 2.5rem auto 0 auto;
+      padding: calc(var(--fixed-header-height) + 1.2rem) 1rem 0 1rem;
+      flex: 1 0 auto;
+      box-sizing: border-box;
+    }
+    .hero-flex {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      position: relative;
+      padding-top: 4rem;
+      padding-right: 400px;
+      min-height: calc(70vh - var(--fixed-header-height));
+    }
+    .hero-content {
+      min-height: 2rem;
+    }
+    .hero-title {
+      font-size: 3rem;
+      font-weight: 800;
+      margin-bottom: 1.2rem;
+      letter-spacing: -1px;
+      line-height: 1.08;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 0.65em;
+    }
+    .hero-title .wave {
+      font-size: 2.2rem;
+      margin-left: 0.2em;
+    }
+    .hero-desc {
+      font-size: 1.32rem;
+      font-weight: 400;
+      margin-bottom: 0.5rem;
+      color: #444;
+      line-height: 1.45;
+    }
+    .hero-bold {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-top: 1.5rem;
+      margin-bottom: 2.2rem;
+      color: var(--accent);
+      letter-spacing: 0.01em;
+    }
+    .hero-stats {
+      display: flex;
+      gap: 2.5rem;
+      margin-top: 1.2rem;
+      margin-bottom: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .stat-block {
+      min-width: 120px;
+      flex: 1 1 0;
+      border-right: 2px solid #ededed;
+      padding-right: 2.5rem;
+      margin-right: 0.5rem;
+      text-align: left;
+    }
+    .stat-block:last-child {
+      border-right: none;
+      padding-right: 0;
+      margin-right: 0;
+    }
+    .stat-num {
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 0.2rem;
+      letter-spacing: -1px;
+    }
+    .stat-label {
+      font-size: 1.08rem;
+      color: #888;
+      font-weight: 500;
+      margin-top: 0.35rem;
+      letter-spacing: 0.02em;
+    }
+    .hero-image {
+      position: absolute; 
+      top: 0;
+      right: 0;
+      width: 550px;
+      height: 550px;
+      background: #fcfbf3;
+      border-radius: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .hero-image img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      /* remove frame */
+      border: none;
+      box-shadow: none;
+      outline: none;
+      background: transparent;
+      border-radius: 0;
+      filter: drop-shadow(18px 6px 18px rgba(0,0,0,0.25));
+    }
+    .hero-typing, #hero-typing-measure {
+      font-size: 1.2rem;
+      font-weight: 1000;
+      letter-spacing: 0.01em;
+      font-family: inherit;
+      line-height: 1.3;
+    }
+    .hero-typing {
+      display: block;
+    }
+    .typed-cursor {
+      display: inline-block;
+      width: .7ch;
+      color: #2f3370;
+      animation: blink-cursor 1s steps(1) infinite;
+      font-size: 1.32em;
+      font-weight: 500;
+      position: relative;
+      top: 0.04em;
+    }
+    @keyframes blink-cursor {
+      0%, 49% { opacity: 1; }
+      50%, 100% { opacity: 0; }
+    }
+    @media (max-width: 1100px) {
+      .container { max-width: 100%; }
+      .hero-flex { gap: 1.2rem; }
+      .hero-title { font-size: 2.1rem; }
+      .hero-image { width: 240px; height: 240px; border-radius: 1.3rem; }
+    }
+    @media (max-width: 900px) {
+      .hero-flex {
+      padding-right: 0;
+      align-items: center;
+      padding-top: 2rem;
+      min-height: unset;
+      }
+      .hero-image { 
+      position: static;
+      margin-top: 1.5rem;
+      width: 200px;
+      height: 200px;
+      }
+    }
+    @media (max-width: 600px) {
+      .hero-title { font-size: 1.4rem; }
+      .hero-desc { font-size: 1.01rem; }
+      .stat-num { font-size: 1.4rem; }
+      .hero-image { width: 140px; height: 140px; border-radius: 0.8rem; }
+      .hero-stats { gap: 1.2rem; }
+    }
+    .section-divider {
+      border: none;
+      border-top: 2.5px solid #111;
+      margin: 5rem auto 0.5rem auto;
+      width: 100%;
+      position: relative; 
+      left: 50%;             
+      transform: translateX(-50%);              
+      border-radius: 2px;
+    }
+    .timeline-section {
+      background: var(--primary-bg);
+      width: 100vw;
+      position: relative;
+      left: 50%;
+      margin-left: -50vw;
+      margin-right: -50vw;
+      padding: 4rem 0;
+    }
+    .timeline-heading {
+      text-align: left;
+      padding-left: 5rem;
+      font-size: 3.5rem;
+      font-weight: 200;
+      color: #000000;
+      margin-bottom: 2rem;
+      letter-spacing: 0.01em;
+      font-family: Georgia, serif; 
+    }
+    .timeline {
+      position: relative;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 4px;
+      height: 100%;
+      background: #4d1149;
+      transform: translateX(-50%);
+      border-radius: 2px;
+    }
+    .timeline-item {
+      display: flex;
+      justify-content: flex-end;
+      align-items: flex-start;
+      margin-bottom: 3.5rem;
+      position: relative;
+      width: 100%;
+    }
+    .timeline-item.left {
+      flex-direction: row;
+    }
+    .timeline-item.right {
+      flex-direction: row-reverse;
+    }
+    .timeline-dot {
+      position: absolute;
+      left: 50%;
+      top: 22px;
+      width: 20px;
+      height: 20px;
+      background: #fff;
+      border: 4px solid #461043;
+      border-radius: 50%;
+      z-index: 2;
+      transform: translateX(-50%);
+      box-shadow: 0 2px 12px 0 rgba(100,0,255,0.03);
+    }
+    .timeline-content {
+      background: #fff;
+      border-radius: 1.1rem;
+      box-shadow: 0 2px 24px 0 rgba(80,80,130,0.07);
+      padding: 1.3rem 1.6rem 1.2rem 1.6rem;
+      width: 330px;
+      min-height: 120px;
+      color: #222;
+      position: relative;
+      border: 1px solid #e6e6f0;
+    }
+    .timeline-item.left .timeline-content { margin-right: 48px; }
+    .timeline-item.right .timeline-content { margin-left: 48px; }
+    .timeline-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #222;
+      margin-bottom: 0.3rem;
+    }
+    .timeline-subtitle {
+      font-size: 1rem;
+      color: #555;
+      margin-bottom: 0.3rem;
+    }
+    .timeline-meta-list {
+      margin: 0.6em 0 0.5em 0;
+      padding: 0;
+      list-style: none;
+    }
+    .timeline-meta-list li {
+      display: flex;
+      align-items: center;
+      font-size: 1rem;
+      color: #454444;
+      margin-bottom: 2px;
+    }
+    .timeline-meta-list svg {
+      width: 1em;
+      height: 1em;
+      margin-right: 0.55em;
+      min-width: 1em;
+      opacity: 0.86;
+      color: #2b135c;
+      vertical-align: middle;
+      stroke-width: 2.2;
+    }
+    .timeline-desc {
+      font-size: 1rem;
+      color: #444;
+      margin-top: 0.6rem;
+      margin-bottom: 1rem;
+    }
+    .timeline-tags {
+      margin-top: 0.4rem;
+    }
+    .timeline-tags span {
+      display: inline-block;
+      background: #300b2d;
+      color: #ffffff;
+      font-size: 0.92rem;
+      font-weight: 500;
+      border-radius: 0.6em;
+      padding: 0.28em 0.8em;
+      margin-right: 0.4em;
+      margin-bottom: 0.15em;
+      letter-spacing: 0.01em;
+    }
+    @media (max-width: 900px) {
+      .timeline::before { left: 16px; transform: none; }
+      .timeline-item,
+      .timeline-item.left,
+      .timeline-item.right {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: 2.8rem;
+      }
+      .timeline-dot { left: 16px; top: 22px; transform: none; }
+      .timeline-content,
+      .timeline-item.right .timeline-content {
+        margin: 0 0 0 48px;
+        width: 100%;
+        min-width: 0;
+      }
+    }
+    @media (max-width: 600px) {
+      .timeline-section { padding: 2.5rem 0 2.5rem 0; }
+      .timeline { padding: 0 0.2rem; }
+      .timeline-content { padding: 1rem 0.9rem; font-size: 0.95rem; }
+      .timeline-card-img { height: 160px; }
+    }
+
+    /* About Me Collage Section */
+    .about-collage-section {
+      background: var(--primary-bg);
+      width: 100vw;
+      position: relative;
+      left: 50%;
+      margin-left: -50vw;
+      margin-right: -50vw;
+      padding: 4rem 0;
+    }
+    .about-collage-wrap {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 4rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      flex-wrap: wrap;
+    }
+    .about-collage-images {
+      position: relative;
+      width: 460px;
+      height: 460px;
+      min-width: 250px;
+      min-height: 250px;
+      flex-shrink: 0;
+    }
+    .about-collage-img {
+      position: absolute;
+      width: 82%;
+      height: 82%;
+      left: 10%;
+      top: 10%;
+      object-fit: cover;
+      border-radius: 1.7rem;
+      box-shadow: 0 8px 32px 0 rgba(60,60,80,0.12);
+      border: 7px solid #e2e8f0;
+      background: #eee;
+      z-index: 3;
+      transition: box-shadow 0.18s;
+    }
+    .about-collage-img-bg {
+      position: absolute;
+      width: 84%;
+      height: 84%;
+      left: 7%;
+      top: 13%;
+      object-fit: cover;
+      border-radius: 1.7rem;
+      box-shadow: 0 8px 32px 0 rgba(60,60,80,0.09);
+      border: 6px solid #c9e4ff;
+      background: #fafaff;
+      z-index: 2;
+      transform: rotate(-7deg);
+    }
+    .about-collage-img-bg2 {
+      position: absolute;
+      width: 80%;
+      height: 80%;
+      left: 16%;
+      top: 5%;
+      object-fit: cover;
+      border-radius: 1.4rem;
+      box-shadow: 0 6px 22px 0 rgba(60,60,80,0.06);
+      border: 5px solid #f8f6df;
+      background: #fafaff;
+      z-index: 1;
+      transform: rotate(8deg);
+    }
+    .about-collage-content {
+      flex: 1 1 370px;
+      min-width: 300px;
+      max-width: 560px;
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+      margin-top: 0.5rem;
+    }
+    .about-collage-content p {
+      font-size: 1.14rem;
+      line-height: 1.7;
+      margin: 0 0 1.1rem 0;
+      color: #222;
+    }
+    .about-collage-content a {
+      color: #3570e2;
+      text-decoration: underline;
+      transition: color 0.14s;
+    }
+    .about-collage-content a:hover {
+      color: #0a2875;
+    }
+    .about-collage-btn {
+      margin-top: 1.5rem;
+      padding: 0.7em 2.1em;
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: #f9f9f9;
+      background: #121212;
+      border: 2.5px solid #222;
+      border-radius: 2em;
+      box-shadow: 0 2px 10px 0 rgba(60,60,80,0.07);
+      cursor: pointer;
+      transition: background 0.17s, color 0.17s, border 0.17s;
+      outline: none;
+      display: inline-block;
+    }
+    .about-collage-btn:hover,
+    .about-collage-btn:focus {
+      background: #656565;
+      color: #fff;
+      border-color: #656565;
+    }
+    @media (max-width: 950px) {
+      .about-collage-wrap {
+        flex-direction: column;
+        gap: 2.2rem;
+        align-items: center;
+      }
+      .about-collage-content {
+        max-width: 98vw;
+      }
+    }
+    @media (max-width: 600px) {
+      .about-collage-images {
+        width: 95vw;
+        height: 220px;
+        min-width: 160px;
+        min-height: 160px;
+      }
+      .about-collage-content p {
+        font-size: 1rem;
+      }
+      .about-collage-btn {
+        font-size: 1rem;
+        padding: 0.6em 1.4em;
+      }
+    }
+
+    /* Bento Box Section */
+    .bento-section {
+      text-align: left;
+      padding-left: 5rem;
+    }
+    .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2.2rem;
+      max-width: 1000px;
+      margin: 0 auto;
+      justify-content: center;
+      align-items: stretch;
+    }
+    .bento-box {
+      position: relative;
+      overflow: hidden;
+      border-radius: 2rem;
+      aspect-ratio: 4/3;
+      box-shadow: 0 4px 32px 0 rgba(60,60,80,0.08);
+      cursor: pointer;
+      background: #e8e8e8;
+      transition: box-shadow 0.18s;
+      width: 100%;
+      height: auto;
+      display: flex;
+      align-items: stretch;
+      justify-content: stretch;
+    }
+    .bento-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 2rem;
+      display: block;
+    }
+    .bento-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      background: rgba(20,20,40,0.18);
+      color: #fff;
+      transition: opacity 0.28s;
+      z-index: 2;
+      pointer-events: none;
+    }
+    .bento-box:hover img,
+    .bento-box:focus img {
+      opacity: 0.45;
+    }
+    .bento-box:hover .bento-overlay,
+    .bento-box:focus .bento-overlay {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .bento-text {
+      font-size: 1.2rem;
+      font-weight: 600;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.30);
+      padding: 0 1.2rem;
+      line-height: 1.5;
+    }
+    @media (max-width: 900px) {
+      .bento-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+      .bento-box {
+        min-width: 0;
+        width: 95%;
+        margin: 0 auto;
+      }
+    }
+
+    footer {
+      text-align: center;
+      padding: 2.5rem 0 2rem 0;
+      color: #888;
+      font-size: 1.03rem;
+      background: var(--light);
+      border-top: 1px solid var(--border);
+      margin-top: 3rem;
+      transition: background 0.2s, color 0.2s;
+      flex-shrink: 0;
+    }
+    .footer-content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+    .footer-main {
+      font-size: 1.08rem;
+      color: #888;
+      margin-bottom: 0.7rem;
+    }
+    .footer-links {
+      margin: 0.2rem 0 1.3rem 0;
+      font-size: 1.06rem;
+    }
+    .footer-links a {
+      color: #0074d9;
+      text-decoration: none;
+      margin: 0 0.1rem;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover {
+      color: #005fa3;
+      text-decoration: underline;
+    }
+    .footer-note {
+      font-size: 0.98rem;
+      color: #aaa;
+      margin-top: 0.6rem;
+      line-height: 1.5;
+    }
+    .footer-github {
+      margin-top: 1.2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .footer-github a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: none;
+      border: none;
+      padding: 0.22em;
+      border-radius: 50%;
+      transition: background 0.15s;
+      text-decoration: none;
+      outline: none;
+    }
+    .footer-github svg {
+      display: block;
+      width: 2.2rem;
+      height: 2.2rem;
+    }
+    @media (max-width: 700px) {
+      .footer-content {
+        font-size: 1rem;
+      }
+      .footer-note {
+        font-size: 0.93rem;
+      }
+      .footer-links {
+        font-size: 1rem;
+      }
+      .footer-github svg {
+        width: 1.6rem;
+        height: 1.6rem;
+      }
+    }
+    .faq-section {
+		  background: #fcfbf3;
+		  margin: 0 auto 3rem auto;
+		  max-width: 820px;
+		  padding: 2.2rem 1rem 2.6rem 1rem;
+		}
+	    .faq-title {
+		  font-size: 2.2rem;
+		  font-weight: 900;
+		  letter-spacing: -1px;
+		  margin-bottom: 0.7rem;
+		  color: #111;
+		  font-family: inherit;
+		}
+		.faq-category {
+		  color: #b99d5c;
+		  font-size: 2rem;
+		  font-weight: 700;
+		  margin-bottom: 1.2rem;
+		  letter-spacing: 0.02em;
+		}
+		.faq-list {
+		  margin: 0;
+		  padding: 0;
+		}
+		.faq-item {
+		  border-bottom: 1.2px solid #b9b9b9;
+		  margin: 0;
+		}
+		.faq-question {
+		  width: 100%;
+		  text-align: left;
+		  background: none;
+		  border: none;
+		  outline: none;
+		  font-family: inherit;
+		  font-size: 1.3rem;
+		  font-weight: 700;
+		  color: #181818;
+		  display: flex;
+		  align-items: center;
+		  justify-content: space-between;
+		  padding: 1.05rem 0;
+		  cursor: pointer;
+		  transition: background 0.13s;
+		  letter-spacing: -0.01em;
+		}
+		.faq-question:hover {
+		  background: #f1f0ea;
+		}
+		.faq-toggle {
+		  font-size: 2.1rem;
+		  color: #222;
+		  font-weight: 400;
+		  transition: transform 0.18s;
+		  display: flex;
+		  align-items: center;
+		  min-width: 1.4em;
+		  justify-content: flex-end;
+		}
+		.faq-question[aria-expanded="true"] .faq-toggle {
+		  transform: rotate(45deg); /* turns + into × */
+		}
+		.faq-answer {
+		  display: none;
+		  font-size: 1.1rem;
+		  font-weight: 400;
+		  color: #444;
+		  padding-bottom: 1.1rem;
+		  padding-top: 0;
+		  line-height: 1.7;
+		  max-width: 700px;
+		  margin-left: 0;
+		}
+		.faq-item.open .faq-answer {
+		  display: block;
+		  animation: faqFadeIn 0.22s;
+		}
+    #projects {
+      scroll-margin-top: 50px;
+    }
+		@keyframes faqFadeIn {
+		  from { opacity: 0; transform: translateY(-0.5em);}
+		  to { opacity: 1; transform: none;}
+		}
+		@media (max-width: 700px) {
+		  .faq-section { max-width: 98vw; padding: 1.3rem 0.4rem; }
+		  .faq-title { font-size: 1.25rem; }
+		  .faq-category { font-size: 1rem; }
+		}
+    /* --- Hide on scroll header effect --- */
+    header {
+      transition: transform 0.3s ease-in-out;
+    }
+
+    header.hide {
+      transform: translateY(-100%);
+    }
+
+    .appear-section {
+        opacity: 0;
+        transform: translateY(70px);
+        transition: opacity 1.7s cubic-bezier(.4,0,.2,1), transform 1.7s cubic-bezier(.4,0,.2,1);
+        will-change: opacity, transform;
+        }
+    .appear-section.visible {
+        opacity: 1;
+        transform: none;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/" class="logo">
+      <img src="bc_logo.png" alt="Brian Chan Logo" class="logo-img">
+      Brian Chan
+    </a>
+    <nav>
+      <a href="/">Home</a>
+      <a href="#projects">Projects</a>
+      <a href="/blog">Blog</a>
+      <a href="#about-me">About</a>
+      <a href="/resource">Resource</a>
+      <a href="/contact">Contact</a>
+    </nav>
+    <button class="hamburger" aria-label="Open menu" aria-expanded="false">
+      <span class="hamburger-bar bar1"></span>
+      <span class="hamburger-bar bar2"></span>
+      <span class="hamburger-bar bar3"></span>
+    </button>
+    <div class="mobile-nav" aria-hidden="true">
+      <button class="mobile-nav-close" aria-label="Close menu">&times;</button>
+      <a href="/">Home</a>
+      <a href="#projects">Projects</a>
+      <a href="/blog">Blog</a>
+      <a href="#about-me">About</a>
+      <a href="/resource">Resource</a>
+      <a href="/contact">Contact</a>
+    </div>
+    <div class="mobile-nav-overlay"></div>
+  </header>
+
+  <div class="container">
+    <section class="hero-flex appear-section">
+      <div class="hero-content">
+        <div class="hero-title">
+          Hey! I'm Brian
+          <span class="wave">👋</span>
+        </div>
+        <div class="hero-typing">
+          <span id="typed-text"></span>
+        </div>
+        <div id="hero-typing-measure"
+             style="visibility:hidden;position:absolute;left:-9999px;top:-9999px;white-space:pre-line;">
+          Learning as a Student Engineer
+          Building as a Future Innovator<span class="typed-cursor">|</span>
+        </div>
+      </div>
+      <div class="hero-image">
+        <img src="pictures/transparent-halfbody-compress.png" alt="Brian Chan" />
+      </div>
+    </section>
+    <hr class="section-divider">
+
+    <!-- Timeline Section -->
+    <section class="timeline-section appear-section">
+      <h2 class="timeline-heading">My Journey</h2>
+      <div class="timeline">
+         <!-- Timeline Item 1 -->
+        <div class="timeline-item left">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-title">Head Boy</div>
+            <div class="timeline-subtitle">
+              <strong>Ackworth School</strong>
+              <ul class="timeline-meta-list">
+                <li>
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <rect x="3" y="5" width="18" height="16" rx="2" stroke="currentColor"/>
+                    <path d="M16 3v4M8 3v4M3 9h18" stroke="currentColor"/>
+                  </svg>
+                  Sep 2019 – Jun 2023
+                </li>
+                <li>
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 21c-4.5-5.5-7-8.5-7-12A7 7 0 0 1 19 9c0 3.5-2.5 6.5-7 12z" stroke="currentColor"/>
+                    <circle cx="12" cy="9" r="2.5" stroke="currentColor"/>
+                  </svg>
+                  Yorkshire, UK
+                </li>
+                <li>
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <rect x="3" y="7" width="18" height="13" rx="2" stroke="currentColor"/>
+                    <path d="M9 7V5a3 3 0 0 1 6 0v2" stroke="currentColor"/>
+                  </svg>
+                  Student
+                </li>
+              </ul>
+            </div>
+            <div class="timeline-desc">
+              Alevels A*AA <br>
+              Duke of Edinburgh Silver and Bronze. <br>
+              Co-funder of Drone Club. <br>
+            </div>
+            <div class="timeline-tags">
+              <span>HeadBoy</span><span>DofE</span><span>Drone</span><span>Alevel</span>
+            </div>
+          </div>
+        </div>
+        <!-- Timeline Item 2 -->
+        <div class="timeline-item right">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-title">Student Engineer</div>
+            <div class="timeline-subtitle">
+              <strong>University of Southampton</strong>
+              <ul class="timeline-meta-list">
+                <li>
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <rect x="3" y="5" width="18" height="16" rx="2" stroke="currentColor"/>
+                    <path d="M16 3v4M8 3v4M3 9h18" stroke="currentColor"/>
+                  </svg>
+                  Sep 2023 – Present
+                </li>
+                <li>
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 21c-4.5-5.5-7-8.5-7-12A7 7 0 0 1 19 9c0 3.5-2.5 6.5-7 12z" stroke="currentColor"/>
+                    <circle cx="12" cy="9" r="2.5" stroke="currentColor"/>
+                  </svg>
+                  Southampton, UK
+                </li>
+                <li>
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <rect x="3" y="7" width="18" height="13" rx="2" stroke="currentColor"/>
+                    <path d="M9 7V5a3 3 0 0 1 6 0v2" stroke="currentColor"/>
+                  </svg>
+                  Mechanical Engineering
+                </li>
+              </ul>
+            </div>
+            <div class="timeline-desc">
+              Research on LH2 level metre. <br>
+              Human factor in Engineering.
+            </div>
+            <div class="timeline-tags">
+              <span>Mechanical</span><span>LH2</span><span>Python</span><span>Arduino</span>
+            </div>
+          </div>
+        </div>
+        <!-- Timeline Item 3 -->
+        <div class="timeline-item left">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-title">Senior Tutor</div>
+            <div class="timeline-subtitle">
+              <strong>GenZ Tutoring N Lab</strong>
+              <ul class="timeline-meta-list">
+                <li>
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <rect x="3" y="5" width="18" height="16" rx="2" stroke="currentColor"/>
+                    <path d="M16 3v4M8 3v4M3 9h18" stroke="currentColor"/>
+                  </svg>
+                  Oct 2023 – Present
+                </li>
+                <li>
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 21c-4.5-5.5-7-8.5-7-12A7 7 0 0 1 19 9c0 3.5-2.5 6.5-7 12z" stroke="currentColor"/>
+                    <circle cx="12" cy="9" r="2.5" stroke="currentColor"/>
+                  </svg>
+                  Flexible locations + Online
+                </li>
+                <li>
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <rect x="3" y="7" width="18" height="13" rx="2" stroke="currentColor"/>
+                    <path d="M9 7V5a3 3 0 0 1 6 0v2" stroke="currentColor"/>
+                  </svg>
+                  A-level Subjects
+                </li>
+              </ul>
+            </div>
+            <div class="timeline-desc">
+              Over 500+ hours tutoring experience. <br>
+              Working toward SEND ceritificate.
+            </div>
+            <div class="timeline-tags">
+              <span>Tutoring</span><span>SEND</span><span>Face-to-Face</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Timeline Item 4 -->
+        <div class="timeline-item right">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-title">Website Director</div>
+            <div class="timeline-subtitle">
+              <strong>chanworks.com</strong>
+              <ul class="timeline-meta-list">
+                <li>
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <rect x="3" y="5" width="18" height="16" rx="2" stroke="currentColor"/>
+                    <path d="M16 3v4M8 3v4M3 9h18" stroke="currentColor"/>
+                  </svg>
+                  Mar 2025 – Present
+                </li>
+                <li>
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 21c-4.5-5.5-7-8.5-7-12A7 7 0 0 1 19 9c0 3.5-2.5 6.5-7 12z" stroke="currentColor"/>
+                    <circle cx="12" cy="9" r="2.5" stroke="currentColor"/>
+                  </svg>
+                  Online
+                </li>
+                <li>
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <rect x="3" y="7" width="18" height="13" rx="2" stroke="currentColor"/>
+                    <path d="M9 7V5a3 3 0 0 1 6 0v2" stroke="currentColor"/>
+                  </svg>
+                  Web Developer
+                </li>
+              </ul>
+            </div>
+            <div class="timeline-desc">
+              Domain management & <br>
+              Hosting administration.
+            </div>
+            <div class="timeline-tags">
+              <span>Web Developer</span><span>Github</span><span>Founder</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <hr class="section-divider appear-section">
+
+    <!-- About Me Collage Section -->
+    <section class="about-collage-section appear-section" id="about-me">
+      <h2 class="timeline-heading">About Me</h2>
+      <div class="about-collage-wrap">
+        <div class="about-collage-images">
+          <img src="/pictures/student_engineer_compress.jpg" alt="Background 2" class="about-collage-img-bg2">
+          <img src="pictures/coding_upscale_compress.jpg" alt="Background 1" class="about-collage-img-bg">
+          <img src="/pictures/basecamp_bc_compress.jpeg" alt="Brian Chan" class="about-collage-img">
+        </div>
+        <div class="about-collage-content">
+          <p>
+            I'm <b>Brian Chan</b>, a passionate and driven individual from <b>Hong Kong</b>. At 15, I moved to the UK to pursue my studies, embracing new challenges and opportunities for growth. For over <b>nine years</b> , I’ve volunteered with <b>Scouts</b> and <b>Caritas</b> both overseas and in the UK, developing strong leadership, teamwork, and community values.
+          </p>
+          <p>
+            My commitment to sustainability and innovation inspired my choice to study at the <b>University of Southampton</b>, where the <b>MEng Mechanical Engineering with Sustainable Energy Systems</b> perfectly aligned with my ambitions—and I knew it was the path I wanted to pursue.
+          </p>
+          <p>
+            Cool class I've taken recently: <br>
+            <span style="color:#20c0e0">German A2</span>, <span style="color:#20c0e0">Bonsai Workshop</span>, <span style="color:#20c0e0">Tap Dance</span>
+          </p>
+          <button class="about-collage-btn" onclick="window.location='/contact'">Contact Me</button>
+        </div>
+      </div>
+    </section>
+    <hr class="section-divider appear-section">
+
+    <!-- FAQ Section START -->
+	<section class="timeline-section appear-section">
+		<h2 class="timeline-heading">FAQS</h2>
+	</section>
+	  
+		<section class="faq-section appear-section">
+		  <div class="faq-category">About Brian</div>
+		  <div class="faq-list">
+        <div class="faq-item">
+		      <button class="faq-question" aria-expanded="false">
+		        <span>Why do you initiate to develop this website?</span>
+		        <span class="faq-toggle">+</span>
+		      </button>
+		      <div class="faq-answer">
+		        As artificial intelligence continues to reshape the job market, I believe it’s important to become a well‑rounded individual — someone who is adaptable, versatile, and eager to learn across disciplines. This website reflects that philosophy. It showcases my projects, my creativity in marketing through portrait editing, my communication skills through blogging, and my ability to present and sell my skillset to future clients. 
+		      </div>
+		    </div>
+		    <div class="faq-item">
+		      <button class="faq-question" aria-expanded="false">
+		        <span>What motivates you as an engineer?</span>
+		        <span class="faq-toggle">+</span>
+		      </button>
+		      <div class="faq-answer">
+		        While volunteering in Namibia to help restore the habitat of desert elephants, I saw how heat and environmental stress affect both wildlife and communities. That experience drives me to focus on sustainable engineering that makes a real impact.
+		      </div>
+		    </div>
+		    <div class="faq-item">
+		      <button class="faq-question" aria-expanded="false">
+		        <span>How do you see yourself growing in the next 5 years?</span>
+		        <span class="faq-toggle">+</span>
+		      </button>
+		      <div class="faq-answer">
+		        I am making it a practice to say yes to opportunities, as I am convinced that each individual and experience has something to teach me. My focus will be on continuous growth, I’ll remain open to new perspectives and challenges, because I believe that mindset is the key to unlocking my full potential.
+		      </div>
+		    </div>
+		    <div class="faq-item">
+		      <button class="faq-question" aria-expanded="false">
+		        <span>What is your biggest goal to achieve outside of engineering?</span>
+		        <span class="faq-toggle">+</span>
+		      </button>
+		      <div class="faq-answer">
+		        Complete the WMM Seven Star Journey by running all seven iconic marathons: Tokyo, Boston, London, Berlin, Chicago, New York and Sydney. This journey is not only about the runs — it reflects the same qualities I bring to life: long‑term commitment, resilience, and consistent effort.
+		      </div>
+		    </div>
+		    <div class="faq-item">
+		      <button class="faq-question" aria-expanded="false">
+		        <span>How do you usually spend your weekends or free time?</span>
+		        <span class="faq-toggle">+</span>
+		      </button>
+		      <div class="faq-answer">
+		        I usually recharge by running to prepare the upcoming marathon and spending time outdoors. Lately, I’ve also been experimenting with cooking dishes from different countries, which has been a fun way to share meals with friends and a practical alternative to eating out during this cost‑of‑living crisis.
+		      </div>
+		    </div>
+		  </div>
+		</section>
+
+    <!-- Bento Box Section START -->
+	<section class="timeline-section appear-section" id="projects">
+      <h2 class="timeline-heading">Projects</h2>
+	</section>
+    <section class="bento-section appear-section">
+      <div class="bento-grid">
+        <a class="bento-box" href="/projects/intro-chanworks.html" target="_blank" rel="noopener noreferrer" aria-label="chanworks.com">
+          <img src="/pictures/web_mac_compress.jpeg" alt="chanworks.com">
+          <div class="bento-overlay">
+            <div class="bento-text">chanworks.com</div>
+          </div>
+        </a>
+        <a class="bento-box" href="/projects/responsive-system.html" aria-label="Responsive System Group Project">
+          <img src="/pictures/responsive_system_compress.jpeg" alt="Responsive System Group Project">
+          <div class="bento-overlay">
+            <div class="bento-text">Responsive System Group Project</div>
+          </div>
+        </a>
+        <a class="bento-box" href="/projects/measuring-level-liquid-hydrogen.html" aria-label="Liquid Hydrogen Level Sensor">
+          <img src="/pictures/liquid_hydrogen_compress.jpeg" alt="Liquid Hydrogen Arduino Sensor">
+          <div class="bento-overlay">
+            <div class="bento-text">Liquid Hydrogen Level Sensor</div>
+          </div>
+        </a>
+        <a class="bento-box" href="/projects/steinway-performance.html" aria-label="Steinway Hall London Performance">
+          <img src="/pictures/instagram_steinway_compress.jpeg" alt="Steinway London Performance">
+          <div class="bento-overlay">
+            <div class="bento-text">Steinway Hall London Performance</div>
+          </div>
+        </a>
+        <a class="bento-box" href="/projects/tung-hing-hou.html" aria-label="Generational Business Preservation">
+          <img src="tung-hing-hou/tung-hing-logo.png" alt="Generational Business Preservation">
+          <div class="bento-overlay">
+            <div class="bento-text">Generational Business Preservation - Tung Hing Hou</div>
+          </div>
+        </a>
+        <a class="bento-box" href="/projects/project-6.html" aria-label="Project 6">
+          <img src="pictures/bento6.jpg" alt="Bento 6">
+          <div class="bento-overlay">
+            <div class="bento-text">Project 6 Description</div>
+          </div>
+        </a>
+      </div>
+    </section>
+    <!-- Bento Box Section END -->
+  </div>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-main">
+        &copy; 2025 Brian Chan. All rights reserved.
+      </div>
+      <div class="footer-links">
+        <a href="/professional/brian-chan-CV.pdf" target="_blank" rel="noopener noreferrer nofollow">Download Resume</a> |
+        <a href="/contact">Contact</a> |
+        <a href="https://choosealicense.com/licenses/mit/" target="_blank" rel="noopener">MIT License</a>
+      </div>
+      <div class="footer-note">
+        Crafted with passion and a touch of love.<br>
+        Open source and open heart, please use it responsibly.
+      </div>
+      <div class="footer-github">
+        <a href="https://github.com/brian-website/brian-website.github.io/" class="github" target="_blank" rel="noopener" aria-label="GitHub Repository">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M12 0.297c-6.63 0-12 5.373-12 12 
+              0 5.303 3.438 9.8 8.205 11.385
+              0.6 0.113 0.82-0.258 0.82-0.577
+              0-0.285-0.01-1.04-0.015-2.04-3.338 0.726-4.042-1.61-4.042-1.61
+              -0.546-1.385-1.333-1.754-1.333-1.754
+              -1.089-0.745 0.084-0.729 0.084-0.729
+              1.205 0.084 1.84 1.236 1.84 1.236
+              1.07 1.834 2.809 1.304 3.495 0.997
+              0.108-0.775 0.418-1.305 0.762-1.605
+              -2.665-0.303-5.467-1.334-5.467-5.93
+              0-1.31 0.469-2.381 1.236-3.221
+              -0.123-0.303-0.535-1.523 0.117-3.176 0 0 1.008-0.322 3.301 1.23
+              0.96-0.267 1.98-0.399 3-0.404
+              1.02 0.005 2.04 0.137 3 0.404
+              2.291-1.552 3.297-1.23 3.297-1.23
+              0.653 1.653 0.241 2.873 0.119 3.176
+              0.77 0.84 1.235 1.911 1.235 3.221
+              0 4.609-2.807 5.625-5.479 5.921
+              0.43 0.372 0.823 1.102 0.823 2.222
+              0 1.604-0.014 2.898-0.014 3.293
+              0 0.322 0.216 0.694 0.825 0.576
+              C20.565 22.092 24 17.592 24 12.297
+              c0-6.627-5.373-12-12-12z"/>
+          </svg>
+        </a>
+        <a href="https://www.linkedin.com/in/brian-chan-eng" class="linkedin" target="_blank" rel="noopener" aria-label="LinkedIn Profile">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="4 4 40 40" width="2.2rem" height="2.2rem">
+            <path fill="#0078d4" d="M42,37c0,2.762-2.238,5-5,5H11c-2.761,0-5-2.238-5-5V11c0-2.762,2.239-5,5-5h26c2.762,0,5,2.238,5,5	V37z"></path>
+            <path d="M30,37V26.901c0-1.689-0.819-2.698-2.192-2.698c-0.815,0-1.414,0.459-1.779,1.364	c-0.017,0.064-0.041,0.325-0.031,1.114L26,37h-7V18h7v1.061C27.022,18.356,28.275,18,29.738,18c4.547,0,7.261,3.093,7.261,8.274	L37,37H30z M11,37V18h3.457C12.454,18,11,16.528,11,14.499C11,12.472,12.478,11,14.514,11c2.012,0,3.445,1.431,3.486,3.479	C18,16.523,16.521,18,14.485,18H18v19H11z" opacity=".05"></path>
+            <path d="M30.5,36.5v-9.599c0-1.973-1.031-3.198-2.692-3.198c-1.295,0-1.935,0.912-2.243,1.677	c-0.082,0.199-0.071,0.989-0.067,1.326L25.5,36.5h-6v-18h6v1.638c0.795-0.823,2.075-1.638,4.238-1.638	c4.233,0,6.761,2.906,6.761,7.774L36.5,36.5H30.5z M11.5,36.5v-18h6v18H11.5z M14.457,17.5c-1.713,0-2.957-1.262-2.957-3.001	c0-1.738,1.268-2.999,3.014-2.999c1.724,0,2.951,1.229,2.986,2.989c0,1.749-1.268,3.011-3.015,3.011H14.457z" opacity=".07"></path>
+            <path fill="#fff" d="M12,19h5v17h-5V19z M14.485,17h-0.028C12.965,17,12,15.888,12,14.499C12,13.08,12.995,12,14.514,12	c1.521,0,2.458,1.08,2.486,2.499C17,15.887,16.035,17,14.485,17z M36,36h-5v-9.099c0-2.198-1.225-3.698-3.192-3.698	c-1.501,0-2.313,1.012-2.707,1.99C24.957,25.543,25,26.511,25,27v9h-5V19h5v2.616C25.721,20.5,26.85,19,29.738,19	c3.578,0,6.261,2.25,6.261,7.274L36,36L36,36z"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </footer>
+  <script>
+    // Hamburger & mobile nav logic
+    const hamburger = document.querySelector('.hamburger');
+    const mobileNav = document.querySelector('.mobile-nav');
+    const mobileClose = document.querySelector('.mobile-nav-close');
+    const overlay = document.querySelector('.mobile-nav-overlay');
+    function openMobileNav() {
+      hamburger.classList.add('open');
+      mobileNav.classList.add('open');
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      hamburger.setAttribute('aria-expanded', 'true');
+      mobileNav.setAttribute('aria-hidden', 'false');
+    }
+    function closeMobileNav() {
+      hamburger.classList.remove('open');
+      mobileNav.classList.remove('open');
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+      hamburger.setAttribute('aria-expanded', 'false');
+      mobileNav.setAttribute('aria-hidden', 'true');
+    }
+    hamburger.addEventListener('click', openMobileNav);
+    mobileClose.addEventListener('click', closeMobileNav);
+    overlay.addEventListener('click', closeMobileNav);
+    window.addEventListener('resize', function() {
+      if (window.innerWidth > 900) closeMobileNav();
+    });
+    // Typing effect for hero-typing
+      document.addEventListener('DOMContentLoaded', function () {
+      const typingText = "Learning as a Student Engineer\nBuilding as a Future Innovator";
+      const typedTextElem = document.getElementById('typed-text');
+      let idx = 0;
+      function renderTypedText(str) {
+        // Replace \n with <br>
+        return str.replace(/\n/g, "<br>");
+      }
+      typedTextElem.innerHTML = "";
+      setTimeout(function() {
+        function typeChar() {
+          if (idx <= typingText.length) {
+            typedTextElem.innerHTML = renderTypedText(typingText.slice(0, idx)) + '<span class="typed-cursor">|</span>';
+            idx++;
+            setTimeout(typeChar, 35); // typing speed (ms)
+          } else {
+            // After typing, leave the cursor at the end
+            typedTextElem.innerHTML = 
+              renderTypedText(typingText) + '<span class="typed-cursor">|</span>';
+          }
+        }
+        typeChar();
+      }, 750); // initial delay (ms)
+      const heroTyping = document.querySelector('.hero-typing');
+      const measure = document.getElementById('hero-typing-measure');
+      if (heroTyping && measure) {
+        heroTyping.style.minHeight = measure.offsetHeight + 'px';
+      }
+    });
+
+    document.querySelectorAll('.faq-question').forEach(btn => {
+		  btn.addEventListener('click', function() {
+		    const item = btn.closest('.faq-item');
+		    const isOpen = item.classList.contains('open');
+		    // Close all
+		    document.querySelectorAll('.faq-item.open').forEach(i => {
+		      i.classList.remove('open');
+		      i.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+		    });
+		    // Open this one if it wasn't open
+		    if (!isOpen) {
+		      item.classList.add('open');
+		      btn.setAttribute('aria-expanded', 'true');
+		    }
+		  });
+		});
+        // Appear-on-scroll logic
+  function isInViewport(el) {
+    const rect = el.getBoundingClientRect();
+    return (
+      rect.top <= (window.innerHeight - 80) &&
+      rect.bottom >= 80
+    );
+  }
+  function revealOnScroll() {
+    document.querySelectorAll('.appear-section').forEach(section => {
+      if (isInViewport(section)) {
+        section.classList.add('visible');
+      }
+    });
+  }
+  window.addEventListener('scroll', revealOnScroll);
+  window.addEventListener('resize', revealOnScroll);
+  window.addEventListener('DOMContentLoaded', revealOnScroll);
+
+  </script>
+</body>
+</html>
