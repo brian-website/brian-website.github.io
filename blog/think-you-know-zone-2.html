@@ -300,53 +300,54 @@
       }
     }
     .key-takeaways-box {
-      border: none;
-      padding: 1.2rem 1.6rem 1.2rem 1.6rem;
-      margin: 0.7rem 0 2.3rem 0;
-      background: var(--light);
+      background: #fefffe;
+      border-radius: 11px;
+      border: 1.5px solid #e0e0e0;
+      box-shadow: 4px 6px 0 0 #98e6cb;
+      margin: 1.5rem 0 2.5rem 0;
+      padding: 1.4rem 2rem 1.5rem 2rem;
       position: relative;
-      box-shadow: none;
+      max-width: 98%;
     }
+
     .key-takeaways-title {
-      font-family: Georgia, "Times New Roman", Times, serif;
-			font-size: 21px;
-			font-weight: 400;
-			letter-spacing: 0;
-			line-height: 1.5;
-			color: #222;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      font-size: 1.55rem;
+      font-weight: 700;
+      color: #31ae86;
+      margin-bottom: 1.1rem;
     }
+
     .key-takeaways-box ul {
       margin: 0;
-      padding-left: 1.1em;
-      font-size: 1.08rem;
+      padding-left: 1.4em;
+      list-style: none;
     }
+
     .key-takeaways-box li {
-      margin-bottom: 0.7em;
-      line-height: 1.5;
-      font-size: 18px;
+      position: relative;
+      font-family: Georgia, "Times New Roman", Times, serif;
+      font-size: 1.18rem;
+      color: #222;
+      margin-bottom: 1.2em;
+      padding-left: 2.2em; /* Increased padding for more space in front */
+      line-height: 1.6;
     }
+
     .key-takeaways-box li:last-child {
       margin-bottom: 0;
     }
-    .key-takeaways-box:before,
-    .key-takeaways-box:after {
+
+    .key-takeaways-box li::before {
       content: "";
       position: absolute;
-      border-color: #ea7c5d;
-      border-style: solid;
-      width: 48px;
-      height: 16px;
-      pointer-events: none;
-    }
-    .key-takeaways-box:before {
-      border-width: 3px 0 0 3px;
       left: 0;
-      top: 0;
-    }
-    .key-takeaways-box:after {
-      border-width: 0 3px 3px 0;
-      right: 0;
-      bottom: 0;
+      top: 0.7em;
+      width: 0.7em;
+      height: 0.7em;
+      background: #3ac084;
+      border-radius: 4px;
+      display: inline-block;
     }
     .blog-image-wrapper {
       text-align: center;
