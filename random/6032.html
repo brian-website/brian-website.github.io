@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SESM 6032 — Hydrogen Economy, Batteries & PV — Revision Notes</title>
+<style>
+  @page { size: A4; margin: 0; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #888; font-family: "Trebuchet MS", "Segoe UI", Arial, sans-serif; font-size: 9.6pt; line-height: 1.38; color: #1a1a1a; }
+  .page { width: 210mm; min-height: 297mm; margin: 10mm auto; background: #fff; padding: 11mm 12mm 12mm 12mm; position: relative; page-break-after: always; box-shadow: 0 0 8px rgba(0,0,0,.4); }
+  @media print { body { background: #fff; } .page { margin: 0; box-shadow: none; } }
+
+  /* CGP-style header strip */
+  .section-tab { position: absolute; top: 0; right: 12mm; background: var(--c); color: #fff; font-weight: bold; padding: 2mm 5mm; border-radius: 0 0 3mm 3mm; font-size: 8.5pt; letter-spacing: .5px; }
+  h1 { font-family: "Arial Black", Arial, sans-serif; font-size: 19pt; margin: 4mm 0 1mm 0; color: var(--c); border-bottom: 3px solid var(--c); padding-bottom: 1mm; }
+  .intro { font-style: italic; margin: 1.5mm 0 3mm 0; color: #333; }
+  h2 { font-size: 11.5pt; margin: 3mm 0 1.5mm 0; color: #fff; background: var(--c); display: inline-block; padding: .6mm 3mm; border-radius: 2mm; }
+  h3 { font-size: 10pt; margin: 2mm 0 1mm 0; color: var(--c); }
+  p { margin: 1mm 0 1.8mm 0; }
+  ul, ol { margin: 1mm 0 2mm 0; padding-left: 5.5mm; }
+  li { margin-bottom: .8mm; }
+  b, strong { color: #000; }
+  .kw { font-weight: bold; color: var(--c); }
+
+  .cols { column-count: 2; column-gap: 7mm; }
+  .cols > * { break-inside: avoid; }
+  .row { display: flex; gap: 5mm; }
+  .row > div { flex: 1; }
+
+  .box { border: 2px solid var(--c); border-radius: 3mm; padding: 2mm 3mm; margin: 2mm 0; background: #fff; break-inside: avoid; }
+  .eq { background: #fffbe6; border: 1.5px dashed #c9a400; border-radius: 2mm; padding: 1.5mm 3mm; margin: 1.5mm 0; font-family: "Cambria Math", Cambria, Georgia, serif; font-size: 10pt; text-align: center; break-inside: avoid; }
+  .example { background: #eef6ff; border-left: 5px solid #1f6fd1; padding: 2mm 3mm; margin: 2mm 0; border-radius: 0 2mm 2mm 0; break-inside: avoid; }
+  .example .t { font-weight: bold; color: #1f6fd1; display: block; margin-bottom: .8mm; }
+  .tip { background: #e9f9e4; border: 2px solid #3fa535; border-radius: 3mm; padding: 2mm 3mm; margin: 2mm 0; position: relative; break-inside: avoid; }
+  .tip::before { content: "TIP"; position: absolute; top: -2.6mm; left: 3mm; background: #3fa535; color: #fff; font-weight: bold; font-size: 7.5pt; padding: 0 2mm; border-radius: 1.5mm; }
+  .warn { background: #fdecec; border: 2px solid #d43b3b; border-radius: 3mm; padding: 2mm 3mm; margin: 2mm 0; position: relative; break-inside: avoid; }
+  .warn::before { content: "WATCH OUT!"; position: absolute; top: -2.6mm; left: 3mm; background: #d43b3b; color: #fff; font-weight: bold; font-size: 7.5pt; padding: 0 2mm; border-radius: 1.5mm; }
+  .bubble { background: #fff; border: 2px solid #333; border-radius: 5mm; padding: 2mm 3.5mm; font-style: italic; position: relative; margin: 2mm 0 4mm 12mm; break-inside: avoid; }
+  .bubble::before { content: "☺"; position: absolute; left: -11mm; top: -1mm; font-size: 20pt; font-style: normal; color: var(--c); }
+  .bubble::after { content: ""; position: absolute; left: -3mm; top: 3mm; border-width: 2mm 3mm 2mm 0; border-style: solid; border-color: transparent #333 transparent transparent; }
+
+  table { border-collapse: collapse; width: 100%; margin: 1.5mm 0; font-size: 8.6pt; break-inside: avoid; }
+  th { background: var(--c); color: #fff; padding: 1mm 1.5mm; text-align: left; }
+  td { border: 1px solid #bbb; padding: .8mm 1.5mm; vertical-align: top; }
+  tr:nth-child(even) td { background: #f5f5f5; }
+
+  .pq { margin-top: 3mm; border-top: 3px solid var(--c); padding-top: 1.5mm; break-inside: avoid; }
+  .pq .hd { font-family: "Arial Black", Arial, sans-serif; color: var(--c); font-size: 11pt; }
+  .pq ol { margin-top: 1mm; }
+  .summary { margin-top: 3mm; background: var(--c); color: #fff; border-radius: 3mm; padding: 2mm 4mm; break-inside: avoid; }
+  .summary .hd { font-family: "Arial Black", Arial, sans-serif; font-size: 10.5pt; }
+  .footer { position: absolute; bottom: 5mm; left: 12mm; right: 12mm; font-size: 7.5pt; color: #777; display: flex; justify-content: space-between; border-top: 1px solid #ccc; padding-top: 1mm; }
+  .lo { background: #f3f3f3; border-radius: 2mm; padding: 1.5mm 3mm; font-size: 8.8pt; margin-bottom: 2mm; }
+  .lo b { color: var(--c); }
+  .trl { display: inline-block; background: #333; color: #fff; font-size: 7.5pt; font-weight: bold; padding: 0 1.5mm; border-radius: 1mm; }
+  sub, sup { font-size: 70%; }
+
+  .h2c { --c: #0b7a8a; }   /* hydrogen: teal */
+  .prod { --c: #6a3fb5; }  /* production: purple */
+  .stor { --c: #d4720b; }  /* storage: orange */
+  .batt { --c: #c62a5a; }  /* batteries: crimson */
+  .pv   { --c: #2a7d2a; }  /* PV: green */
+  .sum  { --c: #333; }
+</style>
+</head>
+<body>
+
+<!-- ================= PAGE 1 ================= -->
+<div class="page h2c">
+  <div class="section-tab">SECTION 1 — HYDROGEN ECONOMY</div>
+  <h1>Hydrogen &amp; the Hydrogen Economy</h1>
+  <p class="intro">Hydrogen isn't a new idea — town gas was ~50% H<sub>2</sub>. What's new is using it as a zero-carbon <b>energy carrier</b>. Here's the basics...</p>
+  <div class="lo"><b>Learning objectives:</b> state key properties of H<sub>2</sub> &bull; explain "energy carrier" vs "fuel" &bull; describe current H<sub>2</sub> supply/demand &bull; list the barriers to a hydrogen economy.</div>
+
+  <div class="cols">
+    <h2>Energy Use Through the Ages</h2>
+    <ol>
+      <li><b>Ancient</b> — wood burning (heating, cooking). Short transport.</li>
+      <li><b>Iron age</b> — coal: steam engines, metallurgy.</li>
+      <li><b>Age of oil</b> — hydrocarbons, long-distance transport (pipelines, tankers), ICE, plastics.</li>
+      <li><b>Electrification</b> — power plants, mid-range grids, EVs, internet.</li>
+      <li><b>Age of hydrogen (coming)</b> — driven by fossil fuel depletion + GHG emissions. Renewables (PV + wind) make electricity, but <b>storage &amp; transport</b> are the problem → H<sub>2</sub> as a carrier.</li>
+    </ol>
+
+    <div class="warn">H<sub>2</sub> is an energy <b>carrier, NOT a primary fuel</b>. It isn't mined, so you always have to spend energy making it first.</div>
+
+    <h2>Hydrogen — Key Facts</h2>
+    <ul>
+      <li>1 proton + 1 electron (1s<sup>1</sup>). Oxidation states <b>−1</b> (hydrides), <b>0</b> (H<sub>2</sub>), <b>+1</b> (H<sup>+</sup>).</li>
+      <li>At STP: odourless, colourless, non-toxic, combustible gas. Behaves almost like an <b>ideal gas</b>.</li>
+      <li>Reacts violently with O<sub>2</sub>, giving a fast flame or an explosion.</li>
+      <li>10th most abundant element on Earth (by atoms); 75% of the Universe by mass. Found mostly in water, hydrocarbons and crystal hydrates.</li>
+    </ul>
+
+    <table>
+      <tr><th>Property</th><th>Value</th></tr>
+      <tr><td>Molar mass</td><td>2 g mol<sup>−1</sup></td></tr>
+      <tr><td>Melting / boiling point</td><td>14 K / <b>20 K</b></td></tr>
+      <tr><td>Density at STP</td><td><b>0.082 kg m<sup>−3</sup></b></td></tr>
+      <tr><td>Density of LH<sub>2</sub></td><td><b>70 kg m<sup>−3</sup></b></td></tr>
+      <tr><td>ΔH<sub>vap</sub></td><td>0.899 kJ mol<sup>−1</sup></td></tr>
+      <tr><td>C<sub>p</sub> at STP</td><td>28.9 J mol<sup>−1</sup>K<sup>−1</sup> = 14.5 kJ kg<sup>−1</sup>K<sup>−1</sup></td></tr>
+      <tr><td>Speed of sound</td><td>1310 m s<sup>−1</sup></td></tr>
+      <tr><td>Thermal conductivity</td><td>0.1805 W m<sup>−1</sup>K<sup>−1</sup></td></tr>
+      <tr><td>Diffusion coefficient</td><td>1.15 cm<sup>2</sup> s<sup>−1</sup></td></tr>
+    </table>
+
+    <h2>What is the "Hydrogen Economy"?</h2>
+    <p><b>Past/present:</b> H<sub>2</sub> is made mostly by <span class="kw">steam methane reforming</span> and used mostly for <b>NH<sub>3</sub> synthesis (~50%)</b> and <b>hydrocracking</b> in refineries. About <b>87 Mt (2020)</b>, rising to <b>~120 Mt/yr (2022)</b>.</p>
+    <p><b>Future:</b> H<sub>2</sub> as a zero-carbon energy carrier. That needs <b>infrastructure, sustainable generation, storage &amp; transport, and efficient use</b>.</p>
+    <div class="eq">120 Mt/yr ≈ 3% of global final energy &nbsp;⇒&nbsp; to cover it all: 120 × 30 ≈ <b>3600 Mt/yr</b></div>
+
+    <h2>The Six Big Challenges</h2>
+    <ol>
+      <li><b>Cost</b> — renewable H<sub>2</sub> costs 2–3× fossil H<sub>2</sub> (oil at $75/bbl, gas at $4–6/GJ).</li>
+      <li><b>Lack of differentiation</b> — no established way to tell low-carbon H<sub>2</sub> from fossil H<sub>2</sub>.</li>
+      <li><b>No market</b> — not a traded commodity, so there's no price index and little transparency.</li>
+      <li><b>Limited infrastructure</b> — only ~4500 km of H<sub>2</sub> pipelines worldwide.</li>
+      <li><b>Energy losses</b> — every conversion step loses energy, so more renewable capacity is needed upstream.</li>
+      <li><b>Policy</b> — so far focused mostly on road transport (FCEVs, refuelling stations).</li>
+    </ol>
+    <div class="tip">"Technological or financial?" The technology <b>largely exists</b>, but it isn't ready for national networks, and the infrastructure is <b>very expensive</b>. So the barrier is mainly <b>economic</b>.</div>
+  </div>
+
+  <div class="pq"><span class="hd">Practice Questions</span>
+    <ol>
+      <li>Explain why hydrogen is described as an energy carrier rather than a fuel.</li>
+      <li>What are the two main current uses of hydrogen?</li>
+      <li>Estimate the H<sub>2</sub> production needed to supply all global final energy demand.</li>
+      <li>List four barriers to establishing a hydrogen economy.</li>
+    </ol>
+  </div>
+  <div class="summary"><span class="hd">Hydrogen — the lightest element, the heaviest infrastructure bill...</span><br>Learn the property table (especially densities and boiling point) and the six challenges. They're easy marks.</div>
+  <div class="footer"><span>SESM 6032 — Hydrogen Economy</span><span>Lecture 1</span><span>1</span></div>
+</div>
+
+<!-- ================= PAGE 2 ================= -->
+<div class="page h2c">
+  <div class="section-tab">SECTION 1 — HYDROGEN ECONOMY</div>
+  <h1>Hydrogen as a Fuel &amp; Fuel Cells</h1>
+  <p class="intro">Per kilogram, H<sub>2</sub> is a superstar. Per cubic metre... not so much. And fuel cells dodge the Carnot limit.</p>
+  <div class="lo"><b>Learning objectives:</b> calculate HHV/LHV per kg and per m<sup>3</sup> &bull; compare Carnot vs fuel cell efficiency &bull; use the Nernst equation &bull; describe fuel cell losses.</div>
+
+  <div class="cols">
+    <h2>Combustion Enthalpies</h2>
+    <div class="eq">H<sub>2</sub>(g) + ½O<sub>2</sub>(g) → H<sub>2</sub>O(l) &nbsp; Δ<sub>r</sub>H° = −285 kJ mol<sup>−1</sup> (HHV)<br>
+    H<sub>2</sub>(g) + ½O<sub>2</sub>(g) → H<sub>2</sub>O(g) &nbsp; Δ<sub>r</sub>H° = −244 kJ mol<sup>−1</sup> (LHV)<br>
+    CH<sub>4</sub>(g) + 2O<sub>2</sub>(g) → CO<sub>2</sub>(g) + 2H<sub>2</sub>O(l) &nbsp; Δ<sub>r</sub>H° = −890 kJ mol<sup>−1</sup></div>
+    <p><span class="kw">HHV</span> (Higher Heating Value): the water ends up as <b>liquid</b>, so the latent heat is recovered.<br>
+    <span class="kw">LHV</span> (Lower Heating Value): the water stays as <b>vapour</b>. HHV − LHV ≈ ΔH<sub>vap</sub>(H<sub>2</sub>O) = 40.7 kJ mol<sup>−1</sup>.</p>
+
+    <div class="example"><span class="t">Worked Example: energy density</span>
+      Gravimetric HHV(H<sub>2</sub>) = 285 kJ mol<sup>−1</sup> ÷ 2 g mol<sup>−1</sup> = <b>142.5 MJ kg<sup>−1</sup></b><br>
+      Volumetric (gas, STP) = 142.5 × 0.082 = <b>11.6 MJ m<sup>−3</sup></b><br>
+      Volumetric (LH<sub>2</sub>) = 142.5 × 70 ≈ <b>10 000 MJ m<sup>−3</sup></b> (the lecture table gives ~8000)<br>
+      CH<sub>4</sub>: 890 ÷ 16 = <b>55.6 MJ kg<sup>−1</sup></b>; × 0.65 = 36.3 MJ m<sup>−3</sup>
+    </div>
+
+    <table>
+      <tr><th>Fuel</th><th>ρ (kg m<sup>−3</sup>)</th><th>HHV (MJ kg<sup>−1</sup>)</th><th>HHV (MJ m<sup>−3</sup>)</th></tr>
+      <tr><td>H<sub>2</sub>(g) STP</td><td>0.082</td><td>142.5</td><td>11.6</td></tr>
+      <tr><td>H<sub>2</sub>(l) 20 K</td><td>70</td><td>142.5</td><td>8000</td></tr>
+      <tr><td>CH<sub>4</sub> STP</td><td>0.65</td><td>55.6</td><td>36.3</td></tr>
+      <tr><td>Petrol (l)</td><td>733</td><td>44</td><td>32 000</td></tr>
+    </table>
+    <div class="tip">H<sub>2</sub> has ~3× petrol's energy per <b>kg</b>, but ~1/3000 of it per <b>m<sup>3</sup></b> as a gas. That's why <b>storage</b> is the headache.</div>
+
+    <h2>Heat Engines: the Carnot Limit</h2>
+    <div class="eq">η<sub>th</sub> = W<sub>net</sub> / Q<sub>in</sub> &nbsp;&nbsp;&nbsp; η<sub>Carnot</sub> = 1 − T<sub>low</sub>/T<sub>high</sub></div>
+    <p>With T<sub>flame</sub> = 1700 K and T<sub>low</sub> = 300 K: η<sub>Carnot</sub> = 1 − 300/1700 = <b>0.82</b>.<br>
+    In practice: combined cycle plant ≤ 60%; diesel ≤ 35%; spark ignition ~20%.</p>
+
+    <h2>Fuel Cell Thermodynamics</h2>
+    <div class="eq">Anode: H<sub>2</sub> → 2H<sup>+</sup> + 2e<sup>−</sup> &nbsp; E° = 0 V<br>
+    Cathode: ½O<sub>2</sub> + 2H<sup>+</sup> + 2e<sup>−</sup> → H<sub>2</sub>O &nbsp; E° = +1.23 V</div>
+    <div class="eq">Δ<sub>r</sub>G° = Δ<sub>r</sub>H° − TΔ<sub>r</sub>S° = −285 + 48 = <b>−237 kJ mol<sup>−1</sup></b><br>
+    Δ<sub>r</sub>G° = −nFE = −2 × 96485 × 1.23 = −237 kJ mol<sup>−1</sup></div>
+    <div class="eq">η<sub>FC,max</sub> = Δ<sub>r</sub>G°/Δ<sub>r</sub>H° = 237/285 = <b>0.83 (HHV)</b> ≈ 0.94 (LHV)</div>
+    <p>This is the fuel cell's "<b>analogue of Carnot</b>". It isn't limited by temperature difference, because chemical energy goes straight to electrical work.</p>
+
+    <h3>Nernst equation</h3>
+    <div class="eq">E<sub>cell</sub> = E°<sub>c</sub> − E°<sub>a</sub> + (RT/nF) ln[ p<sub>H2</sub> · p<sub>O2</sub><sup>½</sup> / p<sub>H2O</sub> ]</div>
+
+    <h2>Real Fuel Cell Losses</h2>
+    <div class="eq">E = E<sub>cell</sub> − b·log j − R·j − m·e<sup>n·j</sup></div>
+    <ul>
+      <li><b>b·log j</b>: activation loss (Tafel). Dominated by slow <b>ORR</b> (oxygen reduction) kinetics; HOR matters less.</li>
+      <li><b>R·j</b>: ohmic loss from membrane ionic resistance (~1 A cm<sup>−2</sup> region).</li>
+      <li><b>m·e<sup>nj</sup></b>: <b>mass transport</b> limit at high load.</li>
+    </ul>
+  </div>
+
+  <div class="pq"><span class="hd">Practice Questions</span>
+    <ol>
+      <li>Explain the difference between HHV and LHV, and calculate both for H<sub>2</sub> in MJ kg<sup>−1</sup>. <i>(142.5 &amp; 122)</i></li>
+      <li>Calculate the max efficiency of a heat engine with T<sub>high</sub> = 1700 K and T<sub>low</sub> = 300 K.</li>
+      <li>Show that the thermodynamic efficiency of a H<sub>2</sub>/O<sub>2</sub> fuel cell is 0.83 (HHV).</li>
+      <li>Sketch a polarisation curve and label the three loss regions.</li>
+    </ol>
+  </div>
+  <div class="summary"><span class="hd">ΔG is the work, ΔH is the bill.</span> Fuel cell efficiency = ΔG/ΔH. Learn the 1.23 V and the −237/−285 kJ mol<sup>−1</sup> numbers off by heart.</div>
+  <div class="footer"><span>SESM 6032 — Hydrogen Economy</span><span>Lectures 1–2</span><span>2</span></div>
+</div>
+
+<!-- ================= PAGE 3 ================= -->
+<div class="page h2c">
+  <div class="section-tab">SECTION 1 — HYDROGEN ECONOMY</div>
+  <h1>Hydrogen Safety &amp; History</h1>
+  <p class="intro">Why does H<sub>2</sub> go bang? Branching chain reactions. That's the chemistry behind the famous disasters.</p>
+  <div class="lo"><b>Learning objectives:</b> compare unbranched vs branched chain reactions &bull; quote flammability data &bull; describe 3 disasters &bull; explain hydrogen embrittlement &bull; outline the history of H<sub>2</sub>/town gas.</div>
+
+  <div class="cols">
+    <h2>Chain Reactions</h2>
+    <h3>Unbranched: H<sub>2</sub> + Br<sub>2</sub> (steady, no explosion)</h3>
+    <p>Br<sub>2</sub> → 2Br• &nbsp;<i>(initiation)</i><br>
+    Br• + H<sub>2</sub> → HBr + H• &nbsp;<i>(propagation)</i><br>
+    H• + Br<sub>2</sub> → HBr + Br• &nbsp;<i>(propagation)</i><br>
+    Br• + Br• → Br<sub>2</sub> &nbsp;<i>(termination)</i></p>
+    <p>Applying the steady-state approximation to Br• and H•:</p>
+    <div class="eq">d[HBr]/dt = 2k<sub>2</sub>(k<sub>1</sub>/k<sub>4</sub>)<sup>½</sup>[H<sub>2</sub>][Br<sub>2</sub>]<sup>½</sup></div>
+
+    <h3>Branched: H<sub>2</sub> + O<sub>2</sub> (can explode!)</h3>
+    <p>H<sub>2</sub> + O<sub>2</sub> → H• + HO<sub>2</sub>• &nbsp;<i>(initiation)</i><br>
+    <b>H• + O<sub>2</sub> → O• + OH•</b> &nbsp;<i>(branching: 1 radical → 2)</i><br>
+    <b>O• + H<sub>2</sub> → OH• + H•</b> &nbsp;<i>(branching)</i><br>
+    OH• + H<sub>2</sub> → H<sub>2</sub>O + H• &nbsp;<i>(propagation)</i><br>
+    H• → wall; H• + O<sub>2</sub> + M → HO<sub>2</sub>• + M; 2HO<sub>2</sub>• → H<sub>2</sub>O<sub>2</sub> + O<sub>2</sub> &nbsp;<i>(termination)</i></p>
+    <div class="eq">d[H•]/dt = 2k<sub>2</sub>[H•][O<sub>2</sub>] − k<sub>6</sub>[H•][O<sub>2</sub>][M]</div>
+    <p>If <b>branching beats termination</b>, [H•] grows <b>exponentially</b> and you get an explosion.</p>
+
+    <h2>Flammability Data (in air)</h2>
+    <table>
+      <tr><th>Parameter</th><th>Hydrogen</th></tr>
+      <tr><td>Lower flammability limit</td><td><b>4 vol%</b></td></tr>
+      <tr><td>Upper flammability limit</td><td><b>75 vol%</b></td></tr>
+      <tr><td>Minimum ignition energy</td><td><b>0.016 mJ</b> (a static spark is enough!)</td></tr>
+      <tr><td>Autoignition temperature</td><td>500 °C</td></tr>
+    </table>
+    <div class="tip">Wide flammability range + tiny ignition energy = the key safety issue. But H<sub>2</sub> is very light and diffuses fast, so it disperses upwards quickly outdoors.</div>
+
+    <h2>Notorious Disasters</h2>
+    <ul>
+      <li><b>Hindenburg (6 May 1937)</b> — airship caught fire, probably from a static spark. The whole volume burned out within a few minutes.</li>
+      <li><b>Challenger (28 Jan 1986)</b> — an <b>O-ring leak</b>; the shuttle broke up 73 s after lift-off, followed by LH<sub>2</sub> explosion.</li>
+      <li><b>Fukushima (12 Mar 2011)</b> — the tsunami knocked out the emergency generators, so the water pumps stopped and the cooling water overheated. <b>Zr cladding reacted with steam</b> (Zr + 2H<sub>2</sub>O → ZrO<sub>2</sub> + 2H<sub>2</sub>), H<sub>2</sub> built up and exploded, blowing the tops off the reactor buildings.</li>
+    </ul>
+
+    <h2>Hydrogen Embrittlement</h2>
+    <p>This happens when <b>all three</b> are present:</p>
+    <ol>
+      <li>Diffusion of H atoms/ions into the metal</li>
+      <li>Stress</li>
+      <li>A susceptible metal (<b>steel, Al, Ti, V</b>)</li>
+    </ol>
+    <p>Also, some metals (<b>Ru, Pd</b>) dissolve a lot of H<sub>2</sub>, which can cause <b>leaks</b>.</p>
+
+    <h2>A Bit of History</h2>
+    <ul>
+      <li><b>Paracelsus</b> (early 16th C) — noticed a gas when acid attacked metal.</li>
+      <li><b>Cavendish (1776)</b> — studied "inflammable air".</li>
+      <li><b>Lavoisier (1783)</b> — named it "hydro + gene" (= <i>water-former</i>); used H<sub>2</sub> combustion to prove conservation of mass.</li>
+    </ul>
+    <h3>Coal gas / town gas</h3>
+    <p>A by-product of coking (destructive distillation of coal). Coke (60% C) + steam → CO + H<sub>2</sub>. Used for lighting and cooking until the electricity grid took over.</p>
+    <table>
+      <tr><th>1000 kg coal gives...</th><th>Use</th></tr>
+      <tr><td>700 kg coke</td><td>Industrial fuel</td></tr>
+      <tr><td>400 m<sup>3</sup> coal gas (50% H<sub>2</sub>, 35% CH<sub>4</sub>, 10% CO, 5% C<sub>2</sub>H<sub>4</sub>)</td><td>Fuel / light</td></tr>
+      <tr><td>100 dm<sup>3</sup> liquor ammonia</td><td>Fertilisers</td></tr>
+      <tr><td>50 L coal tar</td><td>Dyes, insecticides, medicines, yarn</td></tr>
+    </table>
+    <p>Stored in <b>gasometers</b> (rigid waterless, or telescoping with water seals; the telescoping type was more common).</p>
+  </div>
+
+  <div class="pq"><span class="hd">Practice Questions</span>
+    <ol>
+      <li>Explain, using the reaction mechanism, why H<sub>2</sub>/O<sub>2</sub> mixtures can explode but H<sub>2</sub>/Br<sub>2</sub> mixtures react steadily.</li>
+      <li>State the flammability limits and minimum ignition energy of H<sub>2</sub> in air.</li>
+      <li>Explain the origin of the hydrogen in the Fukushima explosions.</li>
+      <li>Give the three conditions needed for hydrogen embrittlement.</li>
+    </ol>
+  </div>
+  <div class="summary"><span class="hd">One radical in, two radicals out — boom.</span> Branching = exponential growth. Remember 4–75 vol% and 0.016 mJ.</div>
+  <div class="footer"><span>SESM 6032 — Hydrogen Economy</span><span>Lectures 1–2</span><span>3</span></div>
+</div>
+
+<!-- ================= PAGE 4 ================= -->
+<div class="page prod">
+  <div class="section-tab">SECTION 2 — HYDROGEN PRODUCTION</div>
+  <h1>Production 1: Steam Methane Reforming</h1>
+  <p class="intro">SMR makes most of the world's "grey" H<sub>2</sub>. Know the reactions, the conditions and the CO<sub>2</sub> problem, and be ready for the calculations.</p>
+  <div class="lo"><b>Learning objectives:</b> define TRL &bull; write SMR + water–gas shift reactions with conditions &bull; calculate CH<sub>4</sub> for grey and blue H<sub>2</sub> &bull; describe coal gasification &amp; methane pyrolysis.</div>
+
+  <div class="cols">
+    <h2>Production Routes</h2>
+    <p><b>Main industrial:</b> SMR, methane pyrolysis, coal gasification, electrolysis.<br>
+    <b>Emerging:</b> thermochemical cycles, photo(catalytic/microbial) water splitting, anaerobic biomass conversion.</p>
+
+    <h2>Technology Readiness Level (TRL)</h2>
+    <table>
+      <tr><th>TRL</th><th>Meaning</th></tr>
+      <tr><td>1–2</td><td>Basic principles observed; concept formulated</td></tr>
+      <tr><td>3–4</td><td>Experimental proof of concept; validated in lab</td></tr>
+      <tr><td>5–6</td><td>Validated / demonstrated in relevant environment</td></tr>
+      <tr><td>7–8</td><td>Prototype in operational environment; system complete &amp; qualified</td></tr>
+      <tr><td>9</td><td>Actual system proven in operation</td></tr>
+    </table>
+
+    <h2>SMR <span class="trl">TRL 9</span></h2>
+    <div class="eq">CH<sub>4</sub> + H<sub>2</sub>O ⇌ CO + 3H<sub>2</sub> &nbsp; Δ<sub>r</sub>H° = +206 kJ mol<sup>−1</sup><br>
+    <small>800–1000 °C, 14–20 bar, Ni/Al<sub>2</sub>O<sub>3</sub></small></div>
+    <div class="eq">Water–gas shift: CO + H<sub>2</sub>O ⇌ CO<sub>2</sub> + H<sub>2</sub> &nbsp; Δ<sub>r</sub>H° = −41 kJ mol<sup>−1</sup><br>
+    <small>HTS 350 °C (Fe–Cr); LTS 250 °C (Cu–Zn/Al<sub>2</sub>O<sub>3</sub>)</small></div>
+    <div class="eq">Overall: CH<sub>4</sub> + 2H<sub>2</sub>O → CO<sub>2</sub> + 4H<sub>2</sub> &nbsp; Δ<sub>r</sub>H° = +165 kJ mol<sup>−1</sup></div>
+    <ul>
+      <li>CH<sub>4</sub> is a valuable, <b>non-renewable</b> resource.</li>
+      <li>The outlet is ~80% H<sub>2</sub>, so it needs purifying (<b>PSA</b> = pressure swing adsorption, or <b>amine scrubbing</b>).</li>
+      <li>Real plants emit <b>9–12 kg CO<sub>2</sub> per kg H<sub>2</sub></b>.</li>
+      <li>Energy: the products hold <b>more</b> chemical energy than the CH<sub>4</sub>, because the endothermic heat is stored in the H<sub>2</sub>. In a closed system with reverse methanation, you could get zero carbon emission and zero carbon storage.</li>
+    </ul>
+
+    <div class="example"><span class="t">Problem 1: CH<sub>4</sub> for 1000 kg grey H<sub>2</sub></span>
+      n(H<sub>2</sub>) = 10<sup>6</sup> g ÷ 2 = 5.0 × 10<sup>5</sup> mol<br>
+      Feed CH<sub>4</sub> = 5.0×10<sup>5</sup>/4 = 1.25 × 10<sup>5</sup> mol = <b>2000 kg</b><br>
+      Heat needed = 1.25×10<sup>5</sup> × 165 kJ = 2.06 × 10<sup>7</sup> kJ<br>
+      Fuel CH<sub>4</sub> burned = 2.06×10<sup>7</sup>/890 = 2.32 × 10<sup>4</sup> mol = <b>371 kg</b><br>
+      <b>Total ≈ 2370 kg CH<sub>4</sub></b> (assuming 100% heat transfer)<br>
+      CO<sub>2</sub> = (1.25×10<sup>5</sup> + 2.32×10<sup>4</sup>) × 44 g ≈ 6.5 t ⇒ ~6.5 kg CO<sub>2</sub>/kg H<sub>2</sub> (ideal minimum)
+    </div>
+
+    <div class="example"><span class="t">Problem 2: adiabatic compression of CO<sub>2</sub> to 150 bar</span>
+      <div class="eq">W = n C<sub>p</sub> T<sub>1</sub>[(P<sub>2</sub>/P<sub>1</sub>)<sup>(γ−1)/γ</sup> − 1]</div>
+      Assume γ(CO<sub>2</sub>) ≈ 1.3, so C<sub>p</sub> = γR/(γ−1) ≈ 36 J mol<sup>−1</sup>K<sup>−1</sup>, with T<sub>1</sub> = 298 K.<br>
+      (150)<sup>0.231</sup> = 3.18 ⇒ W = 36 × 298 × 2.18 ≈ <b>23.4 kJ per mol CO<sub>2</sub></b><br>
+      For 1.48 × 10<sup>5</sup> mol: W ≈ <b>3.5 GJ</b><br>
+      <small>(Single-stage ideal-gas estimate; real CO<sub>2</sub> is supercritical at 150 bar.)</small>
+    </div>
+
+    <div class="example"><span class="t">Problem 3: blue H<sub>2</sub> (power plant η = 55%)</span>
+      Each extra mol CH<sub>4</sub> burned gives 0.55 × 890 = 489.5 kJ of work, but makes 1 mol CO<sub>2</sub> that also needs compressing (23.4 kJ).<br>
+      x(489.5 − 23.4) = 23.4 × 1.48×10<sup>5</sup> ⇒ x ≈ 7.4 × 10<sup>3</sup> mol ≈ <b>119 kg</b><br>
+      <b>New total ≈ 2490 kg CH<sub>4</sub></b> per tonne of blue H<sub>2</sub>
+    </div>
+
+    <h2>Coal Gasification <span class="trl">TRL 9</span></h2>
+    <p>Uses a <b>sub-stoichiometric</b> O<sub>2</sub> supply (20–30%), with a combustion zone and an "anaerobic" zone.</p>
+    <p><b>Oxidation:</b> C + ½O<sub>2</sub> → CO (−111); CO + ½O<sub>2</sub> → CO<sub>2</sub> (−283); H<sub>2</sub> + ½O<sub>2</sub> → H<sub>2</sub>O (−242 kJ mol<sup>−1</sup>)<br>
+    <b>Gasification:</b><br>
+    C + H<sub>2</sub>O ⇌ CO + H<sub>2</sub> &nbsp;<i>water–gas</i>, +131<br>
+    C + CO<sub>2</sub> ⇌ 2CO &nbsp;<i>Boudouard</i>, +172<br>
+    C + 2H<sub>2</sub> ⇌ CH<sub>4</sub> &nbsp;<i>methanation</i>, −75 kJ mol<sup>−1</sup></p>
+    <p>Used in <b>IGCC</b> (Integrated Gasification Combined Cycle). Messy, with lots of pollutants to capture, but useful for dealing with excess carbon.</p>
+
+    <h2>Methane Pyrolysis <span class="trl">TRL 3–6</span></h2>
+    <div class="eq">CH<sub>4</sub>(g) → C(s) + 2H<sub>2</sub>(g) &nbsp; Δ<sub>r</sub>H° = +75 kJ mol<sup>−1</sup></div>
+    <ul>
+      <li>Liquid bubble column of molten metals (Ti, Pb, Sn) or salts (KBr, NaF), with continuous carbon removal. Without a catalyst it needs 1100–1200 °C.</li>
+      <li>Energy: 890 kJ (burning CH<sub>4</sub>) vs 2 × 285 = 570 kJ (in the H<sub>2</sub>), so you sacrifice ~1/3 of the energy but emit <b>no CO<sub>2</sub></b>.</li>
+      <li>Problems: separating the solid carbon, and stockpiling it.</li>
+    </ul>
+  </div>
+  <div class="summary"><span class="hd">Grey, blue, turquoise... it's all methane underneath.</span> Grey = SMR, blue = SMR + CCS, turquoise = pyrolysis. Practise Problem 1 until you can do it in your sleep.</div>
+  <div class="footer"><span>SESM 6032 — Hydrogen Production</span><span>Lecture 3–4</span><span>4</span></div>
+</div>
+
+<!-- ================= PAGE 5 ================= -->
+<div class="page prod">
+  <div class="section-tab">SECTION 2 — HYDROGEN PRODUCTION</div>
+  <h1>Production 2: Electrolysis &amp; Green Routes</h1>
+  <p class="intro">Electrolysis is basically a fuel cell running backwards. You pay ΔG in electricity, and in practice a fair bit more.</p>
+  <div class="lo"><b>Learning objectives:</b> write acidic &amp; alkaline electrolysis half-equations &bull; define electrolyser efficiency &bull; convert cell voltage into kWh/kg &bull; describe thermochemical, photocatalytic and biological routes.</div>
+
+  <div class="cols">
+    <h2>Water Electrolysis <span class="trl">TRL 5–8</span></h2>
+    <h3>Acidic (PEM) electrolyte</h3>
+    <div class="eq">Cathode: 2H<sup>+</sup> + 2e<sup>−</sup> → H<sub>2</sub> &nbsp; E° = 0 V<br>
+    Anode: 2H<sub>2</sub>O → O<sub>2</sub> + 4H<sup>+</sup> + 4e<sup>−</sup> &nbsp; E° = +1.23 V</div>
+    <h3>Alkaline electrolyte (25–30% aq. KOH)</h3>
+    <div class="eq">Cathode: 2H<sub>2</sub>O + 2e<sup>−</sup> → H<sub>2</sub> + 2OH<sup>−</sup> &nbsp; E° = −0.828 V<br>
+    Anode: 2OH<sup>−</sup> → ½O<sub>2</sub> + H<sub>2</sub>O + 2e<sup>−</sup> &nbsp; E° = +0.401 V<br>
+    Overall: H<sub>2</sub>O → H<sub>2</sub> + ½O<sub>2</sub> &nbsp; E<sub>cell</sub> = −1.23 V</div>
+    <p>Anode: Ni-based catalyst (+Co, Mn). Cathode: Ni mesh.</p>
+
+    <h2>Thermodynamics</h2>
+    <div class="eq">Δ<sub>r</sub>G° = +237 kJ mol<sup>−1</sup> = 285 − 48 &nbsp; (ΔG &gt; 0, non-spontaneous)<br>
+    Δ<sub>r</sub>G° = −nFE<sub>cell</sub> = −2 × 96485 × (−1.23) = +237 kJ mol<sup>−1</sup></div>
+    <div class="eq">E<sub>cell</sub> = E°<sub>c</sub> − E°<sub>a</sub> − (RT/nF) ln[p<sub>H2</sub>·p<sub>O2</sub><sup>½</sup>/p<sub>H2O</sub>]</div>
+    <div class="tip"><b>1.23 V</b> = reversible voltage (pays ΔG only).<br><b>1.48 V</b> = ΔH/2F = <b>thermoneutral voltage</b> (pays ΔG + TΔS as electricity). Real cells run at ~1.8–2.0 V.</div>
+    <div class="eq">η<sub>el</sub> = energy content of products / total energy in = Δ<sub>r</sub>H° / (Δ<sub>r</sub>H° + 2Fη<sub>loss</sub>)</div>
+    <ul>
+      <li>Losses = <b>overvoltage + ohmic</b> losses.</li>
+      <li><b>Faradaic efficiency &lt; 1</b> because H<sub>2</sub>/O<sub>2</sub> cross-permeate through the separator.</li>
+    </ul>
+
+    <div class="example"><span class="t">Worked Example: industrial kWh/kg at 2 V</span>
+      Charge per kg H<sub>2</sub> = 500 mol × 2 × 96485 C = 9.65 × 10<sup>7</sup> C<br>
+      Energy = QV = 9.65×10<sup>7</sup> × 2 = 1.93 × 10<sup>8</sup> J = 193 MJ<br>
+      ÷ 3.6 MJ/kWh ⇒ <b>≈ 53.6 kWh per kg H<sub>2</sub></b><br>
+      Per m<sup>3</sup>: 53.6 × 0.082 ≈ <b>4.4 kWh m<sup>−3</sup></b> (STP)<br>
+      Efficiency (HHV) = 1.48/2.0 = 39.4/53.6 ≈ <b>74%</b>
+    </div>
+    <div class="warn">Always state whether an efficiency is on an HHV or LHV basis. They differ by ~15%!</div>
+
+    <h2>Thermochemical Cycles <span class="trl">TRL 1–5</span></h2>
+    <p>Direct thermolysis only gives 11% conversion even at 2500 °C. Cycles split water at lower T: all chemicals except water are <b>recycled</b>, and at least one step is a high-T endothermic one.</p>
+    <h3>Iron–chloride cycle</h3>
+    <p>3FeCl<sub>2</sub> + 4H<sub>2</sub>O → Fe<sub>3</sub>O<sub>4</sub> + 6HCl + H<sub>2</sub> &nbsp;(650 °C)<br>
+    Fe<sub>3</sub>O<sub>4</sub> + 1.5Cl<sub>2</sub> + 6HCl → 3FeCl<sub>3</sub> + 3H<sub>2</sub>O + ½O<sub>2</sub> &nbsp;(20 °C)<br>
+    3FeCl<sub>3</sub> → 3FeCl<sub>2</sub> + 1.5Cl<sub>2</sub> &nbsp;(420 °C)</p>
+    <h3>Iodine–sulfur cycle</h3>
+    <p>SO<sub>2</sub> + I<sub>2</sub> + 2H<sub>2</sub>O → H<sub>2</sub>SO<sub>4</sub> + 2HI &nbsp;(100 °C)<br>
+    2HI → H<sub>2</sub> + I<sub>2</sub> &nbsp;(120–530 °C)<br>
+    H<sub>2</sub>SO<sub>4</sub> → H<sub>2</sub>O + SO<sub>2</sub> + ½O<sub>2</sub> &nbsp;(880 °C)</p>
+
+    <h2>Photocatalytic Water Splitting <span class="trl">TRL 1–4</span></h2>
+    <p>Three steps: <b>light absorption → charge separation → redox on co-catalysts</b>. The competing problem is <b>recombination</b> of electrons and holes.</p>
+    <ul>
+      <li>No good systems evolve H<sub>2</sub> and O<sub>2</sub> simultaneously.</li>
+      <li>Light delivery (illumination) is hard.</li>
+      <li>The best catalysts (e.g. Pt/TiO<sub>2</sub>) still need <b>sacrificial hole scavengers</b>.</li>
+      <li>Wide bandgaps mean most of the solar spectrum is wasted. Researchers are actively looking for <b>two-photon (Z-scheme)</b> systems.</li>
+    </ul>
+
+    <h2>Bio-H<sub>2</sub> from Microalgae <span class="trl">TRL 1–4</span></h2>
+    <p>The idea is to modify photosynthesis into <b>bio-photolysis</b>. Efficiency and production rate are extremely low, so it needs huge illuminated areas or solar concentrators.</p>
+  </div>
+
+  <div class="pq"><span class="hd">Practice Questions</span>
+    <ol>
+      <li>Write both half-equations for alkaline electrolysis and calculate E<sub>cell</sub>.</li>
+      <li>An electrolyser runs at 1.9 V. Calculate the energy use in kWh/kg H<sub>2</sub> and the HHV efficiency. <i>(50.9 kWh/kg; 78%)</i></li>
+      <li>Why is Faradaic efficiency less than 100%?</li>
+      <li>State three reasons why photocatalytic water splitting is still at low TRL.</li>
+    </ol>
+  </div>
+  <div class="summary"><span class="hd">2F per H<sub>2</sub>. Always.</span> Energy = 2F × V per mole. Remember 1.23 V (ΔG), 1.48 V (ΔH), and ~50–55 kWh/kg in practice.</div>
+  <div class="footer"><span>SESM 6032 — Hydrogen Production</span><span>Lecture 4</span><span>5</span></div>
+</div>
+
+<!-- ================= PAGE 6 ================= -->
+<div class="page stor">
+  <div class="section-tab">SECTION 3 — HYDROGEN STORAGE</div>
+  <h1>Storing Hydrogen</h1>
+  <p class="intro">0.082 kg m<sup>−3</sup> is not much. You can squeeze it, freeze it, stick it to a surface, or bond it into a molecule.</p>
+  <div class="lo"><b>Learning objectives:</b> describe Type I–IV tanks &bull; calculate compression work &bull; explain liquefaction issues &bull; compare hydrides, adsorbents and chemical carriers.</div>
+
+  <div class="cols">
+    <h2>Four Storage Methods</h2>
+    <ol><li>Compressed gas</li><li>Liquid (cryogenic)</li><li>Sorption (adsorption + absorption)</li><li>Reversible hydrogenation (chemical carriers)</li></ol>
+    <p>Judge them on: <b>density, reversibility, delivery, storage losses, complexity</b>.</p>
+
+    <h2>Compressed H<sub>2</sub></h2>
+    <table>
+      <tr><th>Type</th><th>Construction</th><th>P</th></tr>
+      <tr><td>I</td><td>Seamless all-metal</td><td>25 MPa</td></tr>
+      <tr><td>II</td><td>Metal, hoop-wrapped with fibre/resin</td><td>45–80 MPa</td></tr>
+      <tr><td>III</td><td>Metal liner, fully wrapped composite</td><td>35 MPa</td></tr>
+      <tr><td>IV</td><td><b>Polymer liner</b> (HDPE/polyamide), fully wrapped carbon fibre</td><td><b>70 MPa</b></td></tr>
+    </table>
+    <p>Materials: Al or steel, HDPE or polyamide, carbon fibre. Safety: a <b>Pressure Relief Device (PRD)</b>.</p>
+
+    <div class="example"><span class="t">Worked Example: compress 5 kg H<sub>2</sub> from 1 to 700 bar (adiabatic)</span>
+      <div class="eq">w = C<sub>p</sub>T<sub>1</sub>[(P<sub>2</sub>/P<sub>1</sub>)<sup>(γ−1)/γ</sup> − 1], &nbsp; γ = 1.4, C<sub>p</sub> = 14.5 kJ kg<sup>−1</sup>K<sup>−1</sup></div>
+      700<sup>0.286</sup> ≈ 6.5. Lecture answer: <b>w ≈ 29.3 MJ kg<sup>−1</sup></b> → 5 kg ≈ 147 MJ<br>
+      Efficiency = 142.5/(142.5 + 29.3) = <b>0.83 ⇒ ~17% loss</b><br>
+      <small>Check: at T<sub>1</sub> = 298 K the formula gives ≈ 23.8 MJ kg<sup>−1</sup> (~14% loss). Show your T<sub>1</sub> clearly.</small>
+    </div>
+
+    <h2>Liquid Hydrogen (LH<sub>2</sub>)</h2>
+    <ul>
+      <li>The <b>highest practical volumetric density</b>: ~8 MJ L<sup>−1</sup> (petrol is 32 MJ L<sup>−1</sup>).</li>
+      <li>−253 °C (20.3 K), plus <b>ortho–para conversion</b> (which releases heat and adds to boil-off).</li>
+      <li>Liquefied by compression → heat exchange → expansion (like a fridge).</li>
+      <li>H<sub>2</sub> <b>doesn't cool on throttling</b> above its Joule–Thomson inversion temperature (−73 °C ≈ 200 K), so it must be pre-cooled (e.g. with LN<sub>2</sub>).</li>
+      <li>Energy-hungry: <b>~48 MJ kg<sup>−1</sup></b> ≈ 40% of the H<sub>2</sub> energy (LHV basis: 48/120).</li>
+      <li><b>Boil-off 1–4% per day</b>. Example: the Suiso Frontier (Japan), with a 1250 m<sup>3</sup> vacuum-insulated Type C tank.</li>
+    </ul>
+
+    <h2>Material-Based Storage</h2>
+    <h3>Metal hydrides (absorption), ΔH ~ 100 kJ mol<sup>−1</sup></h3>
+    <ul>
+      <li>Elemental: M + x/2 H<sub>2</sub> → MH<sub>x</sub> (Mg, Al, Na)</li>
+      <li>Intermetallic: A<sub>x</sub>B<sub>y</sub> + z/2 H<sub>2</sub> → A<sub>x</sub>B<sub>y</sub>H<sub>z</sub> (LaNi<sub>5</sub>, TiFe)</li>
+      <li>Complex: alanates [AlH<sub>4</sub>]<sup>−</sup>, borohydrides [BH<sub>4</sub>]<sup>−</sup>, amides [NH<sub>2</sub>]<sup>−</sup></li>
+      <li>Bonded too strongly, so they need <b>high T to release H<sub>2</sub></b>.</li>
+    </ul>
+    <h3>Physisorption, ΔH ~ 10 kJ mol<sup>−1</sup></h3>
+    <div class="eq">Langmuir: &nbsp; a = a<sub>max</sub>K<sub>ads</sub>P<sub>H2</sub> / (1 + K<sub>ads</sub>P<sub>H2</sub>)</div>
+    <ul>
+      <li>Bonded too weakly, so it needs <b>77 K</b> (liquid N<sub>2</sub>).</li>
+      <li>High surface area (100+ m<sup>2</sup> g<sup>−1</sup>), micropores 2–5 nm: porous carbon, <b>MOFs</b>, zeolites.</li>
+      <li>Best uptake <b>8–10 wt%</b>.</li>
+      <li>Heat of adsorption: about 10 kg of N<sub>2</sub> must evaporate per 1 kg of H<sub>2</sub> adsorbed.</li>
+    </ul>
+    <div class="bubble">The "Goldilocks" target: a binding energy <b>between 10 and 100 kJ mol<sup>−1</sup></b>. Not too weak, not too strong.</div>
+
+    <h2>Chemical Carriers (Reversible Hydrogenation)</h2>
+    <table>
+      <tr><th>Carrier</th><th>wt% H<sub>2</sub></th><th>kg H<sub>2</sub> m<sup>−3</sup></th><th>Release</th></tr>
+      <tr><td>Methanol</td><td>12.5</td><td>99</td><td>CH<sub>3</sub>OH + H<sub>2</sub>O → CO<sub>2</sub> + 3H<sub>2</sub>; 230–330 °C, Cu/ZnO/Al<sub>2</sub>O<sub>3</sub></td></tr>
+      <tr><td>Ammonia</td><td><b>17.7</b></td><td><b>123</b> (liq., 10 bar)</td><td>2NH<sub>3</sub> → N<sub>2</sub> + 3H<sub>2</sub>; &gt;500 °C, Ru/Ni/Fe</td></tr>
+      <tr><td>Formic acid</td><td>4.4</td><td>53</td><td>HCOOH → CO<sub>2</sub> + H<sub>2</sub> (side reaction: → CO + H<sub>2</sub>O)</td></tr>
+    </table>
+    <div class="tip">Compare: LH<sub>2</sub> holds 70 kg H<sub>2</sub> m<sup>−3</sup>, but liquid NH<sub>3</sub> holds <b>123</b>. Ammonia carries more H<sub>2</sub> per m<sup>3</sup> than liquid hydrogen itself!</div>
+
+    <h3>How do you read the "fuel gauge"?</h3>
+    <p>Compressed: P ∝ amount. Liquid: level sensor. Adsorbed/hydride: <b>pressure plateaus</b>, so P alone doesn't show the fill level.</p>
+  </div>
+
+  <table>
+    <tr><th>Method</th><th>wt%</th><th>Advantages</th><th>Disadvantages</th></tr>
+    <tr><td>Pressurised</td><td>1–5</td><td>Low cost, rapid fill/release, RT</td><td>Low capacity, high P, compression energy, safety</td></tr>
+    <tr><td>Cryogenic liquid</td><td>&gt;10</td><td>High volumetric density, small tank</td><td>High energy use, strict maintenance, boil-off</td></tr>
+    <tr><td>Carbon materials (CNT, nanofibres)</td><td>3–10</td><td>High surface area, convenient</td><td>Immature, costly, low T</td></tr>
+    <tr><td>Metal hydrides (Mg, Mg<sub>2</sub>Ni)</td><td>1–8</td><td>Safe, stable</td><td>Pulverise, heavy, high release T</td></tr>
+    <tr><td>Complex hydrides (NaBH<sub>4</sub>, NaAlH<sub>4</sub>)</td><td>5.5–18.5</td><td>High capacity, low cost</td><td>Slow kinetics, high T/P to recharge</td></tr>
+    <tr><td>Organic liquid/NH<sub>3</sub> (benzene, N-ethylcarbazole)</td><td>5–15</td><td>High capacity, safe transport, reversible</td><td>Need catalysts, low dehydrogenation efficiency</td></tr>
+  </table>
+  <div class="summary"><span class="hd">Squeeze it, freeze it, stick it or bond it.</span> Every method costs energy. Quote the % loss (compression ~17%, liquefaction ~30–40%).</div>
+  <div class="footer"><span>SESM 6032 — Hydrogen Storage</span><span>Lectures 5–7</span><span>6</span></div>
+</div>
+
+<!-- ================= PAGE 7 ================= -->
+<div class="page h2c">
+  <div class="section-tab">SECTION 4 — USE &amp; TRANSPORT</div>
+  <h1>Using &amp; Transporting Hydrogen</h1>
+  <p class="intro">Where does H<sub>2</sub> actually make sense? Hard-to-electrify industry, seasonal storage, and some heavy transport.</p>
+  <div class="lo"><b>Learning objectives:</b> list H<sub>2</sub> end uses by sector &bull; explain hydrogen direct iron reduction &bull; discuss solar/wind potential &bull; compare electricity vs pipeline H<sub>2</sub> transport.</div>
+
+  <div class="cols">
+    <h2>Uses of Hydrogen</h2>
+    <table>
+      <tr><th>Sector</th><th>Examples</th></tr>
+      <tr><td>Industry</td><td>Petrochemistry, fertiliser (NH<sub>3</sub>), <b>steel</b>, cement</td></tr>
+      <tr><td>Transport</td><td>Aviation, rail, shipping, cars, trucks, buses</td></tr>
+      <tr><td>Heating</td><td>Industrial, domestic</td></tr>
+      <tr><td>Power sector</td><td><b>Seasonal energy storage</b>, off-grid microgeneration, flexible conversion</td></tr>
+    </table>
+
+    <h2>Direct Iron Reduction (Green Steel)</h2>
+    <p><b>Conventional (coal/coke):</b> Fe<sub>3</sub>O<sub>4</sub> + C → Fe + CO<sub>2</sub>, which means lots of CO<sub>2</sub>.<br>
+    <b>Hydrogen DRI:</b> Fe<sub>3</sub>O<sub>4</sub> + H<sub>2</sub> → Fe + H<sub>2</sub>O, so the only by-product is water.<br>
+    <b>Steel refining:</b> excess C in Fe is removed by C + O<sub>2</sub> → CO<sub>2</sub>.</p>
+    <div class="warn">The lecture slides leave these unbalanced. If asked, balance them: Fe<sub>3</sub>O<sub>4</sub> + 4H<sub>2</sub> → 3Fe + 4H<sub>2</sub>O and Fe<sub>3</sub>O<sub>4</sub> + 2C → 3Fe + 2CO<sub>2</sub>.</div>
+
+    <h2>Self-Sustaining Household (Case Studies)</h2>
+    <p>PV/wind → electrolyser → H<sub>2</sub> store → fuel cell (+ battery for short-term). H<sub>2</sub> covers <b>seasonal</b> mismatch (summer surplus → winter demand); batteries cover <b>daily</b> mismatch.</p>
+
+    <h2>Socioeconomics</h2>
+    <p>Solar and wind potential is very <b>unevenly distributed</b> (deserts for solar; coasts and high latitudes for wind). H<sub>2</sub> could move energy from resource-rich to demand-rich regions, much like oil and LNG today.</p>
+
+    <h2>Transport Options</h2>
+    <ul>
+      <li><b>Pipelines</b> — gaseous H<sub>2</sub>. Could reuse the CH<sub>4</sub> network, but watch out for embrittlement and H<sub>2</sub>'s 3× lower volumetric energy.</li>
+      <li><b>Ships</b> — LH<sub>2</sub> (Suiso Frontier), NH<sub>3</sub>, methanol or LOHC.</li>
+      <li><b>Trucks</b> — compressed tube trailers or LH<sub>2</sub> tankers.</li>
+    </ul>
+
+    <div class="example"><span class="t">Exam-style: electricity vs pipeline H<sub>2</sub>, break-even distance</span>
+      <b>Method:</b><br>
+      1. H<sub>2</sub> chain efficiency = η<sub>electrolysis</sub> × η<sub>pumping</sub> × η<sub>PEMFC</sub><br>
+      &nbsp;&nbsp;&nbsp;e.g. 0.74 × 0.95 × 0.50 ≈ 0.35 (i.e. ~65% loss, roughly fixed)<br>
+      2. Line loss grows with distance: η<sub>line</sub> = (1 − f)<sup>L/1000 km</sup><br>
+      &nbsp;&nbsp;&nbsp;e.g. HVDC f ≈ 3.5% per 1000 km<br>
+      3. Break-even: (0.965)<sup>n</sup> = 0.35 ⇒ n = ln0.35/ln0.965 ≈ 30<br>
+      &nbsp;&nbsp;&nbsp;⇒ <b>~30 000 km</b><br>
+      <b>Conclusion:</b> wires win for almost any distance <i>if</i> the end use is electricity. H<sub>2</sub> wins when the end use needs H<sub>2</sub> (steel, NH<sub>3</sub>), when there's no grid, or for storage.<br>
+      <small>(Typical values I've assumed. Use your lecturer's numbers in the exam.)</small>
+    </div>
+
+    <div class="bubble">Every conversion step costs energy (electricity → H<sub>2</sub> → electricity loses ~65%), so don't convert unless you have to!</div>
+  </div>
+
+  <div class="pq"><span class="hd">Practice Questions</span>
+    <ol>
+      <li>Give one use of H<sub>2</sub> in each of industry, transport, heating and the power sector.</li>
+      <li>Write balanced equations for the reduction of Fe<sub>3</sub>O<sub>4</sub> by carbon and by hydrogen.</li>
+      <li>Explain why hydrogen suits seasonal storage while batteries suit daily storage.</li>
+      <li>Outline how you would estimate the distance above which pipeline H<sub>2</sub> beats electricity transmission.</li>
+    </ol>
+  </div>
+  <div class="summary"><span class="hd">Hydrogen: don't use it where a wire will do.</span> Best uses: steel, ammonia, refining, long-duration storage and heavy transport.</div>
+  <div class="footer"><span>SESM 6032 — Use &amp; Transport</span><span>Lecture 8</span><span>7</span></div>
+</div>
+
+<!-- ================= PAGE 8 ================= -->
+<div class="page batt">
+  <div class="section-tab">SECTION 5 — BATTERIES</div>
+  <h1>Batteries &amp; the Li-ion Cell</h1>
+  <p class="intro">A battery turns chemical free energy into the work of electrons. Learn the general A + C ⇌ B + D picture, then apply it to Li-ion.</p>
+  <div class="lo"><b>Learning objectives:</b> link ΔG to cell voltage &bull; use the Nernst and Butler–Volmer equations &bull; calculate specific capacity (mAh g<sup>−1</sup>) &bull; describe operating windows &amp; degradation &bull; describe lead–acid and flow batteries.</div>
+
+  <div class="cols">
+    <h2>Working Principle</h2>
+    <div class="eq">Negative: A → B + ne<sup>−</sup> &nbsp;&nbsp; Positive: C + ne<sup>−</sup> → D<br>
+    Overall: A + C ⇌ B + D &nbsp; (discharge → / ← charge)<br>
+    ΔG = −nFΔE</div>
+    <p>ΔG &lt; 0: spontaneous (<b>discharge</b>). ΔG = 0: equilibrium (flat battery). ΔG &gt; 0: needs external power (<b>charge</b>).</p>
+
+    <h3>Voltage vs state of charge (x)</h3>
+    <div class="eq">ΔE<sub>cell</sub> = ΔE°<sub>cell</sub> − (RT/nF) ln[ x·x / (1−x)(1−x) ]</div>
+    <p>This gives a gentle S-shaped curve: a flat plateau in the middle, with steep drops at full and empty.</p>
+
+    <h3>Butler–Volmer (kinetics)</h3>
+    <div class="eq">j = j<sub>0</sub>[ (C<sub>Ox</sub>(0,t)/C*<sub>Ox</sub>) e<sup>α<sub>a</sub>zFη/RT</sup> − (C<sub>Red</sub>(0,t)/C*<sub>Red</sub>) e<sup>−α<sub>c</sub>zFη/RT</sup> ]</div>
+    <p>η = overpotential (E − E°). A high <b>exchange current j<sub>0</sub></b> means only a small overpotential is needed, so the electrode is fast. The terminal voltage is lower than the OCV on discharge and higher on charge.</p>
+
+    <h2>Lithium-ion Cell</h2>
+    <div class="eq">Negative: Li<sub>x</sub>C<sub>6</sub> → C<sub>6</sub> + xLi<sup>+</sup> + xe<sup>−</sup> &nbsp; (0.25 V vs Li<sup>+</sup>/Li)<br>
+    Positive: Li<sub>1−x</sub>CoO<sub>2</sub> + xLi<sup>+</sup> + xe<sup>−</sup> → LiCoO<sub>2</sub> &nbsp; (4.2 V vs Li<sup>+</sup>/Li)<br>
+    Cell: 2LiCoO<sub>2</sub> + 6C ⇌ LiC<sub>6</sub> + 2Li<sub>0.5</sub>CoO<sub>2</sub></div>
+    <p>Li<sup>+</sup> shuttles between the two hosts (the "rocking chair").</p>
+
+    <div class="eq">Specific capacity (mAh g<sup>−1</sup>) = x·F / (3.6 × M) &nbsp; <small>(1 mAh = 3.6 C)</small></div>
+
+    <div class="example"><span class="t">Q1: graphite (x = 1)</span>
+      M(C<sub>6</sub>) = 72 g mol<sup>−1</sup><br>
+      Q = 96485/(3.6 × 72) = <b>372 mAh g<sup>−1</sup></b><br>
+      <small>(If you divide by the mass of LiC<sub>6</sub>, 78.9 g mol<sup>−1</sup>, you get 339 mAh g<sup>−1</sup>. 372 is the standard value.)</small>
+    </div>
+    <div class="example"><span class="t">Q2: LiCoO<sub>2</sub> (x = 0.5)</span>
+      M = 6.94 + 58.93 + 2(16) = 97.87 g mol<sup>−1</sup><br>
+      Q = 0.5 × 96485/(3.6 × 97.87) = <b>137 mAh g<sup>−1</sup></b>
+    </div>
+    <div class="example"><span class="t">Q3: full cell</span>
+      V<sub>max</sub> = 4.2 − 0.25 = <b>3.95 V</b><br>
+      Combined: 1/Q = 1/372 + 1/137 ⇒ Q ≈ <b>100 mAh g<sup>−1</sup></b><br>
+      (Check: 26 801 mAh / (2×97.87 + 72) g = 100 mAh g<sup>−1</sup>)<br>
+      Specific energy ≈ 3.95 × 100 ≈ 395 Wh kg<sup>−1</sup> (active materials only)
+    </div>
+    <div class="tip">Combine capacities like <b>resistors in parallel</b> (reciprocals add). The weaker electrode, here LiCoO<sub>2</sub>, dominates.</div>
+
+    <h2>Rate &amp; Temperature Effects</h2>
+    <p>A Yuasa cell kept <b>88% of its capacity at 300 A</b> and <b>86% at −25 °C</b>. Higher current or lower temperature means more overpotential, so the cell hits cut-off voltage sooner.</p>
+
+    <h2>Operating Windows (Li-ion)</h2>
+    <table>
+      <tr><th></th><th>Operational</th><th>Degradation</th><th>Crucial damage</th></tr>
+      <tr><td>Temperature</td><td>−25 to 60 °C</td><td>60–80 °C (and &lt; −25 °C: poor performance)</td><td>&gt; 80 °C</td></tr>
+      <tr><td>Voltage</td><td>2.75–4.1 V</td><td>4.1–4.25 V; 1.5–2.75 V</td><td>&gt; 4.25 V; &lt; 1.5 V</td></tr>
+      <tr><td>C-rate</td><td>0.1C–2C</td><td>2C–10C</td><td>&gt; 10C</td></tr>
+    </table>
+    <p>Degradation mechanisms: SEI growth, Li plating, electrode cracking, electrolyte decomposition.</p>
+
+    <h2>Lead–Acid <small>(Planté, 1859)</small></h2>
+    <div class="eq">Pb + H<sub>2</sub>SO<sub>4</sub> → PbSO<sub>4</sub> + 2H<sup>+</sup> + 2e<sup>−</sup> &nbsp; E° = −0.36 V<br>
+    PbO<sub>2</sub> + SO<sub>4</sub><sup>2−</sup> + 4H<sup>+</sup> + 2e<sup>−</sup> → PbSO<sub>4</sub> + 2H<sub>2</sub>O &nbsp; E° = +1.68 V<br>
+    E<sub>cell</sub> = 1.68 − (−0.36) = <b>2.04 V</b></div>
+    <p>Moderate energy capacity but <b>good power</b> capability.</p>
+
+    <h2>Redox Flow Battery</h2>
+    <p>The electrolytes (e.g. vanadium in VRFB) are stored in <b>external tanks</b> and pumped through the cell stack, so <b>energy (tank size) and power (stack size) scale independently</b>. Good for grid storage.</p>
+  </div>
+  <div class="summary"><span class="hd">372, 137, 100, 3.95. Remember those four numbers.</span> Capacity = xF/(3.6M). Reciprocals add for the full cell.</div>
+  <div class="footer"><span>SESM 6032 — Batteries</span><span>Lecture 9</span><span>8</span></div>
+</div>
+
+<!-- ================= PAGE 9 ================= -->
+<div class="page batt">
+  <div class="section-tab">SECTION 5 — BATTERIES</div>
+  <h1>Capacitors &amp; Supercapacitors</h1>
+  <p class="intro">Batteries store charge chemically, capacitors store it electrostatically. One gives energy, the other gives power.</p>
+  <div class="lo"><b>Learning objectives:</b> use Q = CV, C = ε<sub>0</sub>ε<sub>r</sub>A/d, E = ½CV², P<sub>max</sub> = V²/4ESR &bull; contrast batteries vs capacitors &bull; describe EDLC and pseudocapacitors &bull; read a Ragone-type plot.</div>
+
+  <div class="cols">
+    <h2>Capacitor Basics</h2>
+    <div class="eq">Q = CV &nbsp;&nbsp;&nbsp; C = ε<sub>0</sub>ε<sub>r</sub>A/d</div>
+    <div class="eq">E = ½CV² &nbsp;&nbsp;&nbsp; P<sub>max</sub> = V²/(4·ESR)</div>
+    <p>ESR = equivalent series resistance. Mind the <b>breakdown voltage</b>: E ∝ V², so higher voltage helps a lot, but only up to breakdown.</p>
+
+    <h2>Capacitor vs Battery</h2>
+    <table>
+      <tr><th>Capacitor</th><th>Battery</th></tr>
+      <tr><td>Physical (electrostatic) storage</td><td>Chemical (Faradaic) storage</td></tr>
+      <tr><td>High power</td><td>Lower power, higher energy</td></tr>
+      <tr><td><b>Linear</b> V vs charge</td><td><b>Plateau</b> V vs charge</td></tr>
+      <tr><td>Very long cycle life</td><td>Limited cycle life</td></tr>
+    </table>
+
+    <h2>Electrical Double-Layer Capacitor (EDLC)</h2>
+    <p>Two porous carbon electrodes, each forming a double layer with the electrolyte. They act as <b>two capacitors in series</b>:</p>
+    <div class="eq">1/C<sub>cell</sub> = 1/C<sub>+</sub> + 1/C<sub>−</sub> &nbsp; ⇒ &nbsp; C<sub>cell</sub> = C<sub>e</sub>/2 (when C<sub>+</sub> = C<sub>−</sub>)</div>
+    <div class="eq">C<sub>e</sub> (F g<sup>−1</sup>) = C (µF cm<sup>−2</sup>) × A (m<sup>2</sup> g<sup>−1</sup>) × 10<sup>−2</sup> &nbsp;&nbsp; with C ≈ 10–30 µF cm<sup>−2</sup></div>
+    <div class="example"><span class="t">Worked Example</span>
+      Carbon with A = 1000 m<sup>2</sup> g<sup>−1</sup> and C = 20 µF cm<sup>−2</sup>:<br>
+      C<sub>e</sub> = 20 × 1000 × 10<sup>−2</sup> = 200 F g<sup>−1</sup>, so C<sub>cell</sub> = 100 F per g of one electrode.<br>
+      At 2.7 V: E = ½ × 100 × 2.7² ≈ 365 J ≈ 0.10 Wh per gram
+    </div>
+    <h3>ESR depends on:</h3>
+    <ul>
+      <li>choice of active electrode material and its resistance</li>
+      <li>the electrolyte and its ionic resistance</li>
+      <li>interfacial resistance between electrode and current collector</li>
+      <li>ionic (diffusion) resistance in small pores and the separator</li>
+    </ul>
+
+    <h2>Pseudocapacitors</h2>
+    <p>Thin layers or nanostructures of a <b>redox-active phase</b> (e.g. RuO<sub>2</sub>, MnO<sub>2</sub>) store extra charge through fast surface Faradaic reactions:</p>
+    <div class="eq">A ⇌ B + ze<sup>−</sup> &nbsp;&nbsp; Q = znF &nbsp;&nbsp; ΔG° = −znFE°</div>
+    <p>n = moles of redox phase. This gives more energy than an EDLC and keeps most of its power. It sits <b>between capacitor and battery</b>.</p>
+
+    <h2>Power vs Energy (Ragone-type Map)</h2>
+    <table>
+      <tr><th>Tech</th><th>Position</th></tr>
+      <tr><td>Capacitors, SMES</td><td>High power, low energy, short duration (s)</td></tr>
+      <tr><td>Supercapacitors</td><td>High power, small energy</td></tr>
+      <tr><td>Li-ion, lead–acid</td><td>Medium (min–h)</td></tr>
+      <tr><td>Flow batteries (VRVB, ZBFB, PSB)</td><td>Medium power, hours</td></tr>
+      <tr><td>PHS, CAES, H<sub>2</sub></td><td>Large energy, long duration (h–seasons)</td></tr>
+    </table>
+    <p><small>SMES = superconducting magnetic energy storage; PHS = pumped hydro; CAES = compressed air; ZBFB = zinc bromide flow battery; VRVB = vanadium redox flow battery; PSB = polysulfide bromine flow battery.</small></p>
+  </div>
+
+  <div class="pq"><span class="hd">Practice Questions</span>
+    <ol>
+      <li>A 3000 F supercapacitor is charged to 2.7 V. Calculate the stored energy. <i>(10.9 kJ ≈ 3.0 Wh)</i></li>
+      <li>The same device has an ESR of 0.3 mΩ. Find P<sub>max</sub>. <i>(≈ 6.1 kW)</i></li>
+      <li>Explain why an EDLC's cell capacitance is half its electrode capacitance.</li>
+      <li>Sketch and contrast the charge–discharge curves of a capacitor and a battery.</li>
+    </ol>
+  </div>
+  <div class="summary"><span class="hd">Capacitors sprint, batteries jog, hydrogen runs the marathon.</span> E = ½CV², P<sub>max</sub> = V²/4ESR, two electrodes in series means C/2.</div>
+  <div class="footer"><span>SESM 6032 — Supercapacitors</span><span>Lecture 9</span><span>9</span></div>
+</div>
+
+<!-- ================= PAGE 10 ================= -->
+<div class="page pv">
+  <div class="section-tab">SECTION 6 — PHOTOVOLTAICS</div>
+  <h1>Silicon Photovoltaics</h1>
+  <p class="intro">Silicon dominates PV. Know how the p–n junction works, how to read an I–V curve, and how a cell is made.</p>
+  <div class="lo"><b>Learning objectives:</b> explain carriers &amp; the p–n junction &bull; use the Shockley equation, V<sub>oc</sub>, I<sub>sc</sub>, FF, η &bull; describe Si manufacture &bull; calculate IPCE and LHE (Beer–Lambert).</div>
+
+  <div class="cols">
+    <h2>Semiconductor Basics</h2>
+    <ul>
+      <li>Photons with hν ≥ E<sub>g</sub> create <b>electron–hole pairs</b>.</li>
+      <li><b>n-type</b> (P-doped): electrons are the majority carriers. <b>p-type</b> (B-doped): holes are the majority.</li>
+      <li>At the p–n junction, the <b>space charge region (SCR)</b> holds a built-in field that separates the carriers. Minority carriers must reach the SCR before they recombine.</li>
+    </ul>
+
+    <h2>The I–V Curve</h2>
+    <div class="eq">Shockley: &nbsp; I = I<sub>L</sub> − I<sub>0</sub>[exp(qV/nkT) − 1]</div>
+    <div class="eq">V<sub>oc</sub> = (nkT/q) ln(I<sub>L</sub>/I<sub>0</sub> + 1) &nbsp;&nbsp; I<sub>sc</sub> ≈ I<sub>L</sub></div>
+    <div class="eq">FF = P<sub>max</sub>/(I<sub>sc</sub>V<sub>oc</sub>) &nbsp;&nbsp; η = FF·I<sub>sc</sub>·V<sub>oc</sub>/P<sub>in</sub></div>
+    <p>The <b>fill factor</b> (FF, called "form factor" in the slides) measures how "square" the I–V curve is (~0.8 for good cells). P<sub>in</sub> for AM1.5 = <b>1000 W m<sup>−2</sup></b>.</p>
+    <div class="tip">Single-junction efficiency is capped by the <b>Shockley–Queisser (SQ) limit</b>, ~33% at E<sub>g</sub> ≈ 1.3–1.4 eV. Photons below E<sub>g</sub> aren't absorbed, and photons above E<sub>g</sub> lose their excess energy as heat (<b>thermalisation</b>).</div>
+
+    <h2>Making a Si Module</h2>
+    <ol>
+      <li><b>Silicon production &amp; purification</b>: quartz → metallurgical Si → purified (e.g. Siemens process) → polysilicon.</li>
+      <li><b>Wafers</b>: single-crystal (Czochralski ingot, more efficient) or polycrystalline (cast, cheaper).</li>
+      <li><b>Surface texturing</b> (pyramids) to reduce reflection.</li>
+      <li><b>Phosphorus doping</b> (diffusion) to form the n<sup>+</sup> emitter on the p-wafer.</li>
+      <li><b>Antireflection coating</b> (e.g. SiN<sub>x</sub>).</li>
+      <li><b>Screen-printed contacts</b> (Ag front grid, Al back).</li>
+      <li><b>Module</b>: cells in series, with EVA encapsulant, glass front, backsheet and frame.</li>
+    </ol>
+
+    <h2>Measuring Performance: IPCE</h2>
+    <div class="eq">IPCE(%) = 1240 [eV nm] × J<sub>sc</sub> [µA cm<sup>−2</sup>] / ( λ [nm] × Φ [µW cm<sup>−2</sup>] )</div>
+    <div class="eq">IPCE = LHE × φ<sub>inj</sub> × η<sub>c</sub></div>
+    <p>LHE = light harvesting efficiency; φ<sub>inj</sub> = electron injection quantum yield; η<sub>c</sub> = current collection efficiency.</p>
+
+    <h2>Beer–Lambert Law</h2>
+    <div class="eq">I = I<sub>0</sub>e<sup>−αL</sup> &nbsp;&nbsp; α = −(2.303/L) log(I/I<sub>0</sub>)</div>
+    <div class="eq">A = log(I<sub>0</sub>/I) = εcl &nbsp;&nbsp; LHE = 1 − I/I<sub>0</sub> = 1 − 10<sup>−A</sup> = 1 − e<sup>−αL</sup></div>
+    <p>Units: α in cm<sup>−1</sup>; ε in dm<sup>3</sup> mol<sup>−1</sup> cm<sup>−1</sup>; c in mol dm<sup>−3</sup>; l in cm.</p>
+
+    <div class="example"><span class="t">Worked Example: IPCE</span>
+      At λ = 500 nm, Φ = 100 µW cm<sup>−2</sup>, J<sub>sc</sub> = 30 µA cm<sup>−2</sup>:<br>
+      IPCE = 1240 × 30/(500 × 100) = 0.744 ⇒ <b>74.4%</b>
+    </div>
+    <div class="warn">Don't confuse log<sub>10</sub> (absorbance A) with ln (α). They differ by the factor 2.303.</div>
+  </div>
+
+  <div class="pq"><span class="hd">Practice Questions</span>
+    <ol>
+      <li>A cell has V<sub>oc</sub> = 0.68 V, J<sub>sc</sub> = 40 mA cm<sup>−2</sup> and FF = 0.80. Find η under AM1.5. <i>(21.8%)</i></li>
+      <li>Explain the role of texturing and the AR coating.</li>
+      <li>Find the thickness of a layer with α = 10<sup>4</sup> cm<sup>−1</sup> that absorbs 90% of the light. <i>(2.3 µm)</i></li>
+      <li>State the two main losses behind the SQ limit.</li>
+    </ol>
+  </div>
+  <div class="summary"><span class="hd">Absorb, separate, collect.</span> Learn Shockley, FF, and IPCE = LHE × φ<sub>inj</sub> × η<sub>c</sub>.</div>
+  <div class="footer"><span>SESM 6032 — Photovoltaics</span><span>Lecture 10</span><span>10</span></div>
+</div>
+
+<!-- ================= PAGE 11 ================= -->
+<div class="page pv">
+  <div class="section-tab">SECTION 6 — PHOTOVOLTAICS</div>
+  <h1>Thin Film (CIGS) &amp; Multijunction Cells</h1>
+  <p class="intro">To "boldly go beyond the SQ limit", stack several semiconductors so each one gets the part of the spectrum it suits best.</p>
+  <div class="lo"><b>Learning objectives:</b> describe CIGS structure, manufacture and issues &bull; explain spectrum splitting &amp; current matching &bull; choose band gaps from a cumulative current table &bull; size layer thicknesses.</div>
+
+  <div class="cols">
+    <h2>CIGS: Cu(In,Ga)Se<sub>2</sub></h2>
+    <p>A <b>chalcopyrite</b> family (CuFeS<sub>2</sub> structure, tetragonal, I–III–VI<sub>2</sub>), e.g. roquesite CuInS<sub>2</sub> and gallite CuGaS<sub>2</sub>.</p>
+    <p><b>Stack:</b> soda-lime glass / Mo (sputtered) / p-CIGS (co-evaporated or selenised) / n-CdS (chemical bath) / n<sup>+</sup> ZnO TCO (magnetron sputtering or CVD) / metal grid.</p>
+    <ul>
+      <li>Composition is flexible (In, Ga, S, Se). The <b>band gap is tuned with Ga</b>, x = Ga/(Ga+In), typically 1.1–1.2 eV.</li>
+      <li>Grain size is controlled by Cu, but it has little effect on efficiency.</li>
+      <li>A <b>forgiving</b> material: tolerates impurities, has passive grain boundaries, and is insensitive to the quality of the CdS/CIGS interface.</li>
+      <li>Type inversion near the interface (ΔE<sub>c</sub> ≈ 0.5 V) puts the maximum recombination in the depletion region, not at the interface.</li>
+    </ul>
+    <p><b>Concerns:</b> Cd toxicity &bull; high-vacuum processing &bull; In and Ga are rare and costly &bull; CdS absorbs hν &gt; 2.54 eV (parasitic loss).<br>
+    <b>Records:</b> cell 22.9% (1 cm<sup>2</sup>); module 15.7% (600 cm<sup>2</sup>).</p>
+
+    <h2>Multijunction (Tandem) Cells</h2>
+    <ul>
+      <li>Semiconductors <b>split the spectrum</b>: the <b>widest-gap</b> layer faces the light, with narrower gaps underneath.</li>
+      <li>The subcells are diodes <b>in series</b>, so <b>current matching</b> is required (I<sub>cell</sub> = smallest subcell current).</li>
+      <li>V<sub>total</sub> ≈ E<sub>g1</sub> + E<sub>g2</sub> + ... (theoretical maximum)</li>
+    </ul>
+    <table>
+      <tr><th>Issue</th><th>Monolithic</th><th>Non-monolithic</th></tr>
+      <tr><td>Lattice matching needed</td><td>yes</td><td>no</td></tr>
+      <tr><td>Current matching needed</td><td>yes</td><td>no</td></tr>
+      <tr><td>Extra collectors (shading)</td><td>low</td><td>yes</td></tr>
+      <tr><td>Processing complexity</td><td>high</td><td>lower</td></tr>
+      <tr><td>Weight</td><td>low</td><td>high</td></tr>
+      <tr><td>Choice of materials</td><td>narrow</td><td>wide</td></tr>
+    </table>
+
+    <h2>Choosing Band Gaps (Cumulative Current Method)</h2>
+    <p>The table gives the cumulative AM1.5 photocurrent available for all photons with E ≥ E<sub>g</sub>. Each subcell's current = cum(E<sub>g,i</sub>) − cum(E<sub>g,i−1</sub>). For matching, set every subcell to I<sub>total</sub>/N.</p>
+    <div class="example"><span class="t">5-junction example (bottom gap 0.77 eV, cum = 567 A m<sup>−2</sup>)</span>
+      I per subcell = 567/5 ≈ 113 A m<sup>−2</sup>. Read off where cum = 113, 227, 340, 453, 567:<br>
+      E<sub>g</sub> ≈ <b>2.20, 1.70, 1.37, 1.07, 0.77 eV</b><br>
+      V<sub>max</sub> ≈ Σ E<sub>g</sub> = 7.11 V<br>
+      P = 7.11 × 113 ≈ 806 W m<sup>−2</sup> ⇒ <b>η<sub>max</sub> ≈ 80%</b> (ideal, FF = 1)<br>
+      With FF = 0.8: ≈ 645 W m<sup>−2</sup> ⇒ ~64%
+    </div>
+    <div class="example"><span class="t">Layer thickness for LHE = 99%</span>
+      1 − e<sup>−αL</sup> = 0.99 ⇒ L = ln(100)/α = 4.605/α<br>
+      α = 3, 8, 5, 4, 1 µm<sup>−1</sup> ⇒ L = <b>1.54, 0.58, 0.92, 1.15, 4.61 µm</b>
+    </div>
+    <div class="example"><span class="t">Cs<sub>3</sub>Bi<sub>2</sub>Br<sub>9−x</sub>I<sub>x</sub> perovskite 3-junction</span>
+      Best: Cs<sub>3</sub>Bi<sub>2</sub>Br<sub>9</sub> (2.66 eV, 44) / Cs<sub>3</sub>Bi<sub>2</sub>Br<sub>6</sub>I<sub>3</sub> (2.24 eV, 98 − 44 = 54) / Cs<sub>3</sub>Bi<sub>2</sub>I<sub>9</sub> (1.99 eV, 148 − 98 = 50)<br>
+      Matched I = 44 A m<sup>−2</sup>; V = 6.89 V<br>
+      P = 6.89 × 44 × 0.8 = <b>242.5 W m<sup>−2</sup> ⇒ η ≈ 24%</b><br>
+      Alternative (Br<sub>5</sub>I<sub>4</sub>, 2.19 eV): I = 40 A m<sup>−2</sup>, P = 218.9 W m<sup>−2</sup>, which is worse.
+    </div>
+    <div class="tip">The top cell's current sets the ceiling. Choose the middle gap so the lower cells can match it but not starve the bottom cell.</div>
+
+    <h2>Real Devices</h2>
+    <p><b>GaInP / GaAs / Ge</b> (1.91 / 1.42 / 0.8 eV): monolithic, splits the spectrum, minimal thermalisation, very high efficiency. Downsides: <b>sensitive to spectral changes</b> (time of day, clouds) and <b>expensive</b>, so mainly used in space and concentrator PV.<br>
+    <b>a-Si/Ge triple junction</b>: a cheaper thin-film tandem.</p>
+  </div>
+  <div class="summary"><span class="hd">Series = same current.</span> Pick band gaps that split the cumulative current equally. V ≈ ΣE<sub>g</sub>, η = V·I·FF/1000.</div>
+  <div class="footer"><span>SESM 6032 — Photovoltaics</span><span>Lecture 11–12</span><span>11</span></div>
+</div>
+
+<!-- ================= PAGE 12 ================= -->
+<div class="page sum">
+  <div class="section-tab">EXAM CHEAT SHEET</div>
+  <h1>Key Equations &amp; Numbers</h1>
+  <p class="intro">Everything you must know cold, on one page.</p>
+  <div class="cols">
+    <h2>Constants</h2>
+    <table>
+      <tr><td>F</td><td>96 485 C mol<sup>−1</sup></td></tr>
+      <tr><td>R</td><td>8.314 J mol<sup>−1</sup>K<sup>−1</sup></td></tr>
+      <tr><td>1 kWh</td><td>3.6 MJ</td></tr>
+      <tr><td>1 mAh</td><td>3.6 C</td></tr>
+      <tr><td>AM1.5</td><td>1000 W m<sup>−2</sup></td></tr>
+      <tr><td>hc</td><td>1240 eV nm</td></tr>
+    </table>
+    <h2>Hydrogen Numbers</h2>
+    <table>
+      <tr><td>HHV / LHV</td><td>285 / 244 kJ mol<sup>−1</sup>; 142.5 / ~122 MJ kg<sup>−1</sup></td></tr>
+      <tr><td>ΔG°</td><td>237 kJ mol<sup>−1</sup> ⇒ 1.23 V</td></tr>
+      <tr><td>Thermoneutral voltage</td><td>1.48 V</td></tr>
+      <tr><td>ρ gas / liquid</td><td>0.082 / 70 kg m<sup>−3</sup></td></tr>
+      <tr><td>Flammability</td><td>4–75 vol%, MIE 0.016 mJ, AIT 500 °C</td></tr>
+      <tr><td>SMR CO<sub>2</sub></td><td>9–12 kg CO<sub>2</sub> per kg H<sub>2</sub></td></tr>
+      <tr><td>Electrolysis at 2 V</td><td>53.6 kWh kg<sup>−1</sup></td></tr>
+      <tr><td>Compression to 700 bar</td><td>~17% loss</td></tr>
+      <tr><td>Liquefaction</td><td>48 MJ kg<sup>−1</sup>, boil-off 1–4%/day</td></tr>
+      <tr><td>NH<sub>3</sub> / MeOH / HCOOH</td><td>17.7 / 12.5 / 4.4 wt%</td></tr>
+    </table>
+    <h2>Thermodynamics</h2>
+    <div class="eq">ΔG = ΔH − TΔS = −nFE</div>
+    <div class="eq">η<sub>Carnot</sub> = 1 − T<sub>L</sub>/T<sub>H</sub> &nbsp;&nbsp; η<sub>FC</sub> = ΔG/ΔH</div>
+    <div class="eq">E = E° + (RT/nF) ln(Q<sub>products-side terms</sub>) (Nernst)</div>
+    <div class="eq">W<sub>adiabatic</sub> = nC<sub>p</sub>T<sub>1</sub>[(P<sub>2</sub>/P<sub>1</sub>)<sup>(γ−1)/γ</sup> − 1]</div>
+    <div class="eq">η<sub>el</sub> = ΔH/(ΔH + 2Fη<sub>loss</sub>)</div>
+    <h2>Batteries &amp; Capacitors</h2>
+    <div class="eq">Q<sub>spec</sub> = xF/(3.6M) mAh g<sup>−1</sup> &nbsp; 1/Q<sub>cell</sub> = 1/Q<sub>+</sub> + 1/Q<sub>−</sub></div>
+    <div class="eq">Q = CV &nbsp; C = ε<sub>0</sub>ε<sub>r</sub>A/d &nbsp; E = ½CV² &nbsp; P<sub>max</sub> = V²/4ESR</div>
+    <p>Graphite 372, LiCoO<sub>2</sub> (x = 0.5) 137, cell 100 mAh g<sup>−1</sup>, 3.95 V. Lead–acid 2.04 V.</p>
+    <h2>PV</h2>
+    <div class="eq">I = I<sub>L</sub> − I<sub>0</sub>[e<sup>qV/nkT</sup> − 1] &nbsp; FF = P<sub>max</sub>/I<sub>sc</sub>V<sub>oc</sub></div>
+    <div class="eq">IPCE = 1240·J<sub>sc</sub>/(λΦ) = LHE·φ<sub>inj</sub>·η<sub>c</sub></div>
+    <div class="eq">LHE = 1 − e<sup>−αL</sup> ⇒ L<sub>99%</sub> = 4.605/α</div>
+    <div class="eq">Tandem: I = min(I<sub>i</sub>), V ≈ ΣE<sub>g</sub>, η = V·I·FF/1000</div>
+    <h2>TRL Quick List</h2>
+    <p>SMR 9 &bull; coal gasification 9 &bull; electrolysis 5–8 &bull; CH<sub>4</sub> pyrolysis 3–6 &bull; thermochemical 1–5 &bull; photocatalysis 1–4 &bull; algae 1–4</p>
+  </div>
+  <div class="summary"><span class="hd">Final exam tip</span><br>Always: (1) write the balanced equation, (2) convert to moles, (3) state your basis (HHV/LHV, T<sub>1</sub>, γ), (4) put units on every line. Method marks are where the points are!</div>
+  <div class="footer"><span>SESM 6032 — Summary</span><span>All lectures</span><span>12</span></div>
+</div>
+
+</body>
+</html>
